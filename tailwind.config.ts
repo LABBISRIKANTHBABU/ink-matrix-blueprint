@@ -58,15 +58,15 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
-        navy: {
-          DEFAULT: "hsl(var(--navy))",
-          light: "hsl(var(--navy-light))",
-          dark: "hsl(var(--navy-dark))",
+        cream: {
+          DEFAULT: "hsl(var(--cream))",
+          light: "hsl(var(--cream-light))",
+          dark: "hsl(var(--cream-dark))",
         },
-        amber: {
-          DEFAULT: "hsl(var(--amber))",
-          light: "hsl(var(--amber-light))",
-          dark: "hsl(var(--amber-dark))",
+        red: {
+          DEFAULT: "hsl(var(--red))",
+          light: "hsl(var(--red-light))",
+          dark: "hsl(var(--red-dark))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
