@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { useCart } from '@/contexts/CartContext';
 import { categories } from '@/lib/data';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '@/assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,9 +32,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-16 gap-4">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary">
-                Ink<span className="text-accent">Matrix</span>
-              </h1>
+              <img src={logo} alt="Ink Matrix" className="h-10" />
             </Link>
 
             {/* Search Bar - Desktop */}
