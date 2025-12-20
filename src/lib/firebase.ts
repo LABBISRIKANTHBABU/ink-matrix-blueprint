@@ -137,6 +137,10 @@ export const sendOTP = async (phoneNumber: string, containerId: string) => {
       errorMessage = 'Invalid phone number. Please check and try again.';
     } else if (error.code === 'auth/too-many-requests') {
       errorMessage = 'Too many attempts. Please try again later.';
+    } else if (error.code === 'auth/billing-not-enabled' || error.message?.includes('BILLING_NOT_ENABLED')) {
+      errorMessage = 'Phone authentication requires billing to be enabled on the Firebase project. Please use Email or Google sign-in.';
+    } else if (error.code === 'auth/operation-not-allowed') {
+      errorMessage = 'Phone authentication is not enabled. Please use Email or Google sign-in.';
     }
     return { success: false, error: errorMessage };
   }
