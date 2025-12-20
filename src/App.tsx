@@ -14,6 +14,13 @@ import SignUpPage from "./pages/SignUpPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import NotFound from "./pages/NotFound";
 
+// Admin Components
+import AdminLayout from "./admin/AdminLayout";
+import Dashboard from "./admin/pages/Dashboard";
+import ProductManagement from "./admin/pages/ProductManagement";
+import AddProduct from "./admin/pages/AddProduct";
+import EditProduct from "./admin/pages/EditProduct";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -25,6 +32,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<Index />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/category/:categoryId" element={<ProductsPage />} />
@@ -33,7 +41,16 @@ const App = () => (
               <Route path="/signin" element={<SignInPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="products" element={<ProductManagement />} />
+                <Route path="add-product" element={<AddProduct />} />
+                <Route path="edit-product/:productId" element={<EditProduct />} />
+              </Route>
+              
+              {/* Catch-all Route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
