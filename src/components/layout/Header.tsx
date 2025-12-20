@@ -1,20 +1,40 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, ShoppingCart, User, Menu, X, ChevronDown } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, ShoppingCart, User, Menu, X, ChevronDown, LogOut, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { categories } from '@/lib/data';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { toast } from 'sonner';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loggingOut, setLoggingOut] = useState(false);
   const { getTotalItems } = useCart();
+  const { user, loading, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const totalItems = getTotalItems();
+
+  const handleSignOut = async () => {
+    setLoggingOut(true);
+    await signOut();
+    setLoggingOut(false);
+    toast.success('Signed out successfully');
+    navigate('/');
+  };
 
   return (
     <header className="sticky top-0 z-50">
@@ -57,10 +77,57 @@ const Header = () => {
             {/* Right section */}
             <div className="flex items-center gap-2">
               {/* User Menu */}
-              <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-2">
-                <User className="h-5 w-5" />
-                <span className="hidden lg:inline">Sign In</span>
-              </Button>
+              {loading ? (
+                <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-2">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </Button>
+              ) : user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-2">
+                      <User className="h-5 w-5" />
+                      <span className="hidden lg:inline max-w-[120px] truncate">
+                        {user.displayName || user.email?.split('@')[0] || 'Account'}
+                      </span>
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link to="/account" className="flex items-center gap-2">
+                        <User className="h-4 w-4" />
+                        My Account
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/orders" className="flex items-center gap-2">
+                        <ShoppingCart className="h-4 w-4" />
+                        My Orders
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleSignOut}
+                      disabled={loggingOut}
+                      className="text-destructive focus:text-destructive"
+                    >
+                      {loggingOut ? (
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      ) : (
+                        <LogOut className="h-4 w-4 mr-2" />
+                      )}
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link to="/signin">
+                  <Button variant="ghost" size="sm" className="hidden sm:flex items-center gap-2">
+                    <User className="h-5 w-5" />
+                    <span className="hidden lg:inline">Sign In</span>
+                  </Button>
+                </Link>
+              )}
 
               {/* Cart */}
               <Link to="/cart">
