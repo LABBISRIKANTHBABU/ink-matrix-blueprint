@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Sparkles, User } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroCarousel from '@/components/home/HeroCarousel';
@@ -5,11 +9,92 @@ import TrustBadges from '@/components/home/TrustBadges';
 import BusinessNeeds from '@/components/home/BusinessNeeds';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import CategoryGrid from '@/components/home/CategoryGrid';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+
+const WelcomeBanner = () => {
+  const { user, userProfile } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [showBanner, setShowBanner] = useState(false);
+  
+  useEffect(() => {
+    // Show banner if user just signed in (detected by 'welcome' param or first load with user)
+    const isNewSession = searchParams.get('welcome') === 'true' || 
+      (user && sessionStorage.getItem('welcomed') !== 'true');
+    
+    if (user && isNewSession) {
+      setShowBanner(true);
+      sessionStorage.setItem('welcomed', 'true');
+      // Remove welcome param from URL
+      if (searchParams.get('welcome')) {
+        searchParams.delete('welcome');
+        setSearchParams(searchParams, { replace: true });
+      }
+      // Auto-hide after 8 seconds
+      const timer = setTimeout(() => setShowBanner(false), 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [user, searchParams, setSearchParams]);
+  
+  const displayName = userProfile?.name || user?.displayName || user?.email?.split('@')[0] || 'there';
+  
+  if (!user || !showBanner) return null;
+  
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.4 }}
+        className="bg-gradient-to-r from-primary via-navy-light to-primary border-b border-accent/20"
+      >
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex items-center justify-center w-12 h-12 bg-accent/20 rounded-full">
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" className="w-10 h-10 rounded-full" />
+                ) : (
+                  <User className="w-6 h-6 text-accent" />
+                )}
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <h3 className="text-lg font-semibold text-primary-foreground">
+                    Welcome back, {displayName}!
+                  </h3>
+                </div>
+                <p className="text-sm text-primary-foreground/80 mt-0.5">
+                  {userProfile?.phone 
+                    ? "You're all set! Explore our premium corporate gifts."
+                    : "Complete your profile to get personalized recommendations."}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10"
+              onClick={() => setShowBanner(false)}
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      
+      {/* Welcome Banner for authenticated users */}
+      <WelcomeBanner />
       
       <main className="flex-1">
         {/* Hero Carousel */}

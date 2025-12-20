@@ -7,11 +7,9 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  ConfirmationResult,
   User
 } from 'firebase/auth';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyC44TyS-pE1rx7C2pB7xe9u3eBbul69JWU",
@@ -26,6 +24,52 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// User profile interface
+export interface UserProfile {
+  uid: string;
+  name: string;
+  email: string;
+  phone: string;
+  provider: 'google' | 'email';
+  role: 'customer' | 'admin';
+  createdAt: string;
+}
+
+// Save user profile to Firestore
+export const saveUserProfile = async (profile: Omit<UserProfile, 'createdAt'>) => {
+  try {
+    const userRef = doc(db, 'users', profile.uid);
+    await setDoc(userRef, {
+      ...profile,
+      createdAt: new Date().toISOString(),
+    }, { merge: true });
+    return { success: true, error: null };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+};
+
+// Get user profile from Firestore
+export const getUserProfile = async (uid: string): Promise<{ profile: UserProfile | null; error: string | null }> => {
+  try {
+    const userRef = doc(db, 'users', uid);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      return { profile: userSnap.data() as UserProfile, error: null };
+    }
+    return { profile: null, error: null };
+  } catch (error: any) {
+    return { profile: null, error: error.message };
+  }
+};
+
+// Check if user needs phone number
+export const userNeedsPhone = async (uid: string): Promise<boolean> => {
+  const { profile } = await getUserProfile(uid);
+  return !profile || !profile.phone;
+};
 
 // Google Provider
 const googleProvider = new GoogleAuthProvider();
@@ -97,70 +141,6 @@ export const logOut = async () => {
     return { success: true, error: null };
   } catch (error: any) {
     return { success: false, error: error.message };
-  }
-};
-
-// Phone authentication
-declare global {
-  interface Window {
-    recaptchaVerifier: RecaptchaVerifier | undefined;
-    confirmationResult: ConfirmationResult | undefined;
-  }
-}
-
-export const setupRecaptcha = (containerId: string) => {
-  if (!window.recaptchaVerifier) {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
-      size: 'invisible',
-      callback: () => {
-        // reCAPTCHA solved
-      },
-    });
-  }
-  return window.recaptchaVerifier;
-};
-
-export const sendOTP = async (phoneNumber: string, containerId: string) => {
-  try {
-    const recaptchaVerifier = setupRecaptcha(containerId);
-    const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
-    window.confirmationResult = confirmationResult;
-    return { success: true, error: null };
-  } catch (error: any) {
-    // Reset recaptcha on error
-    if (window.recaptchaVerifier) {
-      window.recaptchaVerifier.clear();
-      window.recaptchaVerifier = undefined;
-    }
-    let errorMessage = 'Failed to send OTP. Please try again.';
-    if (error.code === 'auth/invalid-phone-number') {
-      errorMessage = 'Invalid phone number. Please check and try again.';
-    } else if (error.code === 'auth/too-many-requests') {
-      errorMessage = 'Too many attempts. Please try again later.';
-    } else if (error.code === 'auth/billing-not-enabled' || error.message?.includes('BILLING_NOT_ENABLED')) {
-      errorMessage = 'Phone authentication requires billing to be enabled on the Firebase project. Please use Email or Google sign-in.';
-    } else if (error.code === 'auth/operation-not-allowed') {
-      errorMessage = 'Phone authentication is not enabled. Please use Email or Google sign-in.';
-    }
-    return { success: false, error: errorMessage };
-  }
-};
-
-export const verifyOTP = async (otp: string) => {
-  try {
-    if (!window.confirmationResult) {
-      return { user: null, error: 'Please request OTP first.' };
-    }
-    const result = await window.confirmationResult.confirm(otp);
-    return { user: result.user, error: null };
-  } catch (error: any) {
-    let errorMessage = 'Invalid OTP. Please try again.';
-    if (error.code === 'auth/invalid-verification-code') {
-      errorMessage = 'Invalid verification code. Please check and try again.';
-    } else if (error.code === 'auth/code-expired') {
-      errorMessage = 'OTP expired. Please request a new one.';
-    }
-    return { user: null, error: errorMessage };
   }
 };
 
