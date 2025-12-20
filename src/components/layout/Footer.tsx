@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const Footer = () => {
   return (
@@ -9,9 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              Ink<span className="text-accent">Matrix</span>
-            </h3>
+            <img src={logo} alt="Ink Matrix" className="h-12 mb-4 brightness-0 invert" />
             <p className="text-primary-foreground/80 text-sm mb-4">
               Premium corporate gifting solutions for businesses of all sizes. 
               Custom merchandise that makes an impression.
