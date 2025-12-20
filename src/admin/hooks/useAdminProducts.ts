@@ -1,64 +1,119 @@
 import { useState, useEffect } from 'react';
 import { Product } from '@/lib/data';
+import { useAdminAuth } from '../AdminAuthContext';
 
 interface UseAdminProductsReturn {
   products: Product[];
   loading: boolean;
   error: string | null;
-  addProduct: (product: Omit<Product, 'id'>) => void;
-  updateProduct: (id: string, updatedProduct: Partial<Product>) => void;
-  deleteProduct: (id: string) => void;
+  addProduct: (product: Omit<Product, 'id'>) => Promise<void>;
+  updateProduct: (id: string, updatedProduct: Partial<Product>) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
+  fetchProducts: () => Promise<void>;
 }
 
 export const useAdminProducts = (): UseAdminProductsReturn => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { getToken } = useAdminAuth();
 
-  // Load products from localStorage or use mock data
-  useEffect(() => {
+  // Fetch products from API
+  const fetchProducts = async () => {
     try {
-      const storedProducts = localStorage.getItem('admin-products');
-      if (storedProducts) {
-        setProducts(JSON.parse(storedProducts));
-      } else {
-        // Import mock data
-        import('@/lib/data').then((module) => {
-          setProducts(module.products);
-        });
+      setLoading(true);
+      const response = await fetch('http://localhost:5000/api/products');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
       }
-      setLoading(false);
+      
+      const data = await response.json();
+      setProducts(data);
+      setError(null);
     } catch (err) {
-      setError('Failed to load products');
+      setError(err instanceof Error ? err.message : 'Failed to load products');
+    } finally {
       setLoading(false);
     }
+  };
+
+  // Load products on component mount
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
-  // Save products to localStorage whenever they change
-  useEffect(() => {
-    if (!loading && products.length > 0) {
-      localStorage.setItem('admin-products', JSON.stringify(products));
+  const addProduct = async (product: Omit<Product, 'id'>) => {
+    try {
+      const token = getToken();
+      const response = await fetch('http://localhost:5000/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(product),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to add product');
+      }
+
+      const newProduct = await response.json();
+      setProducts([newProduct, ...products]);
+    } catch (err) {
+      throw err instanceof Error ? err : new Error('Failed to add product');
     }
-  }, [products, loading]);
-
-  const addProduct = (product: Omit<Product, 'id'>) => {
-    const newProduct: Product = {
-      ...product,
-      id: `prod-${Date.now()}`, // Simple ID generation
-    };
-    setProducts([...products, newProduct]);
   };
 
-  const updateProduct = (id: string, updatedProduct: Partial<Product>) => {
-    setProducts(
-      products.map((product) =>
-        product.id === id ? { ...product, ...updatedProduct } : product
-      )
-    );
+  const updateProduct = async (id: string, updatedProduct: Partial<Product>) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update product');
+      }
+
+      const updatedProductData = await response.json();
+      setProducts(
+        products.map((product) =>
+          product.id === id ? updatedProductData : product
+        )
+      );
+    } catch (err) {
+      throw err instanceof Error ? err : new Error('Failed to update product');
+    }
   };
 
-  const deleteProduct = (id: string) => {
-    setProducts(products.filter((product) => product.id !== id));
+  const deleteProduct = async (id: string) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete product');
+      }
+
+      setProducts(products.filter((product) => product.id !== id));
+    } catch (err) {
+      throw err instanceof Error ? err : new Error('Failed to delete product');
+    }
   };
 
   return {
@@ -68,5 +123,6 @@ export const useAdminProducts = (): UseAdminProductsReturn => {
     addProduct,
     updateProduct,
     deleteProduct,
+    fetchProducts,
   };
 };

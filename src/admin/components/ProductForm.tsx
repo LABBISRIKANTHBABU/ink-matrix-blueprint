@@ -54,6 +54,7 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
   const { addProduct, updateProduct } = useAdminProducts();
   const { toast } = useToast();
   const [subcategories, setSubcategories] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
@@ -106,8 +107,10 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
     }
   };
 
-  const onSubmit = (data: ProductFormValues) => {
+  const onSubmit = async (data: ProductFormValues) => {
     try {
+      setLoading(true);
+      
       const productData: Omit<Product, 'id'> = {
         name: data.name,
         description: data.description,
@@ -127,14 +130,14 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
 
       if (initialData) {
         // Update existing product
-        updateProduct(initialData.id, productData);
+        await updateProduct(initialData.id, productData);
         toast({
           title: 'Success',
           description: 'Product updated successfully.',
         });
       } else {
         // Add new product
-        addProduct(productData);
+        await addProduct(productData);
         toast({
           title: 'Success',
           description: 'Product added successfully.',
@@ -146,9 +149,11 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to save product. Please try again.',
+        description: error instanceof Error ? error.message : 'Failed to save product. Please try again.',
         variant: 'destructive',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -394,11 +399,12 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
               type="button"
               variant="outline"
               onClick={() => navigate('/admin/products')}
+              disabled={loading}
             >
               Cancel
             </Button>
-            <Button type="submit">
-              {initialData ? 'Update Product' : 'Add Product'}
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Saving...' : (initialData ? 'Update Product' : 'Add Product')}
             </Button>
           </div>
         </form>

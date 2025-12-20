@@ -1,23 +1,32 @@
 import { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
   LayoutDashboard, 
   Package, 
   PlusCircle,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
+import { useAdminAuth } from './AdminAuthContext';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAdminAuth();
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Products', href: '/admin/products', icon: Package },
     { name: 'Add Product', href: '/admin/add-product', icon: PlusCircle },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/admin/login');
+  };
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -50,8 +59,8 @@ const AdminLayout = () => {
             <X className="h-6 w-6" />
           </Button>
         </div>
-        <nav className="p-4">
-          <ul className="space-y-2">
+        <nav className="p-4 flex flex-col h-[calc(100%-57px)]">
+          <ul className="space-y-2 flex-grow">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -72,6 +81,16 @@ const AdminLayout = () => {
               );
             })}
           </ul>
+          <div className="pt-4 border-t border-gray-200">
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start p-3"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-5 w-5 mr-3" />
+              Logout
+            </Button>
+          </div>
         </nav>
       </aside>
 
@@ -89,7 +108,16 @@ const AdminLayout = () => {
               <Menu className="h-6 w-6" />
             </Button>
             <h1 className="text-xl font-semibold text-gray-800">Admin Panel – Ink Matrix</h1>
-            <div></div> {/* Spacer for alignment */}
+            <div className="flex items-center">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </header>
 

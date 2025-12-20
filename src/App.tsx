@@ -15,11 +15,14 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import NotFound from "./pages/NotFound";
 
 // Admin Components
+import { AdminAuthProvider } from "./admin/AdminAuthContext";
 import AdminLayout from "./admin/AdminLayout";
 import Dashboard from "./admin/pages/Dashboard";
 import ProductManagement from "./admin/pages/ProductManagement";
 import AddProduct from "./admin/pages/AddProduct";
 import EditProduct from "./admin/pages/EditProduct";
+import AdminLogin from "./admin/pages/Login";
+import ProtectedRoute from "./admin/components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -43,11 +46,32 @@ const App = () => (
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               
               {/* Admin Routes */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="products" element={<ProductManagement />} />
-                <Route path="add-product" element={<AddProduct />} />
-                <Route path="edit-product/:productId" element={<EditProduct />} />
+              <Route path="/admin" element={
+                <AdminAuthProvider>
+                  <AdminLayout />
+                </AdminAuthProvider>
+              }>
+                <Route path="login" element={<AdminLogin />} />
+                <Route index element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } />
+                <Route path="products" element={
+                  <ProtectedRoute>
+                    <ProductManagement />
+                  </ProtectedRoute>
+                } />
+                <Route path="add-product" element={
+                  <ProtectedRoute>
+                    <AddProduct />
+                  </ProtectedRoute>
+                } />
+                <Route path="edit-product/:productId" element={
+                  <ProtectedRoute>
+                    <EditProduct />
+                  </ProtectedRoute>
+                } />
               </Route>
               
               {/* Catch-all Route */}
