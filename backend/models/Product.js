@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
+  sku: {
+    type: String,
+    trim: true,
+    unique: true,
+    sparse: true
+  },
   name: {
     type: String,
     required: true,
@@ -9,6 +15,22 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: false
+  },
+  keyComponents: {
+    type: String,
+    trim: true
+  },
+  materials: {
+    type: String,
+    trim: true
+  },
+  specifications: {
+    type: String,
+    trim: true
+  },
+  designFeatures: {
+    type: String,
+    trim: true
   },
   price: {
     type: Number,
@@ -23,6 +45,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  additionalImages: [{
+    type: String
+  }],
   category: {
     type: String,
     required: true,
