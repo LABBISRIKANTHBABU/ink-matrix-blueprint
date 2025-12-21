@@ -2,17 +2,24 @@
 
 export interface Product {
   id: string;
+  sku?: string;
   name: string;
   description: string;
+  keyComponents?: string;
+  materials?: string;
+  specifications?: string;
+  designFeatures?: string;
   price: number;
   originalPrice?: number;
   image: string;
+  additionalImages?: string[];
   category: string;
   subcategory: string;
   bulkPricing: { minQty: number; price: number }[];
   customizable: boolean;
   colors?: string[];
   inStock: boolean;
+  stock?: number;
   rating: number;
   reviews: number;
   badge?: 'bestseller' | 'new' | 'sale';
