@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const Admin = require('./models/Admin');
 const dotenv = require('dotenv');
 
@@ -8,10 +7,7 @@ dotenv.config();
 // Connect to database
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(process.env.MONGO_URI);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     return conn;
@@ -30,14 +26,10 @@ const seedAdmin = async () => {
     await Admin.deleteMany({ email: 'admin@inkmatrix.com' });
     console.log('Existing admin deleted');
     
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash('admin123', salt);
-    
-    // Create admin
+    // Create admin - password will be hashed by the model's pre-save hook
     const admin = new Admin({
       email: 'admin@inkmatrix.com',
-      password: hashedPassword,
+      password: 'admin123',  // Plain text - model will hash it
       role: 'admin'
     });
     

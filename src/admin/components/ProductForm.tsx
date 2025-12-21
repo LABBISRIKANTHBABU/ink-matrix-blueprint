@@ -158,14 +158,13 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">
-        {initialData ? 'Edit Product' : 'Add New Product'}
-      </h2>
-      
+    <div className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Basic Information */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium border-b pb-2">Basic Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="name"
@@ -334,9 +333,13 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
                 </FormItem>
               )}
             />
+            </div>
           </div>
 
-          <FormField
+          {/* Description */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium border-b pb-2">Product Description</h3>
+            <FormField
             control={form.control}
             name="description"
             render={({ field }) => (
@@ -345,7 +348,7 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
                 <FormControl>
                   <Textarea
                     placeholder="Enter product description"
-                    className="resize-none"
+                    className="resize-none min-h-[100px]"
                     {...field}
                   />
                 </FormControl>
@@ -353,48 +356,54 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
               </FormItem>
             )}
           />
+          </div>
 
-          <div className="flex items-center space-x-2">
+          {/* Customization Options */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium border-b pb-2">Customization Options</h3>
+            <div className="flex items-center space-x-2">
+              <FormField
+                control={form.control}
+                name="customizable"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>Customizable</FormLabel>
+                      <FormDescription>
+                        Enable if this product can be customized
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
-              name="customizable"
+              name="colors"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                <FormItem>
+                  <FormLabel>Colors (comma separated)</FormLabel>
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Input placeholder="e.g. #FF0000, #00FF00, #0000FF" {...field} />
                   </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Customizable</FormLabel>
-                    <FormDescription>
-                      Enable if this product can be customized
-                    </FormDescription>
-                  </div>
+                  <FormDescription>
+                    Enter hex color codes separated by commas
+                  </FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
           </div>
 
-          <FormField
-            control={form.control}
-            name="colors"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Colors (comma separated)</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g. #FF0000, #00FF00, #0000FF" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Enter hex color codes separated by commas
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="flex justify-end space-x-4">
+          {/* Action Buttons */}
+          <div className="flex justify-end space-x-4 pt-6 border-t">
             <Button
               type="button"
               variant="outline"

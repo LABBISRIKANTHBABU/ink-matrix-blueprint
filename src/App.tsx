@@ -46,32 +46,22 @@ const App = () => (
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               
               {/* Admin Routes */}
+              <Route path="/admin/login" element={
+                <AdminAuthProvider>
+                  <AdminLogin />
+                </AdminAuthProvider>
+              } />
               <Route path="/admin" element={
                 <AdminAuthProvider>
-                  <AdminLayout />
+                  <ProtectedRoute>
+                    <AdminLayout />
+                  </ProtectedRoute>
                 </AdminAuthProvider>
               }>
-                <Route path="login" element={<AdminLogin />} />
-                <Route index element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="products" element={
-                  <ProtectedRoute>
-                    <ProductManagement />
-                  </ProtectedRoute>
-                } />
-                <Route path="add-product" element={
-                  <ProtectedRoute>
-                    <AddProduct />
-                  </ProtectedRoute>
-                } />
-                <Route path="edit-product/:productId" element={
-                  <ProtectedRoute>
-                    <EditProduct />
-                  </ProtectedRoute>
-                } />
+                <Route index element={<Dashboard />} />
+                <Route path="products" element={<ProductManagement />} />
+                <Route path="add-product" element={<AddProduct />} />
+                <Route path="edit-product/:productId" element={<EditProduct />} />
               </Route>
               
               {/* Catch-all Route */}

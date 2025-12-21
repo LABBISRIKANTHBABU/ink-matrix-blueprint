@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
+import { useAdminAuth } from '../AdminAuthContext';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAdminAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +31,8 @@ const AdminLogin = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token in localStorage
-        localStorage.setItem('admin-token', data.token);
+        // Use AdminAuthContext to login
+        login(data.token);
         toast({
           title: 'Success',
           description: 'Logged in successfully!',

@@ -29,7 +29,12 @@ export const useAdminProducts = (): UseAdminProductsReturn => {
       }
       
       const data = await response.json();
-      setProducts(data);
+      // Map MongoDB _id to id for frontend compatibility
+      const mappedProducts = data.map((product: any) => ({
+        ...product,
+        id: product._id || product.id,
+      }));
+      setProducts(mappedProducts);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load products');
@@ -61,7 +66,9 @@ export const useAdminProducts = (): UseAdminProductsReturn => {
       }
 
       const newProduct = await response.json();
-      setProducts([newProduct, ...products]);
+      // Map MongoDB _id to id
+      const mappedProduct = { ...newProduct, id: newProduct._id || newProduct.id };
+      setProducts([mappedProduct, ...products]);
     } catch (err) {
       throw err instanceof Error ? err : new Error('Failed to add product');
     }
@@ -85,9 +92,11 @@ export const useAdminProducts = (): UseAdminProductsReturn => {
       }
 
       const updatedProductData = await response.json();
+      // Map MongoDB _id to id
+      const mappedProduct = { ...updatedProductData, id: updatedProductData._id || updatedProductData.id };
       setProducts(
         products.map((product) =>
-          product.id === id ? updatedProductData : product
+          product.id === id ? mappedProduct : product
         )
       );
     } catch (err) {

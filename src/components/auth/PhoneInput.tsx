@@ -56,7 +56,7 @@ const PhoneInput = ({
         <Input
           id="phone"
           type="tel"
-          placeholder="9876543210"
+          placeholder="91XXXXXXXX"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
           className="flex-1"

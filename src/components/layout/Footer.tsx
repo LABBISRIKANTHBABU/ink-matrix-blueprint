@@ -102,19 +102,19 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
                 <span className="text-primary-foreground/80">
-                  123 Corporate Plaza, Business District, Mumbai 400001
+                  Kurnool
                 </span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0 text-accent" />
                 <a href="tel:+919876543210" className="text-primary-foreground/80 hover:text-accent transition-colors">
-                  +91 98765 43210
+                  +91 XXXXXXXXX0
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 flex-shrink-0 text-accent" />
                 <a href="mailto:hello@inkmatrix.com" className="text-primary-foreground/80 hover:text-accent transition-colors">
-                  hello@inkmatrix.com
+                  inkmatrixstudio@gmail.com
                 </a>
               </li>
             </ul>
@@ -126,7 +126,7 @@ const Footer = () => {
       <div className="border-t border-navy-light">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-            <p>© 2024 Ink Matrix. All rights reserved.</p>
+            <p>© 2025 Ink Matrix. All rights reserved.</p>
             <div className="flex gap-6">
               <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
