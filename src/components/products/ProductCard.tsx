@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Product } from '@/lib/data';
+import { Product, categories } from '@/lib/data';
 import { useCart } from '@/contexts/CartContext';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -19,85 +18,70 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
-    toast.success(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to quote!`);
   };
 
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
+  const getCategoryName = (categoryId: string) => {
+    const category = categories.find((c) => c.id === categoryId);
+    return category?.name || categoryId;
+  };
 
-  const getBadgeVariant = (badge: string) => {
+  const getBadgeLabel = (badge: string) => {
     switch (badge) {
       case 'bestseller':
-        return 'default';
+        return 'Best Seller';
       case 'new':
-        return 'secondary';
+        return 'New Arrival';
       case 'sale':
-        return 'destructive';
+        return 'On Sale';
       default:
-        return 'outline';
+        return badge;
     }
   };
+
+  const bulkDiscount = product.bulkPricing.length > 0
+    ? Math.round(((product.price - product.bulkPricing[0].price) / product.price) * 100)
+    : 0;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+      transition={{ duration: 0.3, delay: index * 0.03 }}
+      className="h-full"
     >
-      <Link to={`/product/${product.id}`}>
-        <div className="group bg-card rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+      <Link to={`/product/${product.id}`} className="block h-full">
+        <div className="group bg-card rounded-lg border border-border p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-200 h-full flex flex-col">
           {/* Image Container */}
-          <div className="relative aspect-square overflow-hidden bg-muted">
+          <div className="relative aspect-[4/3] overflow-hidden bg-muted rounded-md mb-4 flex items-center justify-center">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             
-            {/* Badges */}
-            <div className="absolute top-3 left-3 flex flex-col gap-2">
-              {product.badge && (
-                <Badge variant={getBadgeVariant(product.badge)} className="uppercase text-xs font-semibold">
-                  {product.badge}
-                </Badge>
-              )}
-              {discount > 0 && (
-                <Badge variant="destructive" className="text-xs font-semibold">
-                  -{discount}%
-                </Badge>
-              )}
-            </div>
-
-            {/* Quick Add */}
-            <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button
-                size="icon"
-                onClick={handleAddToCart}
-                className="bg-accent hover:bg-amber-dark text-accent-foreground shadow-lg"
-              >
-                <ShoppingCart className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* Customizable badge */}
-            {product.customizable && (
-              <div className="absolute bottom-3 left-3">
-                <Badge variant="outline" className="bg-card/90 text-xs">
-                  Customizable
-                </Badge>
-              </div>
+            {/* Badge */}
+            {product.badge && (
+              <span className="absolute top-2.5 left-2.5 bg-primary text-primary-foreground px-2 py-1 text-[10px] font-bold uppercase rounded tracking-wide">
+                {getBadgeLabel(product.badge)}
+              </span>
             )}
           </div>
 
           {/* Content */}
-          <div className="p-4 flex flex-col flex-1">
-            <h3 className="font-medium text-foreground line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+          <div className="flex flex-col flex-1">
+            {/* Category */}
+            <p className="text-muted-foreground text-xs uppercase tracking-wider mb-1.5">
+              {getCategoryName(product.category)}
+            </p>
+
+            {/* Title */}
+            <h3 className="font-bold text-foreground text-base leading-tight mb-2 line-clamp-2 group-hover:text-primary transition-colors">
               {product.name}
             </h3>
 
             {/* Rating */}
-            <div className="flex items-center gap-1 mb-2">
+            <div className="flex items-center gap-1 mb-3">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
                   <Star
@@ -111,27 +95,38 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
                 ))}
               </div>
               <span className="text-xs text-muted-foreground">
-                ({product.reviews})
+                ({product.reviews} Reviews)
               </span>
             </div>
 
-            {/* Price */}
+            {/* Price Section */}
             <div className="mt-auto">
-              <div className="flex items-baseline gap-2">
-                <span className="text-lg font-bold text-foreground">
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-xl font-extrabold text-foreground">
                   ₹{product.price.toLocaleString()}
                 </span>
-                {product.originalPrice && (
-                  <span className="text-sm text-muted-foreground line-through">
-                    ₹{product.originalPrice.toLocaleString()}
-                  </span>
-                )}
+                <span className="text-xs text-muted-foreground">/ per unit</span>
               </div>
 
-              {/* Bulk pricing hint */}
-              {product.bulkPricing.length > 0 && (
-                <p className="text-xs text-success mt-1">
-                  Bulk: From ₹{product.bulkPricing[product.bulkPricing.length - 1].price}
+              {/* Bulk Info */}
+              {product.bulkPricing.length > 0 && bulkDiscount > 0 && (
+                <p className="text-xs text-success font-semibold mb-4">
+                  Save {bulkDiscount}% on orders over {product.bulkPricing[0].minQty} units
+                </p>
+              )}
+
+              {/* Add to Quote Button */}
+              <Button
+                onClick={handleAddToCart}
+                className="w-full bg-amber hover:bg-amber-dark text-amber-foreground font-medium rounded-full border border-amber-dark/20"
+              >
+                Add to Quote
+              </Button>
+
+              {/* Customize Link */}
+              {product.customizable && (
+                <p className="text-center mt-2.5 text-xs text-info hover:text-primary hover:underline transition-colors cursor-pointer">
+                  Customize with your Logo →
                 </p>
               )}
             </div>

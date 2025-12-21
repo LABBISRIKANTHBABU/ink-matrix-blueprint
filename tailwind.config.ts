@@ -68,6 +68,14 @@ export default {
           light: "hsl(var(--red-light))",
           dark: "hsl(var(--red-dark))",
         },
+        amber: {
+          DEFAULT: "hsl(var(--amber))",
+          dark: "hsl(var(--amber-dark))",
+          foreground: "hsl(var(--amber-foreground))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
