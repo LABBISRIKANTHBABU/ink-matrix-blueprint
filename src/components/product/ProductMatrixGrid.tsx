@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Star, Upload, Play, Package, Palette, Leaf, Zap, Diamond, Plus, Check, Download } from 'lucide-react';
+import { Star, Upload, Play, Package, ShoppingCart, Plus, Check, Download, ThumbsUp, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Product, Category } from '@/lib/data';
+import { Product, Category, products } from '@/lib/data';
 import { useCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
@@ -23,14 +23,19 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  // Mock additional images
+  // Product images - main + additional
   const images = [
     product.image,
-    product.image,
-    product.image,
-    product.image,
-    product.image,
+    product.additionalImages?.[0] || product.image,
+    product.additionalImages?.[1] || product.image,
+    product.additionalImages?.[2] || product.image,
+    product.additionalImages?.[3] || product.image,
   ];
+
+  // Get recommended products (same category, excluding current)
+  const recommendedProducts = products
+    .filter(p => p.category === product.category && p.id !== product.id)
+    .slice(0, 5);
 
   // Calculate current price based on quantity
   const applicableBulkPrice = product.bulkPricing
@@ -38,11 +43,19 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
     .sort((a, b) => b.minQty - a.minQty)[0];
   const currentPrice = applicableBulkPrice ? applicableBulkPrice.price : product.price;
   const totalPrice = currentPrice * quantity;
+  const discount = product.originalPrice ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
 
   const handleAddToQuote = () => {
     addToCart(product, quantity, selectedColor, uploadedFile ? `Custom Design: ${uploadedFile.name}` : '');
     toast.success('Added to Quote!', {
       description: `${quantity} × ${product.name} added to your quote request.`,
+    });
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity, selectedColor);
+    toast.success('Added to Cart!', {
+      description: `${quantity} × ${product.name} added to your cart.`,
     });
   };
 
@@ -57,30 +70,19 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
     }
   };
 
-  const getMaterialIcon = () => {
-    if (product.category === 'drinkware') return <Diamond className="h-4 w-4" />;
-    if (product.category === 'tech-gadgets') return <Zap className="h-4 w-4" />;
-    return <Package className="h-4 w-4" />;
-  };
-
-  const getMaterialText = () => {
-    if (product.materials) return product.materials;
-    if (product.category === 'drinkware') return 'SS 304';
-    if (product.category === 'tech-gadgets') return '10k mAh';
-    if (product.category === 'office-essentials') return 'PU Leather';
-    return 'Premium';
-  };
-
-  const getEcoText = () => {
-    if (product.category === 'tech-gadgets') return 'Fast Charge';
-    return 'Eco-Friendly';
-  };
+  // Sample reviews data
+  const reviews = [
+    { id: 1, user: 'Rajesh K.', rating: 5, date: '2 weeks ago', comment: 'Excellent quality! Perfect for our corporate event.', helpful: 24 },
+    { id: 2, user: 'Priya S.', rating: 4, date: '1 month ago', comment: 'Good product, fast delivery. Logo printing was crisp.', helpful: 18 },
+    { id: 3, user: 'Amit P.', rating: 5, date: '1 month ago', comment: 'Ordered 200 units for our startup. Great bulk pricing!', helpful: 31 },
+  ];
 
   return (
     <div className="w-full">
       {/* Desktop Grid Layout */}
-      <div className="hidden lg:grid grid-cols-9 gap-2 auto-rows-fr" style={{ gridTemplateRows: 'repeat(13, minmax(40px, 1fr))' }}>
-        {/* div6 - Main Product Hero */}
+      <div className="hidden lg:grid grid-cols-9 gap-2 auto-rows-fr" style={{ gridTemplateRows: 'repeat(13, minmax(50px, 1fr))' }}>
+        
+        {/* div6 - Main Product Hero Image */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -104,61 +106,75 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         </motion.div>
 
-        {/* div33 - Brand Logo (Matrix Spine Row 1) */}
+        {/* div33 - Product Image Thumbnail 1 */}
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="col-start-5 row-start-1 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20"
+          onClick={() => setSelectedImage(0)}
+          className={`col-start-5 row-start-1 rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+            selectedImage === 0 ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-muted-foreground'
+          }`}
         >
-          <span className="text-primary font-bold text-xs">[ink]</span>
+          <img src={images[0]} alt="View 1" className="w-full h-full object-cover" />
         </motion.div>
 
-        {/* div19 - Material (Matrix Spine Row 2) */}
+        {/* div19 - Product Image Thumbnail 2 */}
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.15 }}
-          className="col-start-5 row-start-2 bg-muted rounded-lg flex flex-col items-center justify-center p-1 border border-border"
+          onClick={() => setSelectedImage(1)}
+          className={`col-start-5 row-start-2 rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+            selectedImage === 1 ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-muted-foreground'
+          }`}
         >
-          {getMaterialIcon()}
-          <span className="text-[10px] text-muted-foreground mt-0.5 text-center leading-tight">{getMaterialText()}</span>
+          <img src={images[1]} alt="View 2" className="w-full h-full object-cover" />
         </motion.div>
 
-        {/* div18 - Eco/Tech (Matrix Spine Row 3) */}
+        {/* div18 - Product Image Thumbnail 3 */}
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="col-start-5 row-start-3 bg-green-50 dark:bg-green-950/30 rounded-lg flex flex-col items-center justify-center p-1 border border-green-200 dark:border-green-800"
+          onClick={() => setSelectedImage(2)}
+          className={`col-start-5 row-start-3 rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+            selectedImage === 2 ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-muted-foreground'
+          }`}
         >
-          <Leaf className="h-4 w-4 text-green-600" />
-          <span className="text-[10px] text-green-700 dark:text-green-400 mt-0.5 text-center leading-tight">{getEcoText()}</span>
+          <img src={images[2]} alt="View 3" className="w-full h-full object-cover" />
         </motion.div>
 
-        {/* div34 - Customization (Matrix Spine Row 4) */}
+        {/* div34 - Product Image Thumbnail 4 */}
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.25 }}
-          className="col-start-5 row-start-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg flex flex-col items-center justify-center p-1 border border-purple-200 dark:border-purple-800"
+          onClick={() => setSelectedImage(3)}
+          className={`col-start-5 row-start-4 rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+            selectedImage === 3 ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-muted-foreground'
+          }`}
         >
-          <Palette className="h-4 w-4 text-purple-600" />
-          <span className="text-[10px] text-purple-700 dark:text-purple-400 mt-0.5 text-center leading-tight">UV Print</span>
+          <img src={images[3]} alt="View 4" className="w-full h-full object-cover" />
         </motion.div>
 
-        {/* div35 - Stock (Matrix Spine Row 5) */}
+        {/* div35 - Product Image Thumbnail 5 (Video) */}
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="col-start-5 row-start-5 bg-blue-50 dark:bg-blue-950/30 rounded-lg flex flex-col items-center justify-center p-1 border border-blue-200 dark:border-blue-800"
+          onClick={() => setSelectedImage(4)}
+          className={`col-start-5 row-start-5 rounded-lg overflow-hidden cursor-pointer border-2 transition-all relative ${
+            selectedImage === 4 ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:border-muted-foreground'
+          }`}
         >
-          <Package className="h-4 w-4 text-blue-600" />
-          <span className="text-[10px] text-blue-700 dark:text-blue-400 mt-0.5 text-center leading-tight">{product.stock || 500}+</span>
+          <img src={images[4]} alt="Video" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <Play className="h-6 w-6 text-white fill-white" />
+          </div>
         </motion.div>
 
-        {/* div7 - Header Block (Title & Reviews) */}
+        {/* div7 - Header Block (Title, ID, Reviews) */}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -176,52 +192,63 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
                 />
               ))}
             </div>
-            <span className="text-sm text-muted-foreground">({product.reviews})</span>
-            <span className="text-xs text-info hover:underline cursor-pointer">Read Reviews</span>
+            <span className="text-sm text-muted-foreground">({product.rating})</span>
+            <span className="text-xs text-info hover:underline cursor-pointer">{product.reviews} Reviews</span>
           </div>
         </motion.div>
 
-        {/* div11 - Pricing & Color Swatches */}
+        {/* div11 - Pricing & Discount */}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="col-span-4 col-start-6 row-start-3 bg-card rounded-xl p-4 border border-border"
         >
-          <div className="flex items-baseline gap-2 mb-2">
+          <div className="flex items-baseline gap-2">
             <span className="text-2xl font-bold text-primary">₹{currentPrice.toLocaleString()}</span>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+              <>
+                <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+                <Badge className="bg-green-600 text-white text-xs">{discount}% OFF</Badge>
+              </>
             )}
-            <span className="text-xs text-muted-foreground">/ per unit</span>
           </div>
-          {product.colors && product.colors.length > 0 && (
-            <div className="flex gap-2">
-              {product.colors.map((color) => (
-                <button
-                  key={color}
-                  onClick={() => setSelectedColor(color)}
-                  className={`w-6 h-6 rounded-full border-2 transition-all ${
-                    selectedColor === color
-                      ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
-                      : 'border-border hover:border-muted-foreground'
-                  }`}
-                  style={{ backgroundColor: color }}
-                  aria-label={`Select ${color}`}
-                />
-              ))}
-            </div>
-          )}
+          <p className="text-xs text-muted-foreground mt-1">/ per unit (Inclusive of GST)</p>
+          <p className="text-xs text-green-600 font-medium mt-1">Save more with bulk orders!</p>
         </motion.div>
 
-        {/* div12 - The Buy Box */}
+        {/* div12 - Colors, Quantity, Buy/Cart */}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="col-span-4 row-span-2 col-start-6 row-start-4 bg-card rounded-xl p-4 border border-border flex flex-col justify-between"
         >
+          {/* Colors */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="mb-3">
+              <p className="text-xs text-muted-foreground mb-2">Select Color:</p>
+              <div className="flex gap-2">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-7 h-7 rounded-full border-2 transition-all ${
+                      selectedColor === color
+                        ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
+                        : 'border-border hover:border-muted-foreground'
+                    }`}
+                    style={{ backgroundColor: color }}
+                    aria-label={`Select ${color}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quantity */}
           <div className="flex items-center gap-3 mb-3">
+            <p className="text-xs text-muted-foreground">Qty:</p>
             <div className="flex items-center border border-border rounded-full bg-muted">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 10))}
@@ -247,167 +274,286 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
               Total: ₹{totalPrice.toLocaleString()}
             </span>
           </div>
-          <Button 
-            onClick={handleAddToQuote}
-            className="w-full bg-accent hover:bg-amber-dark text-accent-foreground font-bold rounded-full text-sm"
-          >
-            ADD TO QUOTE
-          </Button>
-          <button className="text-xs text-info hover:underline mt-2 text-center">
-            Request Sample Piece
-          </button>
+
+          {/* Buttons */}
+          <div className="flex gap-2">
+            <Button 
+              onClick={handleAddToQuote}
+              className="flex-1 bg-amber hover:bg-amber-dark text-foreground font-bold rounded-full text-sm"
+            >
+              ADD TO QUOTE
+            </Button>
+            <Button 
+              onClick={handleAddToCart}
+              variant="outline"
+              className="flex-1 rounded-full text-sm gap-2"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Add to Cart
+            </Button>
+          </div>
         </motion.div>
 
-        {/* div24 - Promo Banner */}
+        {/* div24 - Product Description with Tabs */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="col-span-9 row-span-3 col-start-1 row-start-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-xl flex items-center justify-center px-6 border border-slate-700 overflow-hidden relative"
-        >
-          <div className="absolute left-6 text-4xl">🚀</div>
-          <div className="text-center">
-            <p className="text-white font-bold text-sm md:text-base">
-              STARTUP SPECIAL: FLAT 15% OFF ON ORDERS ABOVE 100 UNITS
-            </p>
-            <p className="text-amber text-xs mt-1">USE CODE: MATRIX15</p>
-          </div>
-          <div className="absolute right-6 text-4xl animate-pulse">💰</div>
-        </motion.div>
-
-        {/* div36 - Description Panel with Tabs */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-          className="col-span-4 row-span-5 col-start-1 row-start-9 bg-card rounded-xl border border-border overflow-hidden"
+          className="col-span-9 row-span-3 col-start-1 row-start-6 bg-card rounded-xl border border-border overflow-hidden"
         >
           <Tabs defaultValue="overview" className="h-full flex flex-col">
             <TabsList className="w-full justify-start rounded-none bg-muted/50 border-b border-border p-0 h-auto">
-              <TabsTrigger value="overview" className="rounded-none data-[state=active]:bg-card px-4 py-2 text-xs">
+              <TabsTrigger value="overview" className="rounded-none data-[state=active]:bg-card data-[state=active]:border-b-2 data-[state=active]:border-primary px-6 py-3 text-sm">
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="specs" className="rounded-none data-[state=active]:bg-card px-4 py-2 text-xs">
-                Specs
+              <TabsTrigger value="specs" className="rounded-none data-[state=active]:bg-card data-[state=active]:border-b-2 data-[state=active]:border-primary px-6 py-3 text-sm">
+                Specifications
               </TabsTrigger>
-              <TabsTrigger value="templates" className="rounded-none data-[state=active]:bg-card px-4 py-2 text-xs">
+              <TabsTrigger value="templates" className="rounded-none data-[state=active]:bg-card data-[state=active]:border-b-2 data-[state=active]:border-primary px-6 py-3 text-sm">
                 Templates
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="overview" className="flex-1 p-4 text-sm text-muted-foreground overflow-auto m-0">
-              <p className="leading-relaxed">{product.description}</p>
-              <p className="mt-3 leading-relaxed">
-                Elevate your employee onboarding with this premium product. Perfect for corporate gifting, 
-                client presentations, and promotional events.
-              </p>
-            </TabsContent>
-            <TabsContent value="specs" className="flex-1 p-4 overflow-auto m-0">
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between py-1.5 border-b border-border">
-                  <span className="text-muted-foreground">Dimension</span>
-                  <span className="font-medium text-foreground">{product.specifications || '25cm × 20cm'}</span>
+            <TabsContent value="overview" className="flex-1 p-6 text-sm text-muted-foreground overflow-auto m-0">
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Product Description</h3>
+                  <p className="leading-relaxed">{product.description}</p>
+                  {product.keyComponents && (
+                    <div className="mt-4">
+                      <h4 className="font-medium text-foreground mb-1">Key Components</h4>
+                      <p className="text-sm">{product.keyComponents}</p>
+                    </div>
+                  )}
                 </div>
-                <div className="flex justify-between py-1.5 border-b border-border">
-                  <span className="text-muted-foreground">Weight</span>
-                  <span className="font-medium text-foreground">450g</span>
-                </div>
-                <div className="flex justify-between py-1.5 border-b border-border">
-                  <span className="text-muted-foreground">Material</span>
-                  <span className="font-medium text-foreground">{getMaterialText()}</span>
-                </div>
-                <div className="flex justify-between py-1.5 border-b border-border">
-                  <span className="text-muted-foreground">Warranty</span>
-                  <span className="font-medium text-foreground">1 Year</span>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">Design Features</h3>
+                  <p className="leading-relaxed">{product.designFeatures || 'Premium quality with custom branding options. Perfect for corporate gifting and promotional events.'}</p>
+                  <div className="mt-4">
+                    <h4 className="font-medium text-foreground mb-1">Bulk Pricing</h4>
+                    <div className="space-y-1">
+                      {product.bulkPricing.map((bp, i) => (
+                        <p key={i} className="text-sm">
+                          {bp.minQty}+ units: <span className="text-primary font-medium">₹{bp.price}/unit</span>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="templates" className="flex-1 p-4 overflow-auto m-0">
-              <Button variant="outline" size="sm" className="gap-2 w-full">
-                <Download className="h-4 w-4" />
-                Download Logo Template (PDF)
-              </Button>
-              <p className="text-xs text-muted-foreground mt-3">
-                Use our template for accurate logo placement and sizing.
-              </p>
+            <TabsContent value="specs" className="flex-1 p-6 overflow-auto m-0">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">SKU</span>
+                    <span className="font-medium text-foreground text-sm">{product.sku || `IM-${product.id.toUpperCase()}`}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">Category</span>
+                    <span className="font-medium text-foreground text-sm">{category?.name || product.category}</span>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">Dimensions</span>
+                    <span className="font-medium text-foreground text-sm">{product.specifications || '25cm × 20cm'}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">Material</span>
+                    <span className="font-medium text-foreground text-sm">{product.materials || 'Premium Quality'}</span>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">Customizable</span>
+                    <span className="font-medium text-foreground text-sm">{product.customizable ? 'Yes' : 'No'}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">Stock</span>
+                    <span className="font-medium text-green-600 text-sm">{product.stock || 500}+ Available</span>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="templates" className="flex-1 p-6 overflow-auto m-0">
+              <div className="flex flex-col items-center justify-center h-full gap-4">
+                <Package className="h-12 w-12 text-muted-foreground" />
+                <p className="text-muted-foreground text-center max-w-md">
+                  Download our design templates for accurate logo placement and sizing guidelines.
+                </p>
+                <Button variant="outline" size="lg" className="gap-2">
+                  <Download className="h-4 w-4" />
+                  Download Logo Template (PDF)
+                </Button>
+              </div>
             </TabsContent>
           </Tabs>
         </motion.div>
 
-        {/* div39 - Cross-sell Header */}
+        {/* div36 - Reviews Section */}
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
-          className="col-span-5 col-start-5 row-start-9 bg-muted rounded-xl flex items-center px-4 border border-border"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.5 }}
+          className="col-span-4 row-span-5 col-start-1 row-start-9 bg-card rounded-xl border border-border overflow-hidden flex flex-col"
         >
-          <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Frequently Bought Together</span>
+          <div className="p-4 border-b border-border bg-muted/30">
+            <h3 className="font-bold text-foreground flex items-center gap-2">
+              <MessageSquare className="h-4 w-4" />
+              Customer Reviews ({product.reviews})
+            </h3>
+            <div className="flex items-center gap-2 mt-2">
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-amber fill-amber' : 'text-muted-foreground/30'}`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-medium">{product.rating} out of 5</span>
+            </div>
+          </div>
+          <div className="flex-1 overflow-auto p-4 space-y-4">
+            {reviews.map((review) => (
+              <div key={review.id} className="border-b border-border pb-4 last:border-0">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
+                      {review.user.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">{review.user}</p>
+                      <p className="text-xs text-muted-foreground">{review.date}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-3 w-3 ${i < review.rating ? 'text-amber fill-amber' : 'text-muted-foreground/30'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">{review.comment}</p>
+                <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mt-2">
+                  <ThumbsUp className="h-3 w-3" />
+                  Helpful ({review.helpful})
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="p-4 border-t border-border">
+            <Button variant="outline" size="sm" className="w-full">
+              View All Reviews
+            </Button>
+          </div>
         </motion.div>
 
-        {/* div40 - Upsell Item 1 */}
+        {/* div39 - Upload Your Design */}
+        <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
+          <DialogTrigger asChild>
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="col-span-5 col-start-5 row-start-9 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-xl flex items-center justify-center px-4 border border-primary/20 cursor-pointer hover:border-primary/40 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Upload className="h-5 w-5 text-primary" />
+                <div>
+                  <span className="text-sm font-bold text-primary">Upload Your Design</span>
+                  {uploadedFile && (
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Check className="h-3 w-3 text-green-600" /> {uploadedFile.name}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Upload Your Custom Design</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Upload your logo, artwork, or design file. We accept PNG, JPG, PDF, AI, and EPS formats.
+              </p>
+              <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary/50 transition-colors">
+                <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+                <label className="cursor-pointer">
+                  <span className="text-primary font-medium hover:underline">Click to upload</span>
+                  <span className="text-muted-foreground"> or drag and drop</span>
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    accept=".png,.jpg,.jpeg,.pdf,.ai,.eps"
+                    onChange={handleFileUpload}
+                  />
+                </label>
+                <p className="text-xs text-muted-foreground mt-2">Max file size: 10MB</p>
+              </div>
+              <Button variant="outline" size="sm" className="w-full gap-2">
+                <Download className="h-4 w-4" />
+                Download Design Template
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Placeholders for div40 & div41 - Additional options or info can go here */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="col-span-3 col-start-5 row-start-10 bg-card rounded-xl p-3 border border-border flex items-center gap-3"
+          className="col-span-3 col-start-5 row-start-10 bg-card rounded-xl p-3 border border-border flex items-center justify-center"
         >
-          <div className="w-12 h-12 bg-muted rounded-lg flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=100&q=80" alt="Pen" className="w-full h-full object-cover" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-foreground truncate">Parker Vector Pen</p>
-            <Button size="sm" variant="outline" className="h-6 text-xs mt-1 gap-1">
-              <Plus className="h-3 w-3" /> Add ₹150
-            </Button>
+          <div className="text-center">
+            <p className="text-xs font-medium text-foreground">Free Shipping</p>
+            <p className="text-[10px] text-muted-foreground">On orders above ₹5,000</p>
           </div>
         </motion.div>
 
-        {/* div41 - Upsell Item 2 */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65 }}
-          className="col-span-2 col-start-8 row-start-10 bg-card rounded-xl p-3 border border-border flex items-center gap-2"
+          className="col-span-2 col-start-8 row-start-10 bg-card rounded-xl p-3 border border-border flex items-center justify-center"
         >
-          <div className="w-10 h-10 bg-muted rounded-lg flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&q=80" alt="Bag" className="w-full h-full object-cover" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-medium text-foreground truncate">Gift Bag</p>
-            <Button size="sm" variant="outline" className="h-5 text-[10px] mt-0.5 px-2">
-              +₹50
-            </Button>
+          <div className="text-center">
+            <p className="text-xs font-medium text-foreground">Bulk Discounts</p>
+            <p className="text-[10px] text-muted-foreground">Up to 25% off</p>
           </div>
         </motion.div>
 
-        {/* Gallery Thumbnails - div29 to div32 & div37 */}
-        {[0, 1, 2, 3, 4].map((index) => (
+        {/* div29-32, div37 - Recommended Products */}
+        {recommendedProducts.slice(0, 5).map((recProduct, index) => (
           <motion.div 
-            key={index}
+            key={recProduct.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + index * 0.05 }}
-            className={`row-span-3 row-start-11 bg-card rounded-xl border overflow-hidden cursor-pointer transition-all hover:border-primary ${
-              selectedImage === index ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-            }`}
+            className="row-span-3 row-start-11 bg-card rounded-xl border border-border overflow-hidden cursor-pointer transition-all hover:border-primary hover:shadow-md group"
             style={{ gridColumnStart: 5 + index }}
-            onClick={() => setSelectedImage(index)}
           >
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-2/3 overflow-hidden">
               <img 
-                src={images[index]} 
-                alt={`View ${index + 1}`}
-                className="w-full h-full object-cover"
+                src={recProduct.image} 
+                alt={recProduct.name}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              {index === 4 && (
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <Play className="h-6 w-6 text-white" />
-                </div>
+              {recProduct.badge && (
+                <Badge className="absolute top-1 left-1 text-[8px] px-1 py-0">{recProduct.badge}</Badge>
               )}
-              {selectedImage === index && (
-                <div className="absolute top-1 right-1 bg-primary rounded-full p-0.5">
-                  <Check className="h-3 w-3 text-primary-foreground" />
-                </div>
-              )}
+            </div>
+            <div className="p-2">
+              <p className="text-[10px] font-medium text-foreground truncate">{recProduct.name}</p>
+              <p className="text-xs font-bold text-primary">₹{recProduct.price}</p>
+              <Button size="sm" variant="ghost" className="h-5 text-[10px] w-full mt-1 gap-1">
+                <Plus className="h-3 w-3" /> Add
+              </Button>
             </div>
           </motion.div>
         ))}
@@ -439,41 +585,18 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all relative ${
                 selectedImage === index ? 'border-primary' : 'border-border'
               }`}
             >
               <img src={img} alt="" className="w-full h-full object-cover" />
               {index === 4 && (
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <Play className="h-4 w-4 text-white" />
+                  <Play className="h-4 w-4 text-white fill-white" />
                 </div>
               )}
             </button>
           ))}
-        </div>
-
-        {/* Matrix Spine - Horizontal on Mobile */}
-        <div className="grid grid-cols-5 gap-2">
-          <div className="bg-primary/10 rounded-lg p-2 flex flex-col items-center justify-center border border-primary/20">
-            <span className="text-primary font-bold text-xs">[ink]</span>
-          </div>
-          <div className="bg-muted rounded-lg p-2 flex flex-col items-center justify-center border border-border">
-            {getMaterialIcon()}
-            <span className="text-[9px] text-muted-foreground mt-0.5">{getMaterialText()}</span>
-          </div>
-          <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-2 flex flex-col items-center justify-center border border-green-200 dark:border-green-800">
-            <Leaf className="h-4 w-4 text-green-600" />
-            <span className="text-[9px] text-green-700 dark:text-green-400 mt-0.5">Eco</span>
-          </div>
-          <div className="bg-purple-50 dark:bg-purple-950/30 rounded-lg p-2 flex flex-col items-center justify-center border border-purple-200 dark:border-purple-800">
-            <Palette className="h-4 w-4 text-purple-600" />
-            <span className="text-[9px] text-purple-700 dark:text-purple-400 mt-0.5">Custom</span>
-          </div>
-          <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-2 flex flex-col items-center justify-center border border-blue-200 dark:border-blue-800">
-            <Package className="h-4 w-4 text-blue-600" />
-            <span className="text-[9px] text-blue-700 dark:text-blue-400 mt-0.5">{product.stock || 500}+</span>
-          </div>
         </div>
 
         {/* Title & Info */}
@@ -496,26 +619,31 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
           <div className="flex items-baseline gap-2 mb-3">
             <span className="text-3xl font-bold text-primary">₹{currentPrice.toLocaleString()}</span>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+              <>
+                <span className="text-sm text-muted-foreground line-through">₹{product.originalPrice.toLocaleString()}</span>
+                <Badge className="bg-green-600 text-white text-xs">{discount}% OFF</Badge>
+              </>
             )}
-            <span className="text-xs text-muted-foreground">/ unit</span>
           </div>
 
           {/* Colors */}
           {product.colors && product.colors.length > 0 && (
-            <div className="flex gap-2 mb-4">
-              {product.colors.map((color) => (
-                <button
-                  key={color}
-                  onClick={() => setSelectedColor(color)}
-                  className={`w-8 h-8 rounded-full border-2 transition-all ${
-                    selectedColor === color
-                      ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
-                      : 'border-border'
-                  }`}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground mb-2">Select Color:</p>
+              <div className="flex gap-2">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-8 h-8 rounded-full border-2 transition-all ${
+                      selectedColor === color
+                        ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
+                        : 'border-border'
+                    }`}
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
@@ -544,21 +672,41 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
             <span className="text-sm font-semibold">Total: ₹{totalPrice.toLocaleString()}</span>
           </div>
 
-          <Button 
-            onClick={handleAddToQuote}
-            className="w-full bg-accent hover:bg-amber-dark text-accent-foreground font-bold rounded-full"
-          >
-            ADD TO QUOTE
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={handleAddToQuote}
+              className="flex-1 bg-amber hover:bg-amber-dark text-foreground font-bold rounded-full"
+            >
+              ADD TO QUOTE
+            </Button>
+            <Button 
+              onClick={handleAddToCart}
+              variant="outline"
+              className="flex-1 rounded-full gap-2"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Cart
+            </Button>
+          </div>
         </div>
 
-        {/* Promo Banner */}
-        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-xl p-4 text-center">
-          <p className="text-white font-bold text-sm">
-            🚀 FLAT 15% OFF ON 100+ UNITS
-          </p>
-          <p className="text-amber text-xs mt-1">CODE: MATRIX15</p>
-        </div>
+        {/* Upload Design Button (Mobile) */}
+        <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
+          <DialogTrigger asChild>
+            <Button 
+              variant="outline" 
+              className="w-full gap-2 border-dashed border-2 border-primary/50 hover:border-primary py-6"
+            >
+              <Upload className="h-5 w-5 text-primary" />
+              <span className="font-semibold text-primary">Upload Your Design</span>
+              {uploadedFile && (
+                <Badge variant="secondary" className="ml-2 gap-1">
+                  <Check className="h-3 w-3" /> Uploaded
+                </Badge>
+              )}
+            </Button>
+          </DialogTrigger>
+        </Dialog>
 
         {/* Description Tabs */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
@@ -578,7 +726,7 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-muted-foreground">Material</span>
-                  <span className="font-medium text-foreground">{getMaterialText()}</span>
+                  <span className="font-medium text-foreground">{product.materials || 'Premium Quality'}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-muted-foreground">Customizable</span>
@@ -588,61 +736,50 @@ const ProductMatrixGrid = ({ product, category }: ProductMatrixGridProps) => {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
 
-      {/* Upload Design Dialog - Works for both layouts */}
-      <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
-        <DialogTrigger asChild>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-6"
-          >
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="w-full gap-3 border-dashed border-2 border-primary/50 hover:border-primary hover:bg-primary/5 rounded-xl py-6"
-            >
-              <Upload className="h-5 w-5 text-primary" />
-              <span className="font-semibold text-primary">Upload Your Design</span>
-              {uploadedFile && (
-                <Badge variant="secondary" className="ml-2 gap-1">
-                  <Check className="h-3 w-3" /> {uploadedFile.name}
-                </Badge>
-              )}
-            </Button>
-          </motion.div>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Upload Your Custom Design</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Upload your logo, artwork, or design file. We accept PNG, JPG, PDF, AI, and EPS formats.
-            </p>
-            <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary/50 transition-colors">
-              <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-              <label className="cursor-pointer">
-                <span className="text-primary font-medium hover:underline">Click to upload</span>
-                <span className="text-muted-foreground"> or drag and drop</span>
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  accept=".png,.jpg,.jpeg,.pdf,.ai,.eps"
-                  onChange={handleFileUpload}
-                />
-              </label>
-              <p className="text-xs text-muted-foreground mt-2">Max file size: 10MB</p>
-            </div>
-            <Button variant="outline" size="sm" className="w-full gap-2">
-              <Download className="h-4 w-4" />
-              Download Design Template
-            </Button>
+        {/* Reviews Section (Mobile) */}
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="p-4 border-b border-border">
+            <h3 className="font-bold text-foreground">Reviews ({product.reviews})</h3>
           </div>
-        </DialogContent>
-      </Dialog>
+          <div className="p-4 space-y-4">
+            {reviews.slice(0, 2).map((review) => (
+              <div key={review.id} className="border-b border-border pb-4 last:border-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-3 w-3 ${i < review.rating ? 'text-amber fill-amber' : 'text-muted-foreground/30'}`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground">{review.user}</span>
+                </div>
+                <p className="text-sm text-muted-foreground">{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Recommended Products (Mobile) */}
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="p-4 border-b border-border">
+            <h3 className="font-bold text-foreground">Recommended Products</h3>
+          </div>
+          <div className="flex gap-3 p-4 overflow-x-auto">
+            {recommendedProducts.map((recProduct) => (
+              <div key={recProduct.id} className="w-32 flex-shrink-0">
+                <div className="aspect-square rounded-lg overflow-hidden mb-2">
+                  <img src={recProduct.image} alt={recProduct.name} className="w-full h-full object-cover" />
+                </div>
+                <p className="text-xs font-medium truncate">{recProduct.name}</p>
+                <p className="text-sm font-bold text-primary">₹{recProduct.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
