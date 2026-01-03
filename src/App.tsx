@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import SolutionPage from "./pages/SolutionPage";
 import NotFound from "./pages/NotFound";
 
 // Admin Components
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/signin" element={<SignInPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/solutions/:solutionId" element={<SolutionPage />} />
               
               {/* Admin Routes */}
               <Route path="/admin/login" element={
