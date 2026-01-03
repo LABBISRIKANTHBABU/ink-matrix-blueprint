@@ -18,16 +18,20 @@ import {
   Clock,
   Shield,
   Heart,
-  Award
+  Award,
+  Zap,
+  DollarSign,
+  Layers,
+  Briefcase
 } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProductCard from '@/components/products/ProductCard';
-import { products } from '@/lib/data';
+import { products, categories } from '@/lib/data';
 
-// Solution page configurations
+// Solution page configurations with proper product recommendations
 const solutionConfigs = {
   startups: {
     title: 'For Startups',
@@ -35,7 +39,6 @@ const solutionConfigs = {
     description: 'Launch your brand without breaking the bank. Quality promotional products designed for growing businesses with smart pricing and low minimum orders.',
     heroImage: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80',
     icon: Rocket,
-    color: 'from-emerald-500 to-teal-600',
     stats: [
       { value: '50+', label: 'Products Under ₹100' },
       { value: '25 pcs', label: 'Low MOQ' },
@@ -43,12 +46,14 @@ const solutionConfigs = {
       { value: '100%', label: 'Customizable' },
     ],
     benefits: [
-      { icon: Target, title: 'Budget-Friendly Pricing', description: 'Competitive rates designed for startups with limited marketing budgets' },
+      { icon: DollarSign, title: 'Budget-Friendly Pricing', description: 'Competitive rates designed for startups with limited marketing budgets' },
       { icon: Package, title: 'Low Minimum Orders', description: 'Start with as few as 25 pieces - perfect for testing products' },
-      { icon: Rocket, title: 'Quick Turnaround', description: 'Fast production times to meet your launch deadlines' },
+      { icon: Zap, title: 'Quick Turnaround', description: 'Fast production times to meet your launch deadlines' },
       { icon: Palette, title: 'Free Design Support', description: 'Our designers help bring your brand vision to life' },
     ],
-    categories: ['Pens', 'Notebooks & Diaries', 'Keychains', 'Mugs & Tumblers'],
+    // Startups need affordable, practical items for brand awareness
+    recommendedCategories: ['pens', 'keychains', 'drinkware'],
+    productKeywords: ['pen', 'keychain', 'mug', 'bottle'],
     useCases: [
       'Product launch giveaways',
       'Trade show booth swag',
@@ -64,7 +69,6 @@ const solutionConfigs = {
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80"
     },
     cta: 'Get Startup Pricing',
-    filterTags: ['budget', 'affordable', 'startup'],
   },
   corporate: {
     title: 'Corporate Gifts',
@@ -72,7 +76,6 @@ const solutionConfigs = {
     description: 'Make lasting impressions with sophisticated corporate gifts. Premium quality products that reflect your company\'s excellence and strengthen business relationships.',
     heroImage: 'https://images.unsplash.com/photo-1513001900722-370f803f498d?w=1200&q=80',
     icon: Building2,
-    color: 'from-amber-500 to-orange-600',
     stats: [
       { value: '500+', label: 'Premium Products' },
       { value: 'AAA', label: 'Quality Grade' },
@@ -85,7 +88,9 @@ const solutionConfigs = {
       { icon: Gift, title: 'Luxury Packaging', description: 'Premium gift boxes and presentation that impress recipients' },
       { icon: Users, title: 'Dedicated Account Manager', description: 'Personal support for all your corporate gifting needs' },
     ],
-    categories: ['Gift Sets', 'Desktop Organizers', 'Electronics & Accessories', 'Water Bottles'],
+    // Corporate needs premium gift sets, desktop items, and quality accessories
+    recommendedCategories: ['gift-sets', 'desktop-organizers', 'card-holders', 'diaries-notebooks'],
+    productKeywords: ['gift set', 'desktop', 'card holder', 'diary', 'notebook', 'premium'],
     useCases: [
       'Client appreciation gifts',
       'Partner milestone celebrations',
@@ -101,7 +106,6 @@ const solutionConfigs = {
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80"
     },
     cta: 'Request Premium Catalog',
-    filterTags: ['premium', 'luxury', 'executive'],
   },
   events: {
     title: 'Event Merchandise',
@@ -109,7 +113,6 @@ const solutionConfigs = {
     description: 'Create memorable experiences with event-ready merchandise. From conferences to corporate retreats, we deliver branded products that attendees will treasure.',
     heroImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80',
     icon: PartyPopper,
-    color: 'from-violet-500 to-purple-600',
     stats: [
       { value: '1000+', label: 'Events Served' },
       { value: '7 days', label: 'Rush Delivery' },
@@ -118,11 +121,13 @@ const solutionConfigs = {
     ],
     benefits: [
       { icon: Clock, title: 'Rush Orders Available', description: 'Tight deadline? We offer expedited production for urgent events' },
-      { icon: Package, title: 'Bulk Quantity Discounts', description: 'Save more with volume pricing for large events' },
+      { icon: Layers, title: 'Bulk Quantity Discounts', description: 'Save more with volume pricing for large events' },
       { icon: Truck, title: 'Venue Delivery', description: 'Direct delivery to your event venue, hassle-free' },
       { icon: Sparkles, title: 'Trending Products', description: 'Latest and most popular swag items that attendees love' },
     ],
-    categories: ['Mugs & Tumblers', 'Pens', 'Keychains', 'Water Bottles'],
+    // Events need high-visibility, portable items in bulk
+    recommendedCategories: ['drinkware', 'pens', 'keychains', 'bags-travel'],
+    productKeywords: ['mug', 'tumbler', 'bottle', 'pen', 'keychain', 'bag'],
     useCases: [
       'Tech conferences',
       'Trade shows & exhibitions',
@@ -138,7 +143,6 @@ const solutionConfigs = {
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80"
     },
     cta: 'Plan Your Event',
-    filterTags: ['event', 'conference', 'bulk'],
   },
   employee: {
     title: 'Employee Kits',
@@ -146,7 +150,6 @@ const solutionConfigs = {
     description: 'Build company culture and boost morale with thoughtfully curated employee kits. From onboarding welcome boxes to recognition awards, celebrate your team.',
     heroImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80',
     icon: Heart,
-    color: 'from-rose-500 to-pink-600',
     stats: [
       { value: '200+', label: 'Companies Trust Us' },
       { value: '50K+', label: 'Employees Gifted' },
@@ -159,7 +162,9 @@ const solutionConfigs = {
       { icon: Truck, title: 'Direct-to-Home Delivery', description: 'Ship kits directly to remote employees anywhere in India' },
       { icon: Shield, title: 'Consistent Quality', description: 'Same premium quality whether ordering 10 or 10,000 kits' },
     ],
-    categories: ['Notebooks & Diaries', 'Desktop Organizers', 'Mugs & Tumblers', 'Gift Sets'],
+    // Employee kits need practical daily-use items
+    recommendedCategories: ['gift-sets', 'diaries-notebooks', 'desktop-organizers', 'drinkware'],
+    productKeywords: ['gift set', 'diary', 'notebook', 'desktop', 'mug', 'bottle', 'organizer'],
     useCases: [
       'New hire welcome kits',
       'Work anniversary gifts',
@@ -175,7 +180,6 @@ const solutionConfigs = {
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
     },
     cta: 'Build Your Kit',
-    filterTags: ['employee', 'welcome', 'appreciation'],
   },
 };
 
@@ -187,11 +191,11 @@ const SolutionPage = () => {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1 flex items-center justify-center">
+        <main className="flex-1 flex items-center justify-center bg-background">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Solution Not Found</h1>
+            <h1 className="text-2xl font-bold mb-4 text-foreground">Solution Not Found</h1>
             <Link to="/">
-              <Button>Return Home</Button>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Return Home</Button>
             </Link>
           </div>
         </main>
@@ -200,10 +204,35 @@ const SolutionPage = () => {
     );
   }
 
-  // Filter products by relevant categories
-  const relevantProducts = products
-    .filter(p => config.categories.includes(p.category))
-    .slice(0, 8);
+  // Get recommended products based on categories and keywords
+  const getRecommendedProducts = () => {
+    const categoryProducts = products.filter(p => 
+      config.recommendedCategories.includes(p.category)
+    );
+    
+    // Sort by relevance - prioritize products with matching keywords
+    const scoredProducts = categoryProducts.map(product => {
+      let score = 0;
+      const productText = `${product.name} ${product.description} ${product.category}`.toLowerCase();
+      config.productKeywords.forEach(keyword => {
+        if (productText.includes(keyword.toLowerCase())) {
+          score += 1;
+        }
+      });
+      return { product, score };
+    });
+    
+    // Sort by score and take top 8
+    return scoredProducts
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map(item => item.product);
+  };
+
+  const relevantProducts = getRecommendedProducts();
+  const relevantCategories = categories.filter(cat => 
+    config.recommendedCategories.includes(cat.id)
+  );
 
   const IconComponent = config.icon;
 
@@ -212,16 +241,16 @@ const SolutionPage = () => {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Hero Section - Clean and peaceful */}
         <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-          {/* Background Image */}
+          {/* Background Image with consistent overlay */}
           <div className="absolute inset-0">
             <img 
               src={config.heroImage} 
               alt={config.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
+            <div className="absolute inset-0 bg-foreground/80" />
           </div>
 
           {/* Content */}
@@ -232,18 +261,18 @@ const SolutionPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Badge className={`bg-gradient-to-r ${config.color} text-white border-0 mb-6 px-4 py-2`}>
+                <Badge className="bg-primary text-primary-foreground border-0 mb-6 px-4 py-2">
                   <IconComponent className="w-4 h-4 mr-2" />
                   Business Solutions
                 </Badge>
                 
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-card mb-4">
                   {config.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-white/90 font-medium mb-4">
+                <p className="text-xl md:text-2xl text-card/90 font-medium mb-4">
                   {config.subtitle}
                 </p>
-                <p className="text-lg text-white/80 mb-8 leading-relaxed">
+                <p className="text-lg text-card/80 mb-8 leading-relaxed">
                   {config.description}
                 </p>
                 
@@ -251,7 +280,7 @@ const SolutionPage = () => {
                   <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">
                     {config.cta} <ArrowRight className="w-5 h-5" />
                   </Button>
-                  <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+                  <Button size="lg" variant="outline" className="bg-card/10 border-card/30 text-card hover:bg-card/20">
                     View Products
                   </Button>
                 </div>
@@ -284,7 +313,7 @@ const SolutionPage = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-20 bg-secondary">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -292,7 +321,7 @@ const SolutionPage = () => {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Us</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Why Choose Us</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 We understand your unique needs and deliver solutions tailored specifically for {config.title.toLowerCase()}
               </p>
@@ -308,12 +337,12 @@ const SolutionPage = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+                    className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-border"
                   >
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${config.color} flex items-center justify-center mb-4`}>
-                      <BenefitIcon className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <BenefitIcon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-foreground">{benefit.title}</h3>
                     <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </motion.div>
                 );
@@ -323,7 +352,7 @@ const SolutionPage = () => {
         </section>
 
         {/* Use Cases Section */}
-        <section className="py-20">
+        <section className="py-20 bg-card">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -331,7 +360,7 @@ const SolutionPage = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Perfect For</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">Perfect For</h2>
                 <p className="text-muted-foreground mb-8">
                   Our {config.title.toLowerCase()} solutions are designed for a wide range of business needs
                 </p>
@@ -357,11 +386,11 @@ const SolutionPage = () => {
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-card rounded-2xl p-8 shadow-lg border border-border"
+                className="bg-background rounded-2xl p-8 shadow-lg border border-border"
               >
                 <div className="flex gap-1 mb-6">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
                   ))}
                 </div>
                 <blockquote className="text-lg text-foreground mb-6 leading-relaxed">
@@ -371,7 +400,7 @@ const SolutionPage = () => {
                   <img 
                     src={config.testimonial.avatar} 
                     alt={config.testimonial.author}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
                   />
                   <div>
                     <div className="font-semibold text-foreground">{config.testimonial.author}</div>
@@ -384,7 +413,7 @@ const SolutionPage = () => {
         </section>
 
         {/* Recommended Products Section */}
-        <section className="py-20 bg-secondary">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -393,28 +422,43 @@ const SolutionPage = () => {
               className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
             >
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">Recommended Products</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">Recommended Products</h2>
                 <p className="text-muted-foreground">
                   Curated selection perfect for {config.title.toLowerCase()}
                 </p>
               </div>
-              <Link to={`/products?categories=${config.categories.join(',')}`}>
-                <Button variant="outline" className="gap-2">
+              <Link to="/products">
+                <Button variant="outline" className="gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   View All Products <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relevantProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
-              ))}
-            </div>
+            {relevantProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {relevantProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-card rounded-xl border border-border">
+                <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground">Products coming soon for this category</p>
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Categories Section */}
-        <section className="py-20">
+        {/* Shop by Category Section */}
+        <section className="py-20 bg-card">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -422,32 +466,37 @@ const SolutionPage = () => {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Shop by Category</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">Shop by Category</h2>
               <p className="text-muted-foreground">
-                Explore product categories most popular for {config.title.toLowerCase()}
+                Explore our recommended categories for {config.title.toLowerCase()}
               </p>
             </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {config.categories.map((category, index) => (
+              {relevantCategories.map((category, index) => (
                 <motion.div
-                  key={category}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  key={category.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
                   <Link 
-                    to={`/products?category=${encodeURIComponent(category)}`}
+                    to={`/products?category=${category.id}`}
                     className="block group"
                   >
-                    <div className="bg-card rounded-xl p-6 text-center hover:shadow-lg transition-all hover:-translate-y-1 border border-border">
-                      <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${config.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                        <Package className="w-8 h-8 text-white" />
+                    <div className="relative overflow-hidden rounded-xl aspect-square bg-background border border-border">
+                      <img 
+                        src={category.image} 
+                        alt={category.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-foreground/40 group-hover:bg-foreground/50 transition-colors" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <h3 className="text-card font-semibold text-lg text-center px-4">
+                          {category.name}
+                        </h3>
                       </div>
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {category}
-                      </h3>
                     </div>
                   </Link>
                 </motion.div>
@@ -457,26 +506,30 @@ const SolutionPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className={`py-20 bg-gradient-to-r ${config.color}`}>
-          <div className="container mx-auto px-4 text-center">
+        <section className="py-20 bg-foreground">
+          <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-card">
                 Ready to Get Started?
               </h2>
-              <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-                Contact our team to discuss your requirements and get a customized quote for your {config.title.toLowerCase()} needs.
+              <p className="text-card/80 mb-8 text-lg">
+                Let us help you create the perfect branded merchandise for your {config.title.toLowerCase()} needs.
+                Get a custom quote today!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-white text-foreground hover:bg-white/90 gap-2">
-                  Get Free Quote <ArrowRight className="w-5 h-5" />
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">
+                  Get a Free Quote <ArrowRight className="w-5 h-5" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  Call: +91 98765 43210
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" variant="outline" className="border-card/30 text-card hover:bg-card/10">
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
