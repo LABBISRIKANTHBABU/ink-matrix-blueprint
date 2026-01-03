@@ -50,7 +50,7 @@ const FeaturedProducts = ({
               <p className="text-muted-foreground">{subtitle}</p>
             )}
           </div>
-          <Link to={category ? `/category/${category}` : '/products'}>
+          <Link to={category ? `/products?category=${category}` : '/products'}>
             <Button variant="outline" className="gap-2">
               View All <ArrowRight className="h-4 w-4" />
             </Button>

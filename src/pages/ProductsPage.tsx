@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Filter, Grid, List, SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { Filter, Grid, List, SlidersHorizontal, ChevronDown, ChevronUp, Search, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ProductCard from '@/components/products/ProductCard';
@@ -12,28 +13,76 @@ import { motion } from 'framer-motion';
 
 const ProductsPage = () => {
   const { categoryId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [sortBy, setSortBy] = useState('featured');
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    categoryId ? [categoryId] : []
-  );
-  const [priceRange, setPriceRange] = useState<string>('all');
+
+  // Derive state directly from URL query params (Single Source of Truth)
+  const searchQuery = searchParams.get('search') || '';
+  const selectedCategories = (() => {
+    const urlCats = searchParams.getAll('category');
+    // If we have categoryId param from route /category/:id, use it if no query param exists
+    if (urlCats.length === 0 && categoryId) return [categoryId];
+    return urlCats;
+  })();
+  const selectedSubcategories = searchParams.getAll('subcategory');
+  const selectedMaterials = searchParams.getAll('material');
+  const priceRange = searchParams.get('price') || 'all';
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
+    subcategories: true,
+    materials: true,
     price: true,
     availability: true,
   });
 
+  // Extract all unique filters from *filtered* products or *all* products?
+  // Usually from all products context to show available options, OR filtered context.
+  // Let's use all products to generate the lists but filter them based on selection.
+  const allSubcategories = Array.from(new Set(products.map(p => p.subcategory).filter(Boolean)));
+  // Extract materials - comma separated
+  const allMaterials = Array.from(new Set(
+    products.flatMap(p => p.materials ? p.materials.split(',').map(m => m.trim()) : [])
+      .filter(m => m && m.length < 20 && !m.includes('/')) // content filter for noise
+  )).sort();
+
   const category = categoryId ? categories.find((c) => c.id === categoryId) : null;
 
   let filteredProducts = [...products];
+
+  // Filter by search query
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    filteredProducts = filteredProducts.filter((p) =>
+      p.name.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query) ||
+      (p.sku && p.sku.toLowerCase().includes(query))
+    );
+  }
 
   // Filter by category
   if (selectedCategories.length > 0) {
     filteredProducts = filteredProducts.filter((p) =>
       selectedCategories.includes(p.category)
     );
+  }
+
+  // Filter by subcategory
+  if (selectedSubcategories.length > 0) {
+    filteredProducts = filteredProducts.filter((p) =>
+      selectedSubcategories.includes(p.subcategory)
+    );
+  }
+
+  // Filter by material
+  if (selectedMaterials.length > 0) {
+    filteredProducts = filteredProducts.filter((p) => {
+      if (!p.materials) return false;
+      const pMats = p.materials.split(',').map(m => m.trim());
+      return selectedMaterials.some(m => pMats.includes(m));
+    });
   }
 
   // Filter by price
@@ -62,10 +111,34 @@ const ProductsPage = () => {
       filteredProducts.sort((a, b) => (b.badge === 'bestseller' ? 1 : 0) - (a.badge === 'bestseller' ? 1 : 0));
   }
 
+  // Helper to update URL params
+  const updateFilterParam = (key: string, value: string) => {
+    const current = searchParams.getAll(key);
+    let newValues;
+    if (current.includes(value)) {
+      newValues = current.filter(v => v !== value);
+    } else {
+      newValues = [...current, value];
+    }
+
+    // Create new params object
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete(key);
+    newValues.forEach(v => newParams.append(key, v));
+
+    setSearchParams(newParams, { replace: true });
+  };
+
   const toggleCategory = (catId: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(catId) ? prev.filter((c) => c !== catId) : [...prev, catId]
-    );
+    updateFilterParam('category', catId);
+  };
+
+  const toggleSubcategory = (subcat: string) => {
+    updateFilterParam('subcategory', subcat);
+  };
+
+  const toggleMaterial = (mat: string) => {
+    updateFilterParam('material', mat);
   };
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -127,9 +200,8 @@ const ProductsPage = () => {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Filters Sidebar */}
             <aside
-              className={`lg:w-60 flex-shrink-0 ${
-                showFilters ? 'block' : 'hidden lg:block'
-              }`}
+              className={`lg:w-60 flex-shrink-0 ${showFilters ? 'block' : 'hidden lg:block'
+                }`}
             >
               <div className="bg-card rounded-lg border border-border p-5 sticky top-24 shadow-sm">
                 <h3 className="font-bold text-foreground text-base mb-4 flex items-center gap-2 pb-3 border-b border-border">
@@ -157,6 +229,58 @@ const ProductsPage = () => {
                   </div>
                 </FilterSection>
 
+                {/* Subcategories (Dynamic based on selected categories) */}
+                {(selectedCategories.length > 0 || searchQuery) && (
+                  <FilterSection title="Subcategory" sectionKey="subcategories">
+                    <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                      {/* Filter subcategories based on selected categories only */}
+                      {Array.from(new Set(
+                        products
+                          .filter(p => selectedCategories.length === 0 || selectedCategories.includes(p.category))
+                          .map(p => p.subcategory)
+                          .filter(Boolean)
+                      )).sort().map((subcat) => (
+                        <label
+                          key={subcat}
+                          className="flex items-center gap-2.5 text-sm cursor-pointer group"
+                        >
+                          <Checkbox
+                            checked={selectedSubcategories.includes(subcat)}
+                            onCheckedChange={() => toggleSubcategory(subcat)}
+                            className="rounded-sm"
+                          />
+                          <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                            {subcat}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </FilterSection>
+                )}
+
+                {/* Materials Filter */}
+                {allMaterials.length > 0 && (
+                  <FilterSection title="Material" sectionKey="materials">
+                    <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                      {allMaterials.map((mat) => (
+                        <label
+                          key={mat}
+                          className="flex items-center gap-2.5 text-sm cursor-pointer group"
+                        >
+                          <Checkbox
+                            checked={selectedMaterials.includes(mat)}
+                            onCheckedChange={() => toggleMaterial(mat)}
+                            className="rounded-sm"
+                          />
+                          <span className="text-muted-foreground group-hover:text-foreground transition-colors">
+                            {mat}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </FilterSection>
+                )}
+
                 {/* Price Range */}
                 <FilterSection title="Price Range" sectionKey="price">
                   <div className="space-y-2">
@@ -173,7 +297,15 @@ const ProductsPage = () => {
                       >
                         <Checkbox
                           checked={priceRange === option.value}
-                          onCheckedChange={() => setPriceRange(option.value)}
+                          onCheckedChange={() => {
+                            const newParams = new URLSearchParams(searchParams);
+                            if (priceRange === option.value) {
+                              newParams.delete('price'); // toggle off
+                            } else {
+                              newParams.set('price', option.value);
+                            }
+                            setSearchParams(newParams, { replace: true });
+                          }}
                           className="rounded-full"
                         />
                         <span className="text-muted-foreground group-hover:text-foreground transition-colors">
@@ -208,8 +340,7 @@ const ProductsPage = () => {
                   size="sm"
                   className="w-full mt-4"
                   onClick={() => {
-                    setSelectedCategories([]);
-                    setPriceRange('all');
+                    setSearchParams(new URLSearchParams(), { replace: true });
                   }}
                 >
                   Clear All Filters
@@ -231,9 +362,40 @@ const ProductsPage = () => {
                   Filters
                 </Button>
 
-                <p className="text-sm text-muted-foreground hidden sm:block">
+                <p className="text-sm text-muted-foreground hidden lg:block">
                   Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> results
                 </p>
+
+                {/* Search Bar */}
+                <div className="flex-1 max-w-sm relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search products..."
+                    className="pl-9 h-9"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      const newParams = new URLSearchParams(searchParams);
+                      if (e.target.value) {
+                        newParams.set('search', e.target.value);
+                      } else {
+                        newParams.delete('search');
+                      }
+                      setSearchParams(newParams, { replace: true });
+                    }}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => {
+                        const newParams = new URLSearchParams(searchParams);
+                        newParams.delete('search');
+                        setSearchParams(newParams, { replace: true });
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  )}
+                </div>
 
                 <div className="flex items-center gap-3 ml-auto">
                   {/* View Mode */}
@@ -293,8 +455,7 @@ const ProductsPage = () => {
                   <Button
                     variant="outline"
                     onClick={() => {
-                      setSelectedCategories([]);
-                      setPriceRange('all');
+                      setSearchParams(new URLSearchParams(), { replace: true });
                     }}
                   >
                     Clear All Filters

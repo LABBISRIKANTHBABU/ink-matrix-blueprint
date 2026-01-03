@@ -1,0 +1,280 @@
+SKU / Product Code,Product Name,Category,Key Description / Components,Material / Color Options,Specifications / Size / Details,Design Features / Unique Selling Points
+XG-001,3-in-1 Gift Set,Gift Set,"Brown Kit, Black Kit, Designer Bag","Brown, Black",Includes bag + kits,Multi-use, premium packaging
+XG-002,3-in-1 Gift Set,Gift Set,"Blue Kit, Gray Kit, Designer Bag","Blue, Gray",Includes bag + kits,Modern color combo, functional
+XG-003,3-in-1 Gift Set,Gift Set,"Wooden Kit, Designer Bag",Wooden,Includes bag + wooden kit,Eco-friendly, natural finish
+XG-004,3-in-1 Gift Set,Gift Set,"Black Kit, White Kit, Designer Bag","Black, White",Includes bag + kits,Classic monochrome style
+XG-005,3-in-1 Gift Set,Gift Set,"White Kit, Designer Bag",White,Includes bag + kit,Minimalist, clean look
+XG-006,3-in-1 Gift Set,Gift Set,"White Kit, Black Kit, Designer Bag","White, Black",Includes bag + kits,Contrast design, versatile
+XG-007,3-in-1 Gift Set,Gift Set,"Gray Kit, Designer Bag",Gray,Includes bag + kit,Neutral, professional
+XG-008,4-in-1 Gift Set,Gift Set,"Designer Bag, Wooden Kit",Wooden,Bag + wooden accessories,Sustainable, corporate gifting
+XG-009,4-in-1 Gift Set,Gift Set,"Blue Kit, Gray Kit, Designer Bag","Blue, Gray",Bag + multi-kit set,Coordinated colors, premium feel
+XG-010,4-in-1 Gift Set,Gift Set,Designer Bag,–,Bag only,Sleek, logo-ready
+XG-011,4-in-1 Gift Set,Gift Set,"White Kit x2, Designer Bag",White,Bag + dual kits,Matching set, ideal for pairs
+XG-012,4-in-1 Gift Set,Gift Set,"Gray Kit, Designer Bag",Gray,Bag + kit,Understated elegance
+XG-013,4-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable contents
+XG-014,4-in-1 Gift Set,Gift Set,–,–,Details vary,Flexible gifting option
+XG-015,5-in-1 Gift Set,Gift Set,"White Kit, Red Kit, Black Kit","White, Red, Black",Multi-kit bundle,Bold color mix, complete set
+XG-016,5-in-1 Gift Set,Gift Set,"Gray Kit, Black Kit","Gray, Black",Multi-kit bundle,Modern, sophisticated
+XG-017,5-in-1 Gift Set,Gift Set,"Blue Kit, Black Kit","Blue, Black",Multi-kit bundle,Corporate colors, versatile
+XG-018,5-in-1 Gift Set,Gift Set,"Black Kit, Blue Kit","Black, Blue",Multi-kit bundle,Gender-neutral, sleek
+XG-019,5-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-020,5-in-1 Gift Set,Gift Set,White Kit,White,Multi-kit bundle,Clean, premium look
+XG-021,5-in-1 Gift Set,Gift Set,"Blue Kit, Green Kit","Blue, Green",Multi-kit bundle,Fresh, vibrant colors
+XG-022,5-in-1 Gift Set,Gift Set,"Orange Kit, White Kit","Orange, White",Multi-kit bundle,Energetic, youthful
+XG-023,5-in-1 Gift Set,Gift Set,"Black Kit, Red Kit","Black, Red",Multi-kit bundle,Bold, striking contrast
+XG-024,5-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-025,5-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-026,5-in-1 Gift Set,Gift Set,"Wooden Kit, Box Packing",Wooden,Wooden accessories in box,Eco-friendly, premium unboxing
+XG-027,5-in-1 Gift Set,Gift Set,Designer Bag,–,Bag only,Designer look, logo-ready
+XG-028,5-in-1 Gift Set,Gift Set,Designer Bag (Top View),–,Bag with top-view design,Ergonomic, stylish
+XG-029,6-in-1 Gift Set,Gift Set,"Blue Kit, White Kit","Blue, White",Multi-kit bundle,Crisp, corporate-friendly
+XG-030,6-in-1 Gift Set,Gift Set,"Black Kit, Blue Kit","Black, Blue",Multi-kit bundle,Versatile, modern
+XG-031,6-in-1 Gift Set,Gift Set,"White Kit, Red Kit","White, Red",Multi-kit bundle,Bold yet clean
+XG-032,6-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-033,6-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-034,6-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-035,6-in-1 Gift Set,Gift Set,–,–,Details vary,Customizable
+XG-036,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-037,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-038,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-039,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-040,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-041,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-042,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-043,7-in-1 Gift Set,Gift Set,Designer Bag (Top & Inside View),–,Bag with multiple compartments,Organized, spacious, travel-ready
+XG-GS-245,2-in-1 Gift Set,Gift Set,"Insulated Coffee Mug, Solid Case Umbrella",Multiple,Mug + umbrella set,Travel-ready, dual-purpose
+XG-GS-246,4-in-1 Gift Set,Gift Set,"Borosilicate glass bottle (600ml), Borosilicate glass mug (500ml), Vegan leather diary, Metal pen",Multiple,Complete desk set,Eco-friendly, elegant, functional
+XG-GS-247,2-in-1 Gift Set,Gift Set,"Bamboo mug (350ml), Black matte insulated bottle (500ml)",–,Mug + bottle set,Sustainable, leak-proof, stylish
+XG-GS-248,2-in-1 Gift Set,Gift Set,"Vacuum insulated stainless steel bottle (500ml), White ceramic mug (200ml), Rope keychain hook",–,Bottle + mug + keychain,Spill-resistant, travel-friendly
+XG-GS-249,2-in-1 Gift Set,Gift Set,"Vacuum insulated stainless steel bottle (500ml), Matte black ceramic mug (200ml), Rope keychain hook",–,Bottle + mug + keychain,Sleek, minimalist, premium packaging
+XG-GS-250,2-in-1 Gift Set,Gift Set,"Matte white vacuum bottle (500ml), Stainless steel travel mug (350ml)",Black & White,Bottle + mug set,Modern black & white design, ergonomic handle
+XG-GS-251,2-in-1 Gift Set,Gift Set,"Matte white insulated bottle (500ml), White ceramic mug (350ml)",White,Bottle + mug set,Clean white design, cork base, sip lid
+XG-GS-252,2-in-1 Gift Set,Gift Set,"Glass water bottle (500ml), Clear glass mug (350ml)",Natural tones,Glass set with cork accents,Eco-conscious, barista-friendly, sustainable
+XG-GS-253,2-in-1 Gift Set,Gift Set,"Borosilicate glass tumbler (350ml), Borosilicate glass bottle (500ml)",Multiple,Glass set with bamboo straw/lid,Heat-resistant, reusable, eco-friendly
+XG-GS-254,3-in-1 Gift Set,Gift Set,"Leather card holder, Keychain, Metal pen",Brown,Compact gift set,Multi-function keychain (bottle opener, loop)
+XG-GS-255,3-in-1 Gift Set,Gift Set,"Leather card holder, Keychain, Metal pen",White,Compact gift set,Multi-function keychain (bottle opener, loop)
+XG-GS-256,3-in-1 Gift Set,Gift Set,"Leather card holder, Keychain, Metal pen",Black,Compact gift set,2-in-1 keychain (key holder + loop)
+XG-GS-257,3-in-1 Gift Set,Gift Set,"Bamboo leather card holder, Bamboo wood alloy keychain",–,Eco-friendly set,Bamboo material, sustainable
+XG-GS-258,3-in-1 Gift Set,Gift Set,"Metal pen, Bamboo leather card holder, Bamboo rectangle keychain",–,Eco-friendly set,Bamboo and metal combo
+XG-GS-259,3-in-1 Gift Set,Gift Set,"Metal pen, Sky blue leather card holder, Keychain",Sky Blue,Colorful gift set,Multi-function keychain (bottle opener)
+XG-GS-260,3-in-1 Gift Set,Gift Set,"Metal pen, Black leather card holder, Premium rectangle keychain",Black,Premium set,Leather-metal keychain, sleek design
+XG-GS-261,3-in-1 Gift Set,Gift Set,"Metal pen, Stainless steel leather card holder, Flat keychain",–,Metal-focused set,Stainless steel, modern flat shape
+XG-GS-262,3-in-1 Gift Set,Gift Set,"Metal pen, Black leather card holder, Metal hook keychain",Black,Functional set,Faux leather loop, hook design
+XG-GS-263,3-in-1 Gift Set,Gift Set,"Metal pen, Brown leather card holder, Premium rectangle keychain",Brown,Premium set,Leather-metal keychain, classic look
+XG-GS-264,3-in-1 Gift Set,Gift Set,"Metal pen, Gray leather card holder, Keychain",Gray,Neutral set,Multi-function keychain (bottle opener)
+XG-GS-265,3-in-1 Gift Set,Gift Set,"Metal pen, Red leather card holder, Keychain",Red,Bold set,Multi-function keychain (bottle opener)
+XG-GS-266,3-in-1 Gift Set,Gift Set,"Metal pen, Cork PU leather card holder, Keychain",Cork,Eco-friendly set,Cork material, sustainable
+XG-GS-267,2-in-1 Gift Set,Gift Set,"Sleek black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-268,2-in-1 Gift Set,Gift Set,"Brown vegan leather notebook, Metal pen",Brown,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-269,2-in-1 Gift Set,Gift Set,"Sleek black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, minimalist
+XG-GS-270,2-in-1 Gift Set,Gift Set,"Bamboo PU vegan leather notebook, Metal pen",Bamboo,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-271,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-272,2-in-1 Gift Set,Gift Set,"Gray vegan leather notebook, Metal pen",Gray,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-273,2-in-1 Gift Set,Gift Set,"Dark brown vegan leather notebook, Metal pen",Dark Brown,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-274,2-in-1 Gift Set,Gift Set,"Olive green vegan leather notebook, Metal pen",Olive Green,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-275,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-276,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-277,2-in-1 Gift Set,Gift Set,"Brown vegan leather notebook, Metal pen",Brown,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-278,2-in-1 Gift Set,Gift Set,"Sky blue vegan leather notebook, Metal pen",Sky Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-279,2-in-1 Gift Set,Gift Set,"Blue vegan leather notebook, Metal pen",Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-280,2-in-1 Gift Set,Gift Set,"Cork PU vegan leather notebook, Eco ball pen",Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-281,2-in-1 Gift Set,Gift Set,"Blue vegan leather notebook, Metal pen",Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-282,2-in-1 Gift Set,Gift Set,"Gray vegan leather notebook, Metal pen",Gray,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-283,2-in-1 Gift Set,Gift Set,"Gray vegan leather notebook, Metal pen",Gray,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-284,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-285,2-in-1 Gift Set,Gift Set,"Blue vegan leather notebook, Metal pen",Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-286,2-in-1 Gift Set,Gift Set,"Green vegan leather notebook, Metal pen",Green,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-287,2-in-1 Gift Set,Gift Set,"Brown vegan leather notebook, Metal pen",Brown,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-288,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-289,2-in-1 Gift Set,Gift Set,"Gray vegan leather notebook, Metal pen",Gray,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-290,2-in-1 Gift Set,Gift Set,"Blue vegan leather notebook, Metal pen",Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-291,2-in-1 Gift Set,Gift Set,"Gray vegan leather notebook, Metal pen",Gray,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-292,2-in-1 Gift Set,Gift Set,"Blue vegan leather notebook, Metal pen",Blue,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-293,2-in-1 Gift Set,Gift Set,"Brown vegan leather notebook, Metal pen",Brown,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-294,2-in-1 Gift Set,Gift Set,"Black vegan leather notebook, Metal pen",Black,Notebook + pen set,A5 size, 200 pages, logo-ready
+XG-GS-295,2-in-1 Gift Set,Gift Set,"Red cork PU vegan leather notebook, Eco ball pen",Red Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-296,2-in-1 Gift Set,Gift Set,"White cork PU vegan leather notebook, Eco ball pen",White Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-297,2-in-1 Gift Set,Gift Set,"Dark blue cork PU vegan leather notebook, Eco ball pen",Dark Blue Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-298,2-in-1 Gift Set,Gift Set,"Brown cork PU vegan leather notebook, Eco ball pen",Brown Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-GS-299,2-in-1 Gift Set,Gift Set,"Black cork PU vegan leather notebook, Eco ball pen",Black Cork,Notebook + pen set,A5 size, 200 pages, eco-friendly
+XG-MP-01,Aluminum Metal Ball Pen,Pen,Metal ball pen with signature design,"Blue, White, Red, Gun Metal",13.2 × 1.1 cm,Sleek aluminum body, professional look
+XG-MP-02,Bamboo Grip Ball Pen,Pen,Eco stylus ball pen with bamboo grip,"Blue, Red, Black",14.8 × 2 × 2 cm,Natural bamboo grip, integrated stylus tip
+XG-MP-03,Rubber Coated Metal Ball Pen,Pen,Metal pen with rubber coating and stylus tip,"Blue, Red, Black",14.8 × 2 × 2 cm,Comfort grip, dual-function stylus
+XG-MP-04,Captain Metal Ball Pen,Pen,Metal ball pen with stylus tip,"Red, Black",14.8 × 2 × 2 cm,Sleek design, stylus functionality
+XG-MP-05,2-in-1 Phone Metal Ball Pen,Pen,Sublimation printing pen with flat angular tip,"Blue, Black, Red",14 × 2 × 2 cm,Phone-compatible, angular tip for precision
+XG-MP-06,Luxury Gold Accents Rollerball Pen,Pen,Premium glossy metal body with gold-plated clip,"Black, Blue",14 × 1.2 × 1.2 cm,Twist-off cap, smooth rollerball writing
+XG-MP-07,Bell Metal Ball Pen,Pen,Glossy metal body with silver-plated clip,"Dark Brown, Gray, Blue, White, Black",14 × 1.2 × 1.2 cm,Secure fit cap, premium finish
+XG-MP-08,T-Shock Metallic Click Pen,Pen,Click metal ball pen with metallic finish,"Green, Silver, Red, Blue",15 × 10 × 3 cm,Vibrant finishes, click mechanism
+XG-MP-09,2-Ring Luxury Silver Accents Pen,Pen,Metal body with stainless steel clip, matte finish,"Blue, Red, Black",14 × 1.4 × 1.4 cm,A+ stainless steel nib, smooth writing
+XG-MP-10,Proton Click Metal Ball Pen,Pen,Sleek matte black body, click-action mechanism,"Blue, Red, Orange",14.8 × 2 × 2 cm,Effortless click, sophisticated feel
+XG-MP-11,The Omni-Stylus Executive Pen,Pen,Integrated stylus tip for touchscreens,"Blue, Red, White",14 × 3 × 3 cm,Responsive stylus, ergonomic shape
+XG-MP-12,Indigo Metal Ball Pen,Pen,Premium matte black body, arrow-shaped clip,"Black, Silver, Rose Gold, Gold",14 × 3 × 3 cm,Classic design, fluid writing
+XG-MP-13,Forge Bamboo Pen,Pen,Eco-friendly bamboo body, silver clip,Natural Bamboo,14 × 1.4 × 1.4 cm,Sustainable, natural texture
+XG-MP-14,Eco-Friendly Bamboo Ring Pen,Pen,Bamboo body with modern clip and rings,Natural Bamboo,14 × 1.4 × 1.4 cm,Mid-barrel rings, sustainable material
+XG-MP-15,Bamboo Pen with Stylus Tip,Pen,Bamboo body with integrated stylus tip,Natural Bamboo,14 × 1.4 × 1.4 cm,Touchscreen navigation, smooth ballpoint
+XG-MP-16,Eco-Cork Ballpoint Pen,Pen,Cork body with white accents,Cork,14 × 1.2 × 1.2 cm,Textured grip, sustainable cork
+XG-MP-17,The Black & Metallic Signature Pen,Pen,Black barrel with rose gold/copper accents,Black with Rose Gold/Copper,14 × 1.2 × 1.2 cm,Matching clip and tip, premium look
+XG-MP-18,Nova Rollerball Metal Pen,Pen,Glossy black body with gold accents,Black with Gold,14 × 2 × 2 cm,Polished gold cap and clip, timeless design
+XG-MP-19,Moonlight Magic Rollerball Pen,Pen,Brushed silver body with gold accents,Silver with Gold,14 × 2 × 2 cm,Arrow-like clip design, contrasting black tip
+XG-MP-20,Elegant Gold Rollerball Pen,Pen,Brushed gold body with black cap and tip,Gold with Black,14 × 2 × 2 cm,Bold contrast, luxurious feel
+XG-MP-21,Luxurious All Gold Rollerball Pen,Pen,Uniform polished gold barrel and cap,All Gold,14 × 2 × 2 cm,Prestigious look, subtle black tip
+XG-MP-22,Vibrant Stylus Slim Metal Pen,Pen,Slim metal pen with stylus functionality,"Dark Blue, Red, Black, Purple, Sky Blue",14 × 1.0 × 1.0 cm,Vibrant colors, dual-function for writing and touchscreens
+XG-MP-23,Wild Rose Metal Ballpoint Pen,Pen,Sleek matte black or glossy blue body,"Black, Blue",14 × 2 × 2 cm,Integrated curved clip, ergonomic feel
+XG-MP-24,Opal Aura Metal Ball Pen,Pen,Chrome cap with textured orange grip,Orange with Chrome,14 × 2 × 2 cm,Non-slip grip, stylish and functional
+XG-MP-25,Golden Glow Metal Ball Pen,Pen,Metal body with chrome cap and gold detailing,Gold with Orange Checkered Grip,14 × 2 × 2 cm,Modern textured lower barrel
+XG-MP-26,Arrow Metal Ball Pen,Pen,Matte black body with polished gold detailing,Black with Gold,14 × 2 × 2 cm,Smooth finish, refined writing experience
+XG-MP-27,Classic Metal Ball Pen,Pen,Black lacquered body with chrome cap and clip,Black with Chrome,14 × 2 × 2 cm,High-gloss finish, professional look
+XG-MP-28,Bliss Metallic Ballpoint Pen,Pen,Metallic finishes in rose gold or silver,"Silver, Rose Gold",14 × 1.2 × 1.2 cm,Smooth upper barrel, elegant clip
+XG-MP-29,Loop Metal Ball Pen,Pen,Matte finish barrel in stylish colors,"Orange, Blue, Red, Black",14 × 2 × 2 cm,Contemporary non-glossy look
+XG-MP-30,Velvet Wine Metal Ballpoint Pen,Pen,Smooth barrel in striking colors with arrow clip,"Blue, Black, Red",14 × 2 × 2 cm,Ergonomic design, fluid writing
+XG-MP-31,Avenue Metal Ballpoint Pen,Pen,Vibrant color barrels with metallic upper,"Orange, Gray, Brown, Black, White, Blue, Red",14 × 1.1 × 1.1 cm,Sleek metallic upper, diverse color range
+XG-MP-32,Elegant Matte Metallic Ballpoint Pen,Pen,Sophisticated matte finish in metallic shades,"Black, Copper",14 × 1.2 × 1.2 cm,Polished clip, contemporary barrel
+XG-MP-33,Terra Metal Ball Pen,Pen,Modern matte black finish with polished accents,Matte Black,14 × 1.2 × 1.2 cm,Streamlined design, fluid writing
+XG-MP-34,Unique Gold Executive Rollerball Pen,Pen,Uniform polished gold barrel and cap,Gold,14 × 3 × 3 cm,Stylized gold clip, prestigious look
+XG-MP-35,Unique Black Executive Rollerball Pen,Pen,Matte black barrel and cap with gold accents,Black with Gold,14 × 3 × 3 cm,Modern elegance, smooth rollerball experience
+XG-MP-36,Tracker Magnetic Rollerball Pen,Pen,Matte black barrel with textured grip,Matte Black,14 × 1.5 × 1.5 cm,Unique clip design, fluid writing
+XG-MP-37,Dazzling Crystal Metallic Ballpoint Pen,Pen,Transparent upper barrel with shimmering crystals,"Red, Black",14 × 2 × 2 cm,Sparkling visual effect, polished silver accents
+XG-MP-38,Olive Matte Leather Finish Pen,Pen,Polished silver cap with matte leather grip,"Black, Tan",14 × 2 × 2 cm,Comfortable grip, modern aesthetic
+XG-MP-39,Max Soft Touch Stylus Ball Pen,Pen,Glossy barrel with integrated stylus tip,"Glossy Black, Glossy White",14 × 1.2 × 1.2 cm,Polished silver accents, dual-function
+XG-MP-40,Prism Black Gold Rollerball Pen,Pen,Glossy black cap with gold accents, textured barrel,Black with Gold,14 × 2 × 2 cm,Classic design, premium feel
+XG-MP-41,Vivid Metal Ball Pen,Pen,Matte black barrel with vibrant orange details,Black with Orange,14 × 1.1 × 1.1 cm,Unique clip design, understated look
+XG-MP-42,Paris Gold Metal Ball Pen,Pen,Polished gold upper barrel and cap,Gold with Silver Accent,14 × 1.2 × 1.2 cm,Textured grip, sophisticated finish
+XG-MP-43,Moon Silver Metal Ball Pen,Pen,High-shine chrome/silver body,Chrome/Silver,14 × 1.2 × 1.2 cm,Clean silhouette, integrated clip
+XG-MP-44,Tulip Metal Ball Pen,Pen,Matte black barrel and cap with silver accents,Matte Black with Silver,14 × 1.5 × 1.5 cm,Streamlined design, contemporary look
+XG-MP-45,Topaz Metal Ball Pen,Pen,Two-tone blue with textured finish,"Dark Blue, Light Blue",14 × 1.5 × 1.5 cm,Dynamic contrast, polished silver accents
+XG-MP-46,Sleek Black Stylus Pen Gold Accents,Pen,Glossy black body with gold accents and stylus tip,Black with Gold,14 × 1.0 × 1.0 cm,Integrated stylus, dual functionality
+XG-MP-47,Classic Two Tone Ballpoint Pen Duo,Pen,Crisp white or glossy black with silver accents,"White, Black",14 × 1.3 × 1.3 cm,Streamlined design, versatile style
+XG-MP-48,Bold Metal Ballpoint Pen,Pen,Black barrel with etched grid pattern,Black,14 × 2 × 2 cm,Distinctive grid pattern, refined sheen
+XG-MP-49,Grace Metal Ballpoint Pen,Pen,Clean white barrel and cap with silver accents,White with Silver,14 × 1.1 × 1.1 cm,Pristine modern aesthetic
+XG-MP-50,Candy Metal Ballpoint Pen,Pen,Matte black barrel and cap with gold accents,Black with Gold,14 × 1.0 × 1.0 cm,Sleek design, modern elegance
+XG-MP-51,Gold Flake Luxurious Metal Pen,Pen,Transparent upper barrel with gold flakes,Gold Flake with Black Barrel,14 × 2 × 2 cm,Unique visual effect, luxurious feel
+XG-MP-52,Cork Valley Ballpoint Pen,Pen,Natural cork grip with dark grey/black barrel,Cork with Dark Grey/Black,14 × 1.2 × 1.2 cm,Sustainable cork grip, eco-conscious
+XG-MP-53,Cork Eden Metal Ballpoint Pen,Pen,Cork grip with matte dark grey metal barrel,Cork with Dark Grey Metal,14 × 1.2 × 1.2 cm,Durable metal barrel, eco-friendly
+XG-MP-54,Cork Touchy Stylus Ballpoint Pen,Pen,Cork lower barrel with integrated stylus tip,Cork with Matte Black,14 × 1.1 × 1.1 cm,Modern metallic accents, eco-conscious grip
+XG-MP-55,Eco Roots Stylus Metallic Accents Pen,Pen,Light-colored cork body with metallic accents,Cork with Metallic,14 × 1.1 × 1.1 cm,Sustainable, unique aesthetic
+XG-MP-56,Twitter Rubber Grip Ball Pen,Pen,Rubberized matte black body with bamboo top,Black with Bamboo Top,14 × 1.1 × 1.1 cm,Enhanced grip, natural wood/bamboo top
+XG-MP-57,Crafto Silver Accents Ball Pen,Pen,Matte finish barrel with chrome clip and trim,"Red, Dark Blue, Orange, Black, Blue, Gray",14 × 1.4 × 1.4 cm,Professional look, polished silver accents
+XG-MP-58,Timbera Bamboo with Chrome Finish,Pen,Bamboo matte finish barrel with chrome clip,Natural Bamboo with Chrome,14 × 1.4 × 1.4 cm,Multi-tool: ball pen, ruler, level, stylus, screwdriver
+XG-M01,Double-Walled Insulated Travel Mug,Mug,Stainless steel travel mug with handle and spill-proof lid,Multiple,350 ml, 105 mm height, 85 mm diameter,Insulated, leak-proof, travel-ready
+XG-M02,Double-Walled Travel Mug with Anti-Slip Base,Mug,Stainless steel mug with handle and anti-slip base,Multiple,350 ml, 85 mm diameter,Secure grip, no-slip base
+XG-M03,304 Vacuum Insulated Mug with Transparent Lid,Mug,Double-walled stainless steel vacuum mug with clear lid,Multiple,500 ml, 175 mm height, 65 mm diameter,Vacuum insulation, transparent lid
+XG-M04,Eco-Friendly Bamboo & Stainless Steel Mug,Mug,Bamboo and stainless steel insulated mug with wooden handle,Multiple,350 ml, 110 mm height, 80 mm diameter,Sustainable materials, wooden handle
+XG-M05,Double-Walled Stainless Steel Insulated Mug,Mug,Stainless steel mug with handle and spill-proof lid,Multiple,350 ml, 100 mm diameter,Durable, insulated, spill-proof
+XG-M06,Eco Bamboo & 304 Stainless Steel Travel Tumbler,Mug,Bamboo exterior with stainless steel interior, slide lid,Multiple,450 ml, 170 mm height, 85 mm diameter,Natural bamboo, double-walled
+XG-M07,Natural Bamboo & 304 Stainless Steel Tumbler,Mug,Bamboo exterior, stainless steel interior, leak-proof lid,Multiple,450 ml, 175 mm height, 80 mm diameter,Eco bamboo exterior, leak-proof
+XG-M08,Wheat Fibre Eco-Friendly Mug,Mug,Single-wall wheat fiber mug, anti-bacterial, BPA-free,Multiple,450 ml, 140 mm height, 80 mm diameter,Sustainable, anti-bacterial, food-grade
+XG-M09,Matte Finish Double-Walled Insulated Mug,Mug,Matte finish stainless steel mug with transparent lid,Multiple,350 ml, 105 mm height, 85 mm diameter,Matte exterior, modern look
+XG-M10,Eco Wheat Fiber Reusable Travel Mug,Mug,Wheat fiber mug with flip lid, BPA-free plastic,Multiple,350 ml, 130 mm height,Eco-friendly, leak-proof
+XG-M11,Double-Walled Stainless Steel Travel Mug with Push-Lock Lid,Mug,Thermos coffee mug with lock system,Multiple,450 ml, 130 mm height,Locking lid, secure seal
+XG-M12,Double-Walled 304 Stainless Steel Self-Stirring Coffee Mug,Mug,Self-stirring mug with handle and silicone cup lid,Multiple,400 ml, 120 mm height, 90 mm diameter,Built-in stirrer, food-grade stainless steel
+XG-M13,Double-Wall 304 Stainless Travel Mug,Mug,Spill-resistant lid, ergonomic handle,Multiple,450 ml, 150 mm height, 80 mm diameter,Coated outer body, comfortable handle
+XG-M14,Textured-Grip Stainless Steel Travel Mug,Mug,Stainless steel mug with textured grip and flip-sip lid,Multiple,350 ml, 150 mm height, 80 mm diameter,Anti-slip grip, easy-sip lid
+XG-M15,Double-Walled Stainless Steel Tumbler,Mug,Tumbler with spill-resistant lid,Multiple,350 ml, 110 mm height,Powder-coated outer body
+XG-M16,Sleek Double-Wall Insulated Tumbler,Mug,Vacuum insulated coffee/wine mug,Multiple,400 ml, double-wall vacuum insulation,Keeps hot/cold long, 304 stainless steel
+XG-M17,Double-Walled Stainless Steel Coffee Mug,Mug,Clear spill-resistant lid,Multiple,350 ml, 105 mm height,Durable, insulated
+XG-M20,304 Double Wall Insulated Vacuum Coffee Cup with Temp Display,Mug,Temperature display on mug,Multiple,400 ml, 145 mm height, 70 mm diameter,Smart temperature display
+XG-M21,304 Stainless Steel Double Wall Mug with Anti-Spill Lid,Mug,Anti-spill lid, double-wall insulation,Multiple,200 ml, 145 mm height, 90 mm diameter,Compact, leak-proof
+XG-M22,Double Wall Stainless Steel Travel Mug with Handle,Mug,Handle mug with spill-proof lid,Multiple,400 ml, 165 mm height, 85 mm diameter,Ergonomic handle, secure lid
+XG-M23,Double Wall Stainless Steel Mug with Cork Base,Mug,Cork base and spill-proof lid,Multiple,450 ml, 170 mm height,Cork base for grip, stylish
+XG-M24,Double Wall Stainless Steel Diamond Pattern Tumbler,Mug,Diamond pattern, leak-proof flip lid,Multiple,400 ml, 170 mm height, 95 mm diameter,Decorative design, vacuum insulated
+XG-M25,Double Wall Vacuum Insulated Tumbler with Slide Lid,Mug,Slide lid for easy sipping,Multiple,450 ml, 170 mm height, 95 mm diameter,Slider cap, vacuum insulation
+XG-M26,304 Stainless Steel Insulated Café Mug with Flip Lid & Handle,Mug,Flip lid and ergonomic handle,Multiple,450 ml, 170 mm height, 95 mm diameter,Includes spoon, café-style
+XG-M28,Classic Glossy Ceramic Coffee Mug,Mug,Ceramic mug with handle,Multiple,400 ml, 135 mm height, 95 mm diameter,Lead-free, dishwasher and microwave safe
+XG-M29,Eco-Friendly Wheat Fiber Mug,Mug,Sustainable wheat fiber mug,Multiple,350 ml, 135 mm height,Eco-friendly, reusable
+XG-M32,304 Stainless Steel Double-Wall Vacuum Mug with Silicone Grip,Mug,Leak-proof flip lid, non-slip silicone grip,Multiple,510 ml, 170 mm height, 85 mm diameter,Silicone sleeve for grip, secure lid
+XG-M33,304 Stainless Steel Smart Temperature Display Mug,Mug,LED touch lid with temperature display,Multiple,510 ml, 170 mm height, 85 mm diameter,Smart tech, touch-sensitive lid
+XG-M34,High Borosilicate Glass Tumbler with Bamboo Lid & Straw,Mug,Frosted sleeve, bamboo lid and straw,Multiple,500 ml, 175 mm height,Glass and bamboo, eco-friendly
+XG-M35,Eco Ceramic Cork-Bottom Coffee Mug,Mug,Ceramic mug with cork base and sliding lid,Multiple,350 ml, 160 mm height, 85 mm diameter,Cork base, spill-resistant lid
+XG-M36,304 Stainless Steel Creative Café Style Vacuum Mug,Mug,One-touch lid, locking cap,Multiple,500 ml, 180 mm height, 85 mm diameter,One-button open, comfortable drinking
+XG-M39,304 Double-Wall Insulated Mug with Spill-Proof Flip Lid & Handle,Mug,Ergonomic handle, flip lid,Multiple,350 ml, 175 mm height, 85 mm diameter,Secure handle, insulated
+XG-M40,Bamboo Exterior 304 Stainless Steel Double Wall Tumbler,Mug,Bamboo exterior, stainless steel interior, spill-proof lid,Multiple,400 ml, 175 mm height, 80 mm diameter,Bamboo insulated mug with steel cap
+XG-M43,304 Stainless Steel Insulated Tumbler with Lid & Steel Straw,Mug,Includes metal straw,Multiple,500 ml, 200 mm height, 70 mm diameter,Vacuum hot & cold, metal straw included
+XG-M44,304 Stainless Steel Insulated Tumbler with Flip-Straw Lid & Handle,Mug,Flip-straw lid, carry handle,Multiple,600 ml, 200 mm height, 105 mm diameter,Easy carry handle, silicone seal
+XG-M45,304 Stainless Steel Vacuum Insulated Travel Tumbler with Dual-Lid Sipper,Mug,Dual-lid sipper, carry handle,Multiple,900 ml, 70 mm diameter,Large capacity, dual-lid option
+XG-M46,Double Wall Insulated Stainless Steel Tumbler with Cork Base,Mug,Cork base, spill-resistant lid,Multiple,500 ml, 177 mm height, 80 mm diameter,Cork base for stability, vacuum insulated
+XG-M48,Eco-Friendly Wheat Fibre Mug with Bamboo Lid and Cork Grip,Mug,Bamboo lid, cork grip,Multiple,450 ml, thick wall for insulation,Spill-proof, sustainable materials
+XG-M49,Double Wall Vacuum Mug with Spill-Resistant Lid,Mug,Compact travel mug,Multiple,300 ml, 90 mm height, 65 mm diameter,Lightweight, double-wall insulation
+XG-M50,Borosilicate Glass Travel Cup with Cork Grip & Tritan Lid,Mug,Cork grip, spill-proof Tritan lid,Multiple,350 ml, 120 mm height, 65 mm diameter,Glass with cork, Tritan lid
+XG-M51,EcoSip Bamboo Fiber Mug with Silicone Lid,Mug,Bamboo fiber, silicone lid,Multiple,350 ml, 90 mm height, 65 mm diameter,BPA-free, leak-proof, single-wall
+XG-M52,Stainless Steel Insulated Tumbler with Dual-Option Lid & Handle,Mug,Sturdy carry handle, tapered base,Multiple,900 ml, tapered base design,Dual-option lid, large capacity
+XG-M54,7000 RPM Auto-Stir Borosilicate Glass Pot,Mug,Auto-stir with wood-grain ABS lid and handle,Multiple,400 ml, 145 mm height, 105 mm diameter,7000 RPM auto-stir, mixing rod storage
+XG-M55,Vacuum-Insulated Stainless Steel Mug with Leak-Proof Lid & Straw,Mug,Large ergonomic handle, reusable straw,Multiple,1200 ml, 309.88 mm height,100% leak-proof, double-wall vacuum insulation
+XG-M56,304 Vacuum-Insulated Stainless Steel Mug with LED Temperature Display & Steel Straw,Mug,Temperature display, steel straw,Multiple,1200 ml, vacuum insulated,Smart temperature readout, reusable straw
+XG-002,Vacuum-Insulated 304 Stainless Steel Bottle,Water Bottle,Secure cap and wrist strap,Multiple,750 ml, 22 cm height, 6.6 cm diameter,Stylish, insulated, secure strap
+XG-004,Lightweight Aluminum 304 Stainless Steel Bottle,Water Bottle,Carabiner clip for easy carrying,Multiple,750 ml, 23.6 cm height,Lightweight, carabiner clip included
+XG-005,Lightweight Aluminum 304 Stainless Steel Bottle with Carabiner Clip,Water Bottle,Carabiner clip,Multiple,750 ml, 23.6 cm height,Easy to attach to bags
+XG-008,Lightweight Aluminum Metal Bottle with Silicon Strap Cap,Water Bottle,Durable silicon strap cap,Multiple,750 ml, 23 cm height,Silicon strap for easy carrying
+XG-009,Premium High-Grade Stainless Steel Water Bottle,Water Bottle,Flip-top lid and ergonomic grip,Multiple,750 ml, 24.5 cm height,High-grade steel, easy-grip design
+XG-010,Sleek Aluminum Bottle with Flip-Top Transparent Lid,Water Bottle,Flip-top transparent lid and silicon loop,Multiple,750 ml, 24 cm height,Transparent lid, silicon carry loop
+XG-011,Single-Wall Stainless Steel Bottle with Leak-Proof Cap,Water Bottle,Leak-proof cap,Multiple,750 ml, 31.5 cm height,Single-wall, high-grade steel
+XG-012,Durable Stainless Steel Sports Bottle with Carabiner Hook,Water Bottle,Flip-top spout lid and carabiner hook,Multiple,750 ml, 25.4 cm height,BPA-free, sports-friendly
+XG-013,Premium 304 Stainless Steel Bottle with Fabric Carry Loop,Water Bottle,Leak-proof steel cap and fabric loop,Multiple,750 ml, 25.4 cm height,Fabric loop, premium steel
+XG-014,Matte Finish Stainless Steel Sports Bottle,Water Bottle,Flip-top lid, sleek design,Multiple,750 ml, 27.4 cm height,Matte finish, modern look
+XG-015,Ergonomic 304 Stainless Steel Bottle with Anti-Slip Grip,Water Bottle,Flip-top sipper lid and anti-slip coating,Multiple,750 ml, 22.5 cm height,Anti-fingerprint, complete protection
+XG-017,Classic 304 Stainless Steel Vacuum-Insulated Bottle,Water Bottle,Brushed finish and leak-proof steel cap,Multiple,1000 ml, 28.3 cm height,Vacuum insulated, classic design
+XG-018,304 Stainless Steel Matte-Finish with Flip-Top Sipper Lid,Water Bottle,Vacuum insulation, flip-top lid,Multiple,800 ml, 23.3 cm height, 7 cm diameter,Matte finish, easy-sip lid
+XG-019,Aluminium Matte-Finish Water Bottle with Carabiner Cap,Water Bottle,Single-wall design, carabiner cap,Multiple,750 ml, 26.2 cm height,Matte finish, easy to carry
+XG-020,304 Stainless Steel Insulated Water Bottle with Bamboo Lid,Water Bottle,Bamboo lid and carry handle,Multiple,750 ml, 26.5 cm height, 7.8 cm diameter,Eco-friendly bamboo lid
+XG-021,Aluminium Sleek-Finish Water Bottle with Flip-Top Lid,Water Bottle,Ergonomic body, flip-top lid,Multiple,750 ml, 26.5 cm height, 7.8 cm diameter,Sleek finish, easy drinking
+XG-022,Stainless Steel Matte-Finish Water Bottle with Metal Strap Lid,Water Bottle,Metal strap lid, leak-proof,Multiple,1000 ml, 26.5 cm height, 7.8 cm diameter,Metal strap for secure carry
+XG-023,Brushed Stainless Steel Sports Bottle with Leak-Proof Strap Cap,Water Bottle,Strap cap for easy carrying,Multiple,1000 ml, 27 cm height,Brushed finish, sports design
+XG-024,Brushed Stainless Steel Bottle with Ribbed Body,Water Bottle,Sleek ribbed body, leak-proof steel cap,Multiple,1000 ml, 25 cm height, 7.2 cm diameter,Ribbed design, secure cap
+XG-025,Sleek Stainless Steel Bottle with Screw Cap,Water Bottle,Curved ergonomic body, screw cap,Multiple,1000 ml, 25 cm height,Easy to hold, screw-on cap
+XG-026,Matte Finish Stainless Steel Sports Bottle,Water Bottle,Flip-top lid, sleek design,Multiple,1000 ml, 27.4 cm height,Matte finish, modern sports look
+XG-030,Sleek Eco-Friendly Water Bottle with Modern Bamboo Lid,Water Bottle,Bamboo lid, insulated,Multiple,500 ml, 22.5 cm height, 6.6 cm diameter,Modern bamboo lid, eco-friendly
+XG-031,Vacuum Insulated 304 Stainless Steel Bottle with Matte Finish,Water Bottle,Leak-proof cap,Multiple,500 ml, 22.5 cm height, 7 cm diameter,100% leak-proof, fits ice cubes
+XG-032,304 Stainless Steel Vacuum Bottle with Carry Handle,Water Bottle,Carry handle, matte finish,Multiple,500 ml, 27.7 cm height, 7.5 cm diameter,Easy to carry, vacuum insulated
+XG-033,Sleek Vacuum Insulated 304 Stainless Steel Bottle,Water Bottle,Leak-proof and durable,Multiple,750 ml, 28 cm height, 7.2 cm diameter,Durable, vacuum insulated
+XG-034,Matte Finish 304 Stainless Steel Vacuum Bottle,Water Bottle,Sleek and leak-proof,Multiple,750 ml, 25.5 cm height, 6.5 cm diameter,Matte finish, secure cap
+XG-035,Matte Finish 304 Stainless Steel Vacuum Bottle with Leakproof Cap,Water Bottle,Leakproof cap,Multiple,750 ml, 32 cm height,Tall design, secure seal
+XG-036,304 Stainless Steel Creative Café Style Vacuum Flask,Water Bottle,One-touch lid,Multiple,500 ml, 20 cm height, 8.5 cm diameter,One-button open, café style
+XG-038,304 Stainless Steel Vacuum Flask with Detachable Cup Lid,Water Bottle,Detachable cup lid, secure lock,Multiple,500 ml, 26.2 cm height, 7.1 cm diameter,Cup lid included, versatile
+XG-039,304 Stainless Steel Vacuum Flask with One Touch Lid & Secure Lock,Water Bottle,One-touch lid, secure lock,Multiple,500 ml, 22.5 cm height, 6.4 cm diameter,Easy open, secure lock
+XG-041,304 Stainless Steel Water Bottle with Silicone Sealed Cap,Water Bottle,Double wall insulation, silicone sealed cap,Multiple,500 ml, 26.2 cm height, 6.4 cm diameter,Silicone seal, double-wall insulation
+XG-044,316 Stainless Steel Vacuum Flask with Durable Body,Water Bottle,Leak-proof lid, 316 steel,Multiple,1000 ml, 29 cm height, 10 cm diameter,Premium 316 stainless steel
+XG-045,304 Insulated Stainless Steel Flask with Rope Handle,Water Bottle,Rope handle for carrying,Multiple,500 ml, 29 cm height, 10 cm diameter,Rope handle, easy to carry
+XG-046,304 Insulated Vacuum Stainless Steel Bottle with Silicone Grip,Water Bottle,Silicone grip and carabiner clip,Multiple,500 ml, 26.5 cm height, 7.5 cm diameter,Comfortable grip, clip included
+XG-047,304 Insulated Vacuum Stainless Steel Bottle with Soft Matte Finish,Water Bottle,Soft matte finish,Multiple,500 ml, 26.5 cm height, 7.5 cm diameter,Soft touch, premium feel
+XG-048,304 Insulated Vacuum Stainless Steel Bottle with Flip-Top Lid,Water Bottle,Flip-top lid, matte finish,Multiple,500 ml, 18.5 cm height, 7.5 cm diameter,Compact, easy-sip lid
+XG-049,304 Insulated Vacuum Stainless Steel Bottle with Handle Lid,Water Bottle,Handle lid and tea strainer,Multiple,800 ml, 26.3 cm height, 7.5 cm diameter,Built-in tea strainer, handle lid
+XG-050,304 Insulated Vacuum Stainless Steel Bottle with Red Accent,Water Bottle,Red accent, tea strainer,Multiple,500 ml / 850 ml, 26.3 cm height, 7.5 cm diameter,Color accent, versatile size option
+XG-051,304 Double Wall Insulated Vacuum Stainless Steel Bottle with Premium Handle Lid,Water Bottle,Premium handle lid,Multiple,750 ml, 26.3 cm height, 7.5 cm diameter,Double-wall, premium feel
+XG-052,304 Double Wall Insulated Vacuum Stainless Steel Bottle with Metal Ring Lid,Water Bottle,Metal ring lid,Multiple,500 ml, 26.3 cm height, 7.5 cm diameter,Metal ring for easy opening
+XG-053,304 Double Wall Insulated Vacuum Stainless Steel Bottle with Bamboo Lid,Water Bottle,Bamboo lid and metal carry handle,Multiple,1000 ml, 33.5 cm height, 7.5 cm diameter,Bamboo lid, large capacity
+XG-054,304 Double Wall Insulated Stainless Steel Vacuum Bottle with Detachable Silicone Handle,Water Bottle,Detachable silicone handle,Multiple,500 ml, 22.5 cm height, 6.5 cm diameter,Removable handle, easy to clean
+XG-056,Borosilicate Glass Bottle with Stainless Steel Lid and Neoprene Sleeve,Water Bottle,Protective neoprene sleeve,Multiple,1000 ml, 28.5 cm height, 7.5 cm diameter,Glass with protective sleeve, stylish
+XG-057,304 Hot & Cold Vacuum Bottle with Transparent Sipper Cap,Water Bottle,Transparent sipper cap,Multiple,500 ml, 20.5 cm height, 6.5 cm diameter,Clear cap, easy to see liquid level
+XG-058,304 Stainless Steel High Quality Bamboo Thermos Vacuum Flask,Water Bottle,Bamboo thermos design,Multiple,450 ml, 20.5 cm height, 6.5 cm diameter,Bamboo accents, high-quality thermos
+XG-059,Vacuum Hot & Cold Bottle with Straw Sipper Cap,Water Bottle,Straw sipper cap,Multiple,500 ml, 20.5 cm height, 6.5 cm diameter,Straw included, easy drinking
+XG-060,304 Stainless Steel Vacuum Bottle – BPA Free Hot & Cold Thermos Flask,Water Bottle,BPA-free thermos flask,Multiple,520 ml, 20.5 cm height, 6.5 cm diameter,BPA-free, hot & cold insulation
+XG-061,304 Stainless Steel Vacuum Flask with Transparent Cup Lid,Water Bottle,Transparent cup lid,Multiple,500 ml, 23.5 cm height, 7 cm diameter,Cup lid for dual use
+XG-062,304 Stainless Steel Double Wall Vacuum Bottle – Leak-Proof Thermos Flask,Water Bottle,360° leak-proof,Multiple,750 ml, 26.5 cm height, 7 cm diameter,Full leak-proof, durable
+XG-063,Eco Bamboo Stainless Steel Vacuum Flask with Tea Infuser,Water Bottle,Tea infuser included,Multiple,500 ml, 23.5 cm height, 7 cm diameter,Eco bamboo, tea infuser
+XG-064,304 Stainless Steel Double Wall Vacuum Bottle – Matte Finish,Water Bottle,Matte finish, leak-proof,Multiple,500 ml, 23.5 cm height, 7 cm diameter,Matte look, hot & cold insulation
+XG-065,Smart Bamboo Stainless Steel Vacuum Flask with LED Temperature Display,Water Bottle,LED temperature display,Multiple,500 ml, 23.5 cm height, 7 cm diameter,Smart display, eco bamboo
+XG-066,Double Wall Wood Finish Vacuum Bottle,Water Bottle,Wood finish, leak-proof,Multiple,500 ml, 27 cm height,Wooden look, hot & cold
+XG-067,Wooden Finish Water Bottle – 500ml Double Wall Flask,Water Bottle,Customizable with logo/name,Multiple,500 ml, 27 cm height, 7 cm diameter,Custom branding option
+XG-068,Metallic Sports Water Bottle – Double Wall Insulated,Water Bottle,Leak-proof, travel-friendly,Multiple,600 ml, 27.5 cm height,Metallic finish, sports design
+XG-069,304 Stainless Steel High Quality Bamboo Thermos Vacuum Flask,Water Bottle,Bamboo thermos style,Multiple,500 ml, 20.5 cm height, 6.5 cm diameter,High-quality, bamboo accent
+XG-070,Push Button Water Bottle Leak Proof Double Wall,Water Bottle,Push-button lid,Multiple,500 ml, 23.5 cm height,One-touch push button
+XG-071,Push Button Water Bottle Leak Proof with Soft Grip and Straw Lid,Water Bottle,Soft grip, straw lid,Multiple,850 ml, 29.5 cm height, 6.5 cm diameter,Straw lid, comfortable grip
+XG-072,Insulated Metal Bottle with Bamboo Base and Leak Proof Lid,Water Bottle,Bamboo base, leak-proof lid,Multiple,500 ml, 24.5 cm height, 6.5 cm diameter,Bamboo base for stability
+XG-073,Hot and Cold Vacuum Bottle with Bamboo Lid and Carry Loop,Water Bottle,Bamboo lid, carry loop,Multiple,600 ml, 27.5 cm height,Loop for easy carrying
+XG-074,Sleek Eco-Friendly Water Bottle with Modern Bamboo Lid,Water Bottle,Bamboo lid, insulated,Multiple,750 ml, 26.5 cm height, 7.3 cm diameter,Keeps hot 12 hrs, cold 24 hrs
+XG-075,Sleek Eco-Friendly Water Bottle with Modern Bamboo Lid (Large),Water Bottle,Bamboo lid, insulated,Multiple,1000 ml, 31.7 cm height, 8.4 cm diameter,Large capacity, eco-friendly
+XG-076,Stylish Matte Black Water Bottle with Cork Base,Water Bottle,Cork base, insulated,Multiple,500 ml, 22.7 cm height,Cork base, modern eco-chic look
+XG-077,Hot and Cold Vacuum Bottle with Dual Lid and Tea Infuser,Water Bottle,Dual lid, 304 stainless steel tea infuser,Multiple,900 ml,Versatile lids, built-in infuser
+XG-078,Hot and Cold Vacuum Bottle with Cork Base and 304 Steel Interior,Water Bottle,Cork base, 304 steel interior,Multiple,600 ml, 27.5 cm height,Cork base, premium steel interior
+XG-079,Hot and Cold Vacuum Bottle with Soft Matte Finish and Loop Handle,Water Bottle,Soft matte finish, loop handle,Multiple,500 ml, 27.5 cm height,Soft touch, easy carry loop
+XG-080,Hot and Cold Vacuum Flask Gift Set with Two Stainless Steel Cups,Water Bottle,Flask + 2 cups set,Multiple,450 ml flask + 2 × 200 ml cups,Gift set, includes cups
+XG-081,Borosilicate Glass Bottle with Jute Sleeve and Bamboo Lid,Water Bottle,Jute sleeve, bamboo lid,Multiple,500 ml, 22.5 cm height, 6.3 cm diameter,Jute sleeve, eco-friendly
+XG-082,Borosilicate Glass Bottle with Silicone Sleeve and Bamboo Lid,Water Bottle,Silicone sleeve, bamboo lid,Multiple,500 ml, 22.5 cm height, 6.3 cm diameter,Silicone protection, bamboo lid
+XG-083,Borosilicate Glass Bottle with Bamboo Lid and Silicone Sleeve,Water Bottle,Bamboo lid, silicone sleeve,Multiple,600 ml, 25.5 cm height,Glass with sleeve, secure lid
+XG-084,Gradient Stainless Steel Sport Bottle with Straw Lid,Water Bottle,Gradient color, straw lid,Multiple,600 ml, 23.5 cm height,Sporty design, straw lid
+XG-085,Gradient Stainless Steel Sport Bottle with Straw Lid (Large),Water Bottle,Gradient color, straw lid,Multiple,850 ml, 28.5 cm height, 6.8 cm diameter,Large sport bottle, straw lid
+XG-086,Hot & Cold Vacuum Bottle with Carry Handle – 304 Stainless Steel,Water Bottle,Carry handle,Multiple,600 ml,Handle for easy transport
+XG-087,Portable 316 Stainless Steel Insulated Vacuum Flask,Water Bottle,New style tumbler with lid handle,Multiple,600 ml, 22 cm height, 7.3 cm diameter,316 steel, premium insulation
+XG-088,Portable 316 Stainless Steel Insulated Vacuum Flask (Large),Water Bottle,New style tumbler with lid handle,Multiple,800 ml, 27 cm height, 7.3 cm diameter,Large capacity, 316 steel
+XG-090,Double Wall Stainless Steel Vacuum Flask with Bamboo Lid & Base,Water Bottle,Bamboo lid and base, metal handle,Multiple,800 ml, 27 cm height, 7.3 cm diameter,Bamboo accents, double-wall insulation
+XG-Y09,Oval Shaped Retractable Loop Badge Holder,Badge Holder,Retractable loop, oval shape,Multiple,Height: 2.54 in (65 mm), Width: 0.34 in (10 mm),Retractable, secure, professional
+,Round Shaped Retractable Badge Holder,Badge Holder,Retractable, round shape,Multiple,–,Easy pull-back, durable clip

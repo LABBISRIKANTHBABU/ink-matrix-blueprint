@@ -182,6 +182,7 @@ const Header = () => {
                 <Link
                   to="/products"
                   className="flex items-center gap-1 px-4 py-3 text-sm font-medium hover:bg-navy-light transition-colors"
+                  onClick={() => setActiveCategory(null)}
                 >
                   <Menu className="h-4 w-4" />
                   All Products
@@ -195,13 +196,13 @@ const Header = () => {
                   onMouseLeave={() => setActiveCategory(null)}
                 >
                   <Link
-                    to={`/category/${category.id}`}
+                    to={`/products?category=${category.id}`}
                     className="flex items-center gap-1 px-4 py-3 text-sm font-medium hover:bg-navy-light transition-colors"
                   >
                     {category.name}
                     <ChevronDown className="h-3 w-3" />
                   </Link>
-                  
+
                   <AnimatePresence>
                     {activeCategory === category.id && (
                       <motion.div
@@ -221,7 +222,7 @@ const Header = () => {
                             {category.subcategories.map((sub) => (
                               <li key={sub}>
                                 <Link
-                                  to={`/category/${category.id}/${sub.toLowerCase()}`}
+                                  to={`/products?category=${category.id}&subcategory=${encodeURIComponent(sub)}`}
                                   className="block text-sm text-muted-foreground hover:text-foreground hover:pl-2 transition-all"
                                 >
                                   {sub}
@@ -235,14 +236,7 @@ const Header = () => {
                   </AnimatePresence>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/bulk-orders"
-                  className="flex items-center gap-1 px-4 py-3 text-sm font-medium bg-accent text-accent-foreground hover:bg-amber-dark transition-colors"
-                >
-                  Bulk Orders
-                </Link>
-              </li>
+
             </ul>
           </div>
         </nav>
@@ -271,7 +265,7 @@ const Header = () => {
                 {categories.map((category) => (
                   <li key={category.id}>
                     <Link
-                      to={`/category/${category.id}`}
+                      to={`/products?category=${category.id}`}
                       className="block py-2 text-foreground font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >

@@ -59,7 +59,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
               alt={product.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            
+
             {/* Badge */}
             {product.badge && (
               <span className="absolute top-2.5 left-2.5 bg-primary text-primary-foreground px-2 py-1 text-[10px] font-bold uppercase rounded tracking-wide">
@@ -86,11 +86,10 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-3.5 w-3.5 ${
-                      i < Math.floor(product.rating)
+                    className={`h-3.5 w-3.5 ${i < Math.floor(product.rating)
                         ? 'text-amber fill-amber'
                         : 'text-muted-foreground/30'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -102,10 +101,18 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
             {/* Price Section */}
             <div className="mt-auto">
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-xl font-extrabold text-foreground">
-                  ₹{product.price.toLocaleString()}
-                </span>
-                <span className="text-xs text-muted-foreground">/ per unit</span>
+                {product.price > 0 ? (
+                  <>
+                    <span className="text-xl font-extrabold text-foreground">
+                      ₹{product.price.toLocaleString()}
+                    </span>
+                    <span className="text-xs text-muted-foreground">/ per unit</span>
+                  </>
+                ) : (
+                  <span className="text-lg font-bold text-primary">
+                    Request Quote
+                  </span>
+                )}
               </div>
 
               {/* Bulk Info */}

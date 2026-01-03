@@ -30,7 +30,7 @@ const CategoryGrid = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
-              <Link to={`/category/${category.id}`}>
+              <Link to={`/products?category=${category.id}`}>
                 <div className="group text-center">
                   <div className="relative mb-3 rounded-xl overflow-hidden aspect-square bg-card border border-border">
                     <img
