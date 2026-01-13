@@ -42,6 +42,26 @@ const AuthPage = () => {
         setError(null);
     }, [isLogin]);
 
+    // Auto-redirect if already logged in
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setIsLoading(true);
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        redirectUser(userDoc.data().role);
+                    }
+                } catch (error) {
+                    console.error("Error fetching role on auto-redirect:", error);
+                } finally {
+                    setIsLoading(false);
+                }
+            }
+        });
+        return () => unsubscribe();
+    }, [navigate]);
+
     const handleGoogleSignIn = async () => {
         setIsLoading(true);
         setError(null);
