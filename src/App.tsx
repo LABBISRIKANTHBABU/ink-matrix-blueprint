@@ -11,10 +11,7 @@ import TheionDigital from "./pages/TheionDigital";
 import TheionTechnologies from "./pages/TheionTechnologies";
 import TheionRecruits from "./pages/TheionRecruits";
 import NotFound from "./pages/NotFound";
-import GetStarted from "./pages/GetStarted";
-import StudentAuth from "./pages/auth/StudentAuth";
-import ProfessionalAuth from "./pages/auth/ProfessionalAuth";
-import ClientAuth from "./pages/auth/ClientAuth";
+import AuthPage from "./pages/AuthPage";
 
 const queryClient = new QueryClient();
 
@@ -32,10 +29,9 @@ const App = () => (
           <Route path="/theion-digital" element={<TheionDigital />} />
           <Route path="/theion-technologies" element={<TheionTechnologies />} />
           <Route path="/theion-recruits" element={<TheionRecruits />} />
-          <Route path="/get-started" element={<GetStarted />} />
-          <Route path="/auth/student" element={<StudentAuth />} />
-          <Route path="/auth/professional" element={<ProfessionalAuth />} />
-          <Route path="/auth/client" element={<ClientAuth />} />
+          {/* Unified Auth Route */}
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/get-started" element={<AuthPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
