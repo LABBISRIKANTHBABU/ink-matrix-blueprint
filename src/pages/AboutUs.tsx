@@ -71,7 +71,7 @@ const AboutUs = () => {
               transition={{ duration: 0.8 }}
             >
               <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-6">
-                Who We Are
+                Who Are We
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 We work with organizations that aim for scalable, high-impact growth. Our expertise lies in 

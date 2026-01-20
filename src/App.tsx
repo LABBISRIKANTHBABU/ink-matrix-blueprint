@@ -7,9 +7,12 @@ import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import Clientele from "./pages/Clientele";
 import ContactUs from "./pages/ContactUs";
-import TheionDigital from "./pages/TheionDigital";
-import TheionTechnologies from "./pages/TheionTechnologies";
-import TheionRecruits from "./pages/TheionRecruits";
+import TheonDigital from "./pages/TheonDigital";
+import TheonOverseas from "./pages/TheonOverseas";
+import TheonRecruiter from "./pages/TheonRecruiter";
+import TheonEducation from "./pages/TheonEducation";
+import TheonTravel from "./pages/TheonTravel";
+import TheonTechnologies from "./pages/TheonTechnologies";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -27,10 +30,12 @@ const App = () => (
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/clientele" element={<Clientele />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/theion-digital" element={<TheionDigital />} />
-          <Route path="/theion-technologies" element={<TheionTechnologies />} />
-          <Route path="/theion-recruits" element={<TheionRecruits />} />
-          {/* Unified Auth Route */}
+          <Route path="/theon-digital" element={<TheonDigital />} />
+          <Route path="/theon-overseas" element={<TheonOverseas />} />
+          <Route path="/theon-recruiter" element={<TheonRecruiter />} />
+          <Route path="/theon-education" element={<TheonEducation />} />
+          <Route path="/theon-travel" element={<TheonTravel />} />
+          <Route path="/theon-technologies" element={<TheonTechnologies />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/get-started" element={<AuthPage />} />
           <Route path="/profile" element={<ProfilePage />} />
