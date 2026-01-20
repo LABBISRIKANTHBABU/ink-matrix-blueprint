@@ -1,193 +1,106 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, Clock, User, Mail, Loader2, CheckCircle2 } from "lucide-react";
+import { X, Clock, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { auth } from "@/lib/firebase"; // Import auth
-import { onAuthStateChanged } from "firebase/auth";
 
 interface BookingModalProps {
-    isOpen: boolean;
-    onClose: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
+const durations = [
+  {
+    id: "30min",
+    title: "30-Minute Call",
+    description: "Quick consultation for focused discussions",
+    calendlyUrl: "https://calendly.com/theionconsulting/30min", // Replace with actual Calendly link
+    icon: Clock
+  },
+  {
+    id: "1hour",
+    title: "1-Hour Call",
+    description: "In-depth session for comprehensive consultations",
+    calendlyUrl: "https://calendly.com/theionconsulting/60min", // Replace with actual Calendly link
+    icon: Video
+  }
+];
+
 const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        date: "",
-        time: "",
-        details: ""
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
+  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
 
-    // Pre-fill user data when modal opens or auth state changes
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setFormData(prev => ({
-                    ...prev,
-                    name: user.displayName || prev.name,
-                    email: user.email || prev.email
-                }));
-            }
-        });
-        return () => unsubscribe();
-    }, []);
+  const handleBooking = () => {
+    const selected = durations.find(d => d.id === selectedDuration);
+    if (selected) {
+      window.open(selected.calendlyUrl, "_blank");
+      onClose();
+    }
+  };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+          />
 
-        try {
-            await fetch("https://formsubmit.co/ajax/Info@theionconsulting.com", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    _subject: `New Session Booking Request - ${formData.date}`,
-                    name: formData.name,
-                    email: formData.email,
-                    booking_date: formData.date,
-                    booking_time: formData.time,
-                    details: formData.details,
-                    _cc: formData.email, // Send a copy to the user
-                    _template: "table",
-                    _autoresponse: `Congratulations! Your session booking has been confirmed for ${formData.date} at ${formData.time}. We will contact you shortly with the meeting link.`
-                }),
-            });
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-md bg-card border border-primary/20 rounded-2xl p-6 shadow-2xl overflow-hidden"
+          >
+            {/* Close Button */}
+            <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+              <X className="w-5 h-5" />
+            </button>
 
-            setIsSuccess(true);
-            setTimeout(() => {
-                setIsSuccess(false);
-                setFormData({ name: "", email: "", date: "", time: "", details: "" });
-                onClose();
-            }, 3000);
+            <h2 className="text-2xl font-display font-bold mb-2">Book a Video Session</h2>
+            <p className="text-muted-foreground text-sm mb-6">Select your preferred session duration</p>
 
-        } catch (error) {
-            toast.error("Failed to submit booking. Please try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+            <div className="space-y-4 mb-6">
+              {durations.map((duration) => {
+                const Icon = duration.icon;
+                return (
+                  <button
+                    key={duration.id}
+                    onClick={() => setSelectedDuration(duration.id)}
+                    className={`w-full p-4 rounded-xl border-2 transition-all duration-300 text-left flex items-center gap-4 ${
+                      selectedDuration === duration.id
+                        ? "border-primary bg-primary/10"
+                        : "border-border/50 hover:border-primary/50"
+                    }`}
+                  >
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                      selectedDuration === duration.id ? "bg-primary/20" : "bg-card"
+                    }`}>
+                      <Icon className={`w-5 h-5 ${selectedDuration === duration.id ? "text-primary" : "text-muted-foreground"}`} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">{duration.title}</h3>
+                      <p className="text-sm text-muted-foreground">{duration.description}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
 
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
-                    />
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="relative w-full max-w-lg bg-card border border-primary/20 rounded-2xl p-6 shadow-2xl overflow-hidden"
-                    >
-                        {/* Close Button */}
-                        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-                            <X className="w-5 h-5" />
-                        </button>
-
-                        {isSuccess ? (
-                            <div className="flex flex-col items-center justify-center py-10 text-center">
-                                <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4 text-green-500">
-                                    <CheckCircle2 className="w-8 h-8" />
-                                </div>
-                                <h3 className="text-2xl font-bold mb-2">Booking Confirmed!</h3>
-                                <p className="text-muted-foreground">We have received your request and sent a confirmation to your email.</p>
-                            </div>
-                        ) : (
-                            <>
-                                <h2 className="text-2xl font-display font-bold mb-1">Book a Session</h2>
-                                <p className="text-muted-foreground text-sm mb-6">Schedule a 1-on-1 video call with our consultants.</p>
-
-                                <form onSubmit={handleSubmit} className="space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label>Your Name</Label>
-                                            <div className="relative">
-                                                <User className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
-                                                <Input
-                                                    required
-                                                    className="pl-9 bg-background/50"
-                                                    placeholder="John Doe"
-                                                    value={formData.name}
-                                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label>Email Address</Label>
-                                            <div className="relative">
-                                                <Mail className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
-                                                <Input
-                                                    required
-                                                    type="email"
-                                                    className="pl-9 bg-background/50"
-                                                    placeholder="john@example.com"
-                                                    value={formData.email}
-                                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label>Preferred Date</Label>
-                                            <div className="relative">
-                                                <Calendar className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
-                                                <Input
-                                                    required
-                                                    type="date"
-                                                    className="pl-9 bg-background/50"
-                                                    value={formData.date}
-                                                    onChange={e => setFormData({ ...formData, date: e.target.value })}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label>Preferred Time</Label>
-                                            <div className="relative">
-                                                <Clock className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
-                                                <Input
-                                                    required
-                                                    type="time"
-                                                    className="pl-9 bg-background/50"
-                                                    value={formData.time}
-                                                    onChange={e => setFormData({ ...formData, time: e.target.value })}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <Button
-                                        type="submit"
-                                        className="w-full btn-gold mt-2"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Confirm Booking"}
-                                    </Button>
-                                </form>
-                            </>
-                        )}
-                    </motion.div>
-                </div>
-            )}
-        </AnimatePresence>
-    );
+            <Button
+              onClick={handleBooking}
+              disabled={!selectedDuration}
+              className="w-full btn-gold py-6 rounded-xl font-semibold"
+            >
+              Continue to Calendly
+            </Button>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default BookingModal;

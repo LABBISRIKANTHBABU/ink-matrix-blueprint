@@ -13,7 +13,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Whitechapel, London, UK",
+    value: "Kurnool, India",
   },
   {
     icon: Phone,
@@ -33,9 +33,9 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Instagram, href: "https://www.instagram.com/theionconsulting/", label: "Instagram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/search/results/all/?keywords=theion%20consulting&origin=GLOBAL_SEARCH_HEADER&sid=NF", label: "LinkedIn" },
+  { icon: Twitter, href: "https://x.com/Theionconsultin", label: "Twitter" },
   { icon: Mail, href: "mailto:info@theionconsulting.com", label: "Email" },
 ];
 
