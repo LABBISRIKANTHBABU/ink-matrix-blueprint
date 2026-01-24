@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Instagram, href: "https://www.instagram.com/theionconsulting/", label: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/search/results/all/?keywords=theion%20consulting&origin=GLOBAL_SEARCH_HEADER&sid=NF", label: "LinkedIn" },
+    { icon: Twitter, href: "https://x.com/Theionconsultin", label: "Twitter" },
     { icon: Mail, href: "mailto:info@theionconsulting.com", label: "Email" },
   ];
 
@@ -44,10 +44,10 @@ const Footer = () => {
               </Link>
             </motion.div>
             <p className="text-muted-foreground max-w-sm mb-6">
-              A new age consulting firm transforming businesses through innovation, 
+              A new age consulting firm transforming businesses through innovation,
               technology, and strategic partnership.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex gap-3">
               {socialLinks.map((social) => {

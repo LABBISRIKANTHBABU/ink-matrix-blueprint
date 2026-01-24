@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/services/theon-travel.jpg";
-// Using imported image from overseas as placeholder
-import corporateTravelImg from "@/assets/services/overseas/international_placements.png";
-const miceServicesImg = corporateTravelImg;
-const destinationManagementImg = corporateTravelImg;
-const travelExpenseManagementImg = corporateTravelImg;
+import corporateTravelImg from "@/assets/services/travel/corporate_travel_management.png";
+import miceServicesImg from "@/assets/services/travel/mice_services.png";
+import destinationManagementImg from "@/assets/services/travel/destination_management.png";
+import travelExpenseManagementImg from "@/assets/services/travel/travel_expense_management.png";
 
 const services = [
   {

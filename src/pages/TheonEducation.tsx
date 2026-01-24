@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/services/theon-education.jpg";
 import technicalTrainingImg from "@/assets/services/education/technical_training.png";
-// Using technicalTrainingImg as placeholder for others
-const corporateTrainingImg = technicalTrainingImg;
-const professionalCertificationsImg = technicalTrainingImg;
-const skillDevelopmentImg = technicalTrainingImg;
+import corporateTrainingImg from "@/assets/services/education/corporate_training.png";
+import professionalCertificationsImg from "@/assets/services/education/professional_certifications.png";
+import skillDevelopmentImg from "@/assets/services/education/skill_development.png";
 
 const programs = [
   {

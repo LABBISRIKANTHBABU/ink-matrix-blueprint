@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import logoImg from "@/assets/theion-logo.jpg";
+import logoImg from "@/assets/logo-circular.png";
 
 import { auth } from "@/lib/firebase"; // Import auth
 
@@ -67,7 +67,7 @@ const Header = () => {
                 <img
                   src={logoImg}
                   alt="Theion Consulting"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </Link>

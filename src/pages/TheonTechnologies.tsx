@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/services/theon-technologies.jpg";
-// Using imported image from digital assets as placeholder
-import digitalTransformationImg from "@/assets/digital_transformation.png";
-const itInfrastructureImg = digitalTransformationImg;
-const cloudServicesImg = digitalTransformationImg;
-const cybersecurityImg = digitalTransformationImg;
-const dataSolutionsImg = digitalTransformationImg;
+import itInfrastructureImg from "@/assets/services/technologies/it_infrastructure.png";
+import cloudServicesImg from "@/assets/services/technologies/cloud_services.png";
+import cybersecurityImg from "@/assets/services/technologies/cybersecurity.png";
+import dataSolutionsImg from "@/assets/services/technologies/data_solutions.png";
 
 const services = [
   {
