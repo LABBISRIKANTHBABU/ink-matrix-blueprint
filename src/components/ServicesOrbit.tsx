@@ -1,58 +1,50 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Monitor, Globe, Users, GraduationCap, Plane, Server } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoImg from "@/assets/theion-logo.jpg";
-
-// Service images
-import theonDigitalImg from "@/assets/services/theon-digital.jpg";
-import theonOverseasImg from "@/assets/services/theon-overseas.jpg";
-import theonRecruiterImg from "@/assets/services/theon-recruiter.jpg";
-import theonEducationImg from "@/assets/services/theon-education.jpg";
-import theonTravelImg from "@/assets/services/theon-travel.jpg";
-import theonTechnologiesImg from "@/assets/services/theon-technologies.jpg";
 
 const services = [
   {
     id: "digital",
     name: "Theon Digital",
     description: "Cutting-edge software solutions and digital transformation.",
-    image: theonDigitalImg,
+    icon: Monitor,
     link: "/theon-digital"
   },
   {
     id: "overseas",
     name: "Theon Overseas",
     description: "Global expansion and international business solutions.",
-    image: theonOverseasImg,
+    icon: Globe,
     link: "/theon-overseas"
   },
   {
     id: "recruiter",
     name: "Theon Recruiter",
     description: "Premium talent acquisition and workforce solutions.",
-    image: theonRecruiterImg,
+    icon: Users,
     link: "/theon-recruiter"
   },
   {
     id: "education",
     name: "Theon Education",
     description: "Professional training and skill development programs.",
-    image: theonEducationImg,
+    icon: GraduationCap,
     link: "/theon-education"
   },
   {
     id: "travel",
     name: "Theon Travel",
     description: "Corporate travel management and executive services.",
-    image: theonTravelImg,
+    icon: Plane,
     link: "/theon-travel"
   },
   {
     id: "technologies",
     name: "Theon Technologies",
     description: "Enterprise technology consulting and infrastructure.",
-    image: theonTechnologiesImg,
+    icon: Server,
     link: "/theon-technologies"
   },
 ];
@@ -70,7 +62,7 @@ const ServicesOrbit = () => {
   }, []);
 
   const isMobile = windowWidth < 768;
-  const orbitRadius = isMobile ? 140 : 230;
+  const orbitRadius = isMobile ? 150 : 260; // Increased radius slightly for bigger nodes
 
   const handleMouseEnter = (e: React.MouseEvent, serviceId: string) => {
     if (!isMobile) {
@@ -120,17 +112,19 @@ const ServicesOrbit = () => {
       </div>
 
       {/* Orbit View */}
-      <div className="flex flex-col relative items-center justify-center h-[450px] md:h-[650px] w-full max-w-[900px] mx-auto perspective-[1000px]">
-        {/* Center Static Logo with Gold Ring */}
-        <div className="absolute z-20 w-28 h-28 md:w-40 md:h-40 rounded-full flex items-center justify-center">
-          {/* Outer gold ring */}
-          <div className="absolute inset-0 rounded-full border-2 border-primary/60 animate-pulse-glow" />
+      <div className="flex flex-col relative items-center justify-center h-[500px] md:h-[750px] w-full max-w-[1000px] mx-auto perspective-[1000px]">
+        {/* Center Static Logo with Enhanced Gold Ring */}
+        <div className="absolute z-20 w-40 h-40 md:w-60 md:h-60 rounded-full flex items-center justify-center">
+          {/* Outer gold ring / Glow */}
+          <div className="absolute inset-0 rounded-full border border-primary/40 shadow-[0_0_60px_10px_hsl(41_52%_54%_/_0.3)] animate-pulse-glow" />
+          <div className="absolute inset-2 rounded-full border border-primary/20" />
+
           {/* Inner container */}
-          <div className="w-24 h-24 md:w-36 md:h-36 rounded-full bg-card border border-primary/20 flex items-center justify-center shadow-2xl shadow-black/80 overflow-hidden">
+          <div className="w-36 h-36 md:w-56 md:h-56 rounded-full bg-black/80 backdrop-blur-sm border border-primary/30 flex items-center justify-center shadow-[0_0_30px_rgba(201,162,77,0.2)] overflow-hidden">
             <img
               src={logoImg}
               alt="Theion Consulting Logo"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
         </div>
@@ -138,7 +132,7 @@ const ServicesOrbit = () => {
         {/* Mobile Central Active Service Label */}
         <AnimatePresence>
           {isMobile && activeService && (
-            <div className="absolute z-50 pointer-events-none flex flex-col items-center justify-center w-full top-1/2 mt-28">
+            <div className="absolute z-50 pointer-events-none flex flex-col items-center justify-center w-full top-1/2 mt-32">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -148,7 +142,7 @@ const ServicesOrbit = () => {
                 <span className="text-primary font-display font-semibold text-sm tracking-wide block">
                   {services.find(s => s.id === activeService)?.name}
                 </span>
-                <Link 
+                <Link
                   to={services.find(s => s.id === activeService)?.link || "#"}
                   className="text-xs text-muted-foreground mt-1 flex items-center justify-center gap-1"
                 >
@@ -169,6 +163,7 @@ const ServicesOrbit = () => {
 
             const x = Math.cos(angleRad) * orbitRadius;
             const y = Math.sin(angleRad) * orbitRadius;
+            const Icon = service.icon;
 
             return (
               <div
@@ -192,28 +187,23 @@ const ServicesOrbit = () => {
                       }
                     }}
                   >
-                    {/* Service Node Circle with Image */}
+                    {/* Service Node Circle with Icon and Text */}
                     <motion.div
                       animate={{
-                        scale: activeService === service.id ? 1.15 : 1,
-                        borderColor: activeService === service.id ? "hsl(41 52% 54%)" : "rgba(255,255,255,0.1)",
+                        scale: activeService === service.id ? 1.1 : 1,
+                        borderColor: activeService === service.id ? "hsl(41 52% 54%)" : "rgba(201,162,77,0.2)",
+                        backgroundColor: activeService === service.id ? "rgba(20,20,20,0.95)" : "rgba(10,10,10,0.85)",
                       }}
-                      className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 backdrop-blur-md flex flex-col items-center justify-center relative z-30 transition-all duration-300 overflow-hidden"
+                      className="w-24 h-24 md:w-32 md:h-32 rounded-full border backdrop-blur-md flex flex-col items-center justify-center relative z-30 transition-all duration-300 shadow-lg px-2 text-center gap-1"
                       style={{
-                        boxShadow: activeService === service.id ? "0 0 30px -5px hsl(41 52% 54% / 0.5)" : "none"
+                        boxShadow: activeService === service.id ? "0 0 30px -5px hsl(41 52% 54% / 0.5)" : "0 4px 10px rgba(0,0,0,0.5)"
                       }}
                     >
-                      <img 
-                        src={service.image} 
-                        alt={service.name}
-                        className="w-full h-full object-cover"
-                      />
-                      {/* Overlay with service name */}
-                      <div className={`absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300 ${activeService === service.id ? 'opacity-0' : 'opacity-60'}`}>
-                        <span className="text-[8px] md:text-[10px] text-foreground font-medium text-center px-1 leading-tight">
-                          {service.name.replace("Theon ", "")}
-                        </span>
-                      </div>
+                      <Icon className={`w-6 h-6 md:w-8 md:h-8 mb-1 ${activeService === service.id ? 'text-primary' : 'text-muted-foreground group-hover:text-primary transition-colors'}`} />
+
+                      <span className={`text-[9px] md:text-[11px] font-medium leading-tight ${activeService === service.id ? 'text-primary' : 'text-foreground/80'}`}>
+                        {service.name.replace("Theon ", "")}
+                      </span>
                     </motion.div>
 
                     {/* Tooltip Label Panel - DESKTOP ONLY */}

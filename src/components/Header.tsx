@@ -38,12 +38,12 @@ const Header = () => {
   ];
 
   const services = [
-    { name: "Theon Digital", href: "/theon-digital" },
-    { name: "Theon Overseas", href: "/theon-overseas" },
-    { name: "Theon Recruiter", href: "/theon-recruiter" },
-    { name: "Theon Education", href: "/theon-education" },
-    { name: "Theon Travel", href: "/theon-travel" },
-    { name: "Theon Technologies", href: "/theon-technologies" },
+    { name: "Theion Digital", href: "/theon-digital" },
+    { name: "Theion Overseas", href: "/theon-overseas" },
+    { name: "Theion Recruiter", href: "/theon-recruiter" },
+    { name: "Theion Education", href: "/theon-education" },
+    { name: "Theion Travel", href: "/theon-travel" },
+    { name: "Theion Technologies", href: "/theon-technologies" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

@@ -14,6 +14,11 @@ import dataAnalyticsImg from "@/assets/data_analytics.png";
 
 const services = [
   {
+    image: dataAnalyticsImg,
+    title: "Data Analytics & AI",
+    description: "Advanced analytics and AI-powered insights to drive data-informed decision making.",
+  },
+  {
     image: customSoftwareImg,
     title: "Custom Software Development",
     description: "Tailored software solutions designed to meet your unique business requirements and drive operational efficiency.",
@@ -37,11 +42,6 @@ const services = [
     image: enterpriseIntegrationImg,
     title: "Enterprise Integration",
     description: "Seamless integration of disparate systems to create unified, efficient business workflows.",
-  },
-  {
-    image: dataAnalyticsImg,
-    title: "Data Analytics & AI",
-    description: "Advanced analytics and AI-powered insights to drive data-informed decision making.",
   },
 ];
 
