@@ -40,10 +40,8 @@ const Header = () => {
   const services = [
     { name: "Theion Digital", href: "/theion-digital" },
     { name: "Theion Overseas", href: "/theion-overseas" },
-    { name: "Theion Recruiter", href: "/theion-recruiter" },
-    { name: "Theion Education", href: "/theion-education" },
-    { name: "Theion Travel", href: "/theion-travel" },
     { name: "Theion Technologies", href: "/theion-technologies" },
+    { name: "Theion Travel", href: "/theion-travel" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -128,21 +126,49 @@ const Header = () => {
               }}
               transition={{ duration: 0.2 }}
               onMouseLeave={() => setIsDropdownOpen(false)}
-              className="absolute right-0 top-full mt-4 w-64 bg-card border border-border/50 rounded-lg overflow-hidden shadow-lg"
+              className="absolute right-0 top-full mt-4 w-72 bg-card border border-border/50 rounded-lg overflow-visible shadow-lg"
             >
               {services.map((service) => (
-                <Link
-                  key={service.name}
-                  to={service.href}
-                  className={`flex items-center px-5 py-4 text-sm transition-all duration-300 border-b border-border/30 last:border-0 ${isActive(service.href)
-                    ? "text-foreground bg-background-secondary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background-secondary"
-                    }`}
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
-                  {service.name}
-                </Link>
+                <div key={service.name} className="relative group/item">
+                  <Link
+                    to={service.href}
+                    className={`flex items-center justify-between px-5 py-4 text-sm transition-all duration-300 border-b border-border/30 last:border-0 ${isActive(service.href)
+                      ? "text-foreground bg-background-secondary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-background-secondary"
+                      }`}
+                    onClick={() => {
+                      if (service.name !== "Theion Overseas") setIsDropdownOpen(false);
+                    }}
+                  >
+                    <div className="flex items-center">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
+                      {service.name}
+                    </div>
+                    {service.name === "Theion Overseas" && (
+                      <ChevronDown className="w-4 h-4 -rotate-90 text-muted-foreground" />
+                    )}
+                  </Link>
+
+                  {/* Sub-menu for Theion Overseas */}
+                  {service.name === "Theion Overseas" && (
+                    <div className="absolute top-0 right-full mr-2 w-64 bg-card border border-border/50 rounded-lg shadow-lg opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300">
+                      <Link
+                        to="/theion-education"
+                        className="block px-5 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-background-secondary border-b border-border/30 first:rounded-t-lg"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Overseas Education
+                      </Link>
+                      <Link
+                        to="/theion-recruits"
+                        className="block px-5 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-background-secondary last:rounded-b-lg"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Overseas Jobs
+                      </Link>
+                    </div>
+                  )}
+                </div>
               ))}
             </motion.div>
           </div>
@@ -181,15 +207,34 @@ const Header = () => {
               <div className="border-t border-border/30 pt-4 mt-2">
                 <span className="text-xs text-muted-foreground uppercase tracking-wider">Services</span>
                 {services.map((service) => (
-                  <Link
-                    key={service.name}
-                    to={service.href}
-                    className={`block text-sm tracking-wide py-2 mt-2 ${isActive(service.href) ? "text-primary" : "text-muted-foreground"
-                      }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {service.name}
-                  </Link>
+                  <div key={service.name}>
+                    <Link
+                      to={service.href}
+                      className={`block text-sm tracking-wide py-2 mt-2 ${isActive(service.href) ? "text-primary" : "text-muted-foreground"
+                        }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {service.name}
+                    </Link>
+                    {service.name === "Theion Overseas" && (
+                      <div className="pl-4 border-l border-border/30 ml-2 mt-1 space-y-2">
+                        <Link
+                          to="/theion-education"
+                          className="block text-sm text-muted-foreground/80 hover:text-foreground"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Overseas Education
+                        </Link>
+                        <Link
+                          to="/theion-recruits"
+                          className="block text-sm text-muted-foreground/80 hover:text-foreground"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Overseas Jobs
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
 

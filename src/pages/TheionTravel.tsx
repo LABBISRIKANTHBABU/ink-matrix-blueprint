@@ -118,9 +118,9 @@ const TheonTravel = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="card-premium overflow-hidden group"
+                className="card-premium overflow-hidden group h-full flex flex-col"
               >
-                <div className="relative h-64 w-full overflow-hidden">
+                <div className="relative h-64 w-full overflow-hidden flex-shrink-0">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                   <img
                     src={service.image}
@@ -128,13 +128,18 @@ const TheonTravel = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-8">
+                <div className="p-8 flex flex-col flex-grow">
                   <h3 className="font-display text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-grow">
                     {service.description}
                   </p>
+                  <Link to="/contact-us" className="mt-auto">
+                    <Button className="w-full btn-gold rounded-lg py-2 text-sm font-medium" aria-label={`Contact us about ${service.title}`}>
+                      Contact Us
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}

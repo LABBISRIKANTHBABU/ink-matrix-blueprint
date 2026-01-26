@@ -62,11 +62,20 @@ const TheonOverseas = () => {
                 Your gateway to international opportunities. We help professionals and
                 businesses expand beyond borders with expert immigration and relocation services.
               </p>
-              <Link to="/contact-us">
-                <Button className="btn-gold rounded-full px-8 py-6">
-                  Start Your Journey <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/theion-education">
+                  <Button className="btn-gold rounded-full px-8 py-6 w-full sm:w-auto">
+                    Overseas Education <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link to="/theion-recruits">
+                  <Button className="btn-outline-gold rounded-full px-8 py-6 w-full sm:w-auto">
+                    Overseas Jobs <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
+
             </motion.div>
 
             <motion.div
@@ -113,9 +122,9 @@ const TheonOverseas = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="card-premium overflow-hidden group"
+                className="card-premium overflow-hidden group h-full flex flex-col"
               >
-                <div className="relative h-64 w-full overflow-hidden">
+                <div className="relative h-64 w-full overflow-hidden flex-shrink-0">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                   <img
                     src={service.image}
@@ -123,13 +132,18 @@ const TheonOverseas = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-8">
+                <div className="p-8 flex flex-col flex-grow">
                   <h3 className="font-display text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-grow">
                     {service.description}
                   </p>
+                  <Link to="/contact-us" className="mt-auto">
+                    <Button className="w-full btn-gold rounded-lg py-2 text-sm font-medium" aria-label={`Contact us about ${service.title}`}>
+                      Contact Us
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}

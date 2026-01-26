@@ -38,7 +38,7 @@ const TheionRecruits = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial" />
@@ -113,11 +113,11 @@ const TheionRecruits = () => {
                   <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                     <Icon className="w-8 h-8 text-primary" />
                   </div>
-                  
+
                   <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-4">
                     {type.title}
                   </h3>
-                  
+
                   <p className="text-muted-foreground leading-relaxed mb-8">
                     {type.description}
                   </p>
@@ -131,10 +131,12 @@ const TheionRecruits = () => {
                     ))}
                   </ul>
 
-                  <Button className="btn-outline-gold rounded-full px-6 py-5 group w-full md:w-auto">
-                    Learn More
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
+                  <Link to="/contact-us" className="mt-auto block w-full md:w-auto">
+                    <Button className="btn-outline-gold rounded-full px-6 py-5 group w-full" aria-label={`Contact us about ${type.title}`}>
+                      Contact Us
+                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
                 </motion.div>
               );
             })}
@@ -155,7 +157,7 @@ const TheionRecruits = () => {
               Looking for the Right Talent?
             </h2>
             <p className="text-muted-foreground mb-8">
-              Let us help you find the perfect candidates for your organization. 
+              Let us help you find the perfect candidates for your organization.
               Our recruitment experts are ready to assist.
             </p>
             <Link to="/contact-us">

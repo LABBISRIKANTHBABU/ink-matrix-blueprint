@@ -20,20 +20,6 @@ const services = [
     link: "/theion-overseas"
   },
   {
-    id: "recruiter",
-    name: "Theion Recruiter",
-    description: "Premium talent acquisition and workforce solutions.",
-    icon: Users,
-    link: "/theion-recruiter"
-  },
-  {
-    id: "education",
-    name: "Theion Education",
-    description: "Professional training and skill development programs.",
-    icon: GraduationCap,
-    link: "/theion-education"
-  },
-  {
     id: "travel",
     name: "Theion Travel",
     description: "Corporate travel management and executive services.",

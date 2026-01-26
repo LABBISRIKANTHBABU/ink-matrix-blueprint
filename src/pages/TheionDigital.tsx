@@ -1,58 +1,48 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { 
-  Brain, 
-  Shield, 
-  Cloud, 
-  Layers, 
-  TestTube, 
-  Megaphone, 
-  Code, 
-  Monitor,
-  ArrowRight 
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const services = [
   {
-    icon: Brain,
+    image: "/src/assets/services/data-ai.png",
     title: "Data & AI",
     description: "Unlock AI potential with predictive intelligence, generative tools, and autonomous agents to transform your business operations.",
   },
   {
-    icon: Monitor,
+    image: "/src/assets/services/managed-it.png",
     title: "Managed IT Services",
     description: "Digital transformation consulting with strategy and digital presence optimization for modern enterprises.",
   },
   {
-    icon: Shield,
+    image: "/src/assets/services/cyber-security.png",
     title: "Cyber Security",
     description: "Comprehensive security consulting and digital support to protect your organization from evolving threats.",
   },
   {
-    icon: Cloud,
+    image: "/src/assets/services/cloud-services.png",
     title: "Cloud Services",
     description: "Seamless, secure cloud experiences that scale with your business needs and drive operational efficiency.",
   },
   {
-    icon: Layers,
+    image: "/src/assets/services/system-integrations.png",
     title: "System Integrations",
     description: "Seamless backend and frontend integration services to unify your technology ecosystem.",
   },
   {
-    icon: TestTube,
+    image: "/src/assets/services/testing.png",
     title: "Testing",
     description: "Manual and automated QA services ensuring reliability, performance, and quality across all platforms.",
   },
   {
-    icon: Megaphone,
+    image: "/src/assets/services/digital-marketing.png",
     title: "Digital Marketing",
     description: "SEO, paid advertising, and content strategy to drive leads, visibility, and sustainable growth.",
   },
   {
-    icon: Code,
+    image: "/src/assets/services/web-development.png",
     title: "Web Development",
     description: "Secure, scalable websites and applications with exceptional UX focus and modern architecture.",
   },
@@ -62,7 +52,8 @@ const TheionDigital = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
+      {/* Hero Section */}
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial" />
@@ -71,19 +62,41 @@ const TheionDigital = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
+            className="max-w-7xl mx-auto"
           >
-            <span className="text-primary text-sm tracking-[0.3em] uppercase font-medium">
-              Theion Digital [SAAS]
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mt-4 mb-6">
-              Innovative Consulting Solutions for{" "}
-              <span className="text-gradient-gold">Theion Consulting</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Comprehensive digital and IT services designed to transform your business 
-              and drive sustainable growth.
-            </p>
+            <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+              <div className="space-y-6 flex flex-col justify-center h-full">
+                <span className="text-primary text-sm tracking-[0.3em] uppercase font-medium">
+                  Theion Digital [SAAS]
+                </span>
+                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground">
+                  Innovative Consulting Solutions for{" "}
+                  <span className="text-gradient-gold">Theion Consulting</span>
+                </h1>
+              </div>
+
+              <div className="space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="relative w-full aspect-video rounded-3xl overflow-hidden border border-border/50 shadow-2xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent z-10" />
+                  <img
+                    src="/src/assets/services/theion-digital.png"
+                    alt="Theion Digital Details"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                <div className="pl-6 border-l border-primary/20">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Comprehensive digital and IT services designed to transform your business
+                    and drive sustainable growth.
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -93,7 +106,6 @@ const TheionDigital = () => {
         <div className="container px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {services.map((service, index) => {
-              const Icon = service.icon;
               return (
                 <motion.div
                   key={service.title}
@@ -101,21 +113,30 @@ const TheionDigital = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="card-premium p-8 group cursor-pointer"
+                  className="card-premium p-0 overflow-hidden group cursor-pointer h-full flex flex-col"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Icon className="w-7 h-7 text-primary" />
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 opacity-60" />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-                  <button className="flex items-center text-sm text-primary font-medium group-hover:underline">
-                    Learn More
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
+
+                  <div className="p-8 flex flex-col flex-grow">
+                    <h3 className="font-display text-xl font-semibold text-foreground mb-3">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-grow">
+                      {service.description}
+                    </p>
+                    <Link to="/contact-us" className="mt-auto">
+                      <Button className="w-full btn-gold rounded-lg py-2 text-sm font-medium" aria-label={`Contact us about ${service.title}`}>
+                        Contact Us
+                      </Button>
+                    </Link>
+                  </div>
                 </motion.div>
               );
             })}
