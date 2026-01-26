@@ -13,6 +13,10 @@ import thyTargetLogo from "@/assets/clients/thy-target.jpg";
 import tapLogo from "@/assets/clients/tap.jpg";
 import upgradLogo from "@/assets/clients/upgrad.jpg";
 import keyloopLogo from "@/assets/clients/keyloop.jpg";
+import twocomsLogo from "@/assets/clients/2coms.jpg";
+import karnatakaGovtLogo from "@/assets/clients/karnataka-govt.jpg";
+import virginAtlanticLogo from "@/assets/clients/virgin-atlantic.jpg";
+import hurtigrutenLogo from "@/assets/clients/hurtigruten.jpg";
 
 const partners = [
   {
@@ -64,6 +68,26 @@ const partners = [
     name: "Keyloop",
     logo: keyloopLogo,
     description: "Leading automotive retail technology provider, transforming the car buying experience with innovative digital solutions."
+  },
+  {
+    name: "2COMS",
+    logo: twocomsLogo,
+    description: "Comprehensive HR solutions provider specializing in recruitment, staffing, and skill development services across industries."
+  },
+  {
+    name: "Government of Karnataka",
+    logo: karnatakaGovtLogo,
+    description: "Official government body of Karnataka state, India, partnering for public sector digital transformation and citizen services."
+  },
+  {
+    name: "Virgin Atlantic",
+    logo: virginAtlanticLogo,
+    description: "Award-winning British airline known for exceptional customer service and innovative travel experiences across the globe."
+  },
+  {
+    name: "Hurtigruten",
+    logo: hurtigrutenLogo,
+    description: "World's leading expedition cruise company, offering unique adventure travel and sustainable tourism experiences worldwide."
   },
 ];
 
