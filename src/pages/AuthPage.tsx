@@ -28,6 +28,9 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import logoImg from "@/Gemini_Generated_Image_86xpwe86xpwe86xp.png";
 import WelcomePopup from "@/components/WelcomePopup";
+import { getAuthErrorMessage } from "@/lib/authErrors";
+import { checkRateLimit, formatRemainingTime, AUTH_RATE_LIMIT } from "@/lib/rateLimit";
+import { authSchema, validateData } from "@/lib/validation";
 
 const AuthPage = () => {
     const navigate = useNavigate();
@@ -51,23 +54,7 @@ const AuthPage = () => {
 
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
-                // If we manually triggered welcome (e.g. after login submit), wait for that.
-                // But if user just visits page and is already logged in, maybe just redirect or show welcome?
-                // For smoother UX on refresh: just redirect. 
-                // For explicit login action: show welcome then redirect.
-                // We'll rely on the manual set of showWelcome for explicit actions.
-                // If we are already logged in and just visited /auth, maybe redirect to home directly or dashboard?
-                // Request said "Redirect directly into the home page".
-
-                // Let's check complexity: modifying onAuthStateChanged might fight with manual login flow.
-                // We will disable this auto-redirect effect for the explicit login flow using a ref or state check?
-                // Actually, if we set showWelcome(true) immediately after login, we can ignore this.
-
                 if (!isLoading && !showWelcome) {
-                    // Check if valid session exists and we are NOT in the middle of a login action
-                    // For now, let's keep it simple: login action sets showWelcome -> that handles redirect.
-                    // This effect handles "Page Refresh" or "Already Logged In" state.
-                    // We will redirect to Home as requested.
                     navigate("/", { replace: true });
                 }
             }
@@ -76,6 +63,13 @@ const AuthPage = () => {
     }, [navigate, showWelcome, isLoading]);
 
     const handleGoogleSignIn = async () => {
+        // Rate limiting check
+        const rateCheck = checkRateLimit('auth-google', AUTH_RATE_LIMIT);
+        if (!rateCheck.allowed) {
+            setError(`Too many attempts. Please wait ${formatRemainingTime(rateCheck.remainingMs || 60000)}.`);
+            return;
+        }
+
         setIsLoading(true);
         setError(null);
         try {
@@ -83,7 +77,7 @@ const AuthPage = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            // Check/Create User Doc Logic (Same as before)
+            // Check/Create User Doc Logic
             const userDocRef = doc(db, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
 
@@ -103,8 +97,8 @@ const AuthPage = () => {
             setShowWelcome(true);
 
         } catch (err: any) {
-            console.error(err);
-            setError(err.message || "Failed to sign in with Google.");
+            // Use sanitized error message - don't expose internal details
+            setError(getAuthErrorMessage(err));
         } finally {
             setIsLoading(false);
         }
@@ -112,13 +106,29 @@ const AuthPage = () => {
 
     const handleEmailAuth = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Rate limiting check
+        const rateCheck = checkRateLimit('auth-email', AUTH_RATE_LIMIT);
+        if (!rateCheck.allowed) {
+            setError(`Too many attempts. Please wait ${formatRemainingTime(rateCheck.remainingMs || 60000)}.`);
+            return;
+        }
+
+        // Validate input
+        const validation = validateData(authSchema, { email, password });
+        if (validation.success === false) {
+            setError(validation.errors[0]);
+            return;
+        }
+        const validatedData = validation.data;
+
         setIsLoading(true);
         setError(null);
 
         try {
             if (isLogin) {
                 // Login
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const userCredential = await signInWithEmailAndPassword(auth, validatedData.email, validatedData.password);
                 const user = userCredential.user;
 
                 // Show Welcome
@@ -132,7 +142,7 @@ const AuthPage = () => {
                     return;
                 }
 
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const userCredential = await createUserWithEmailAndPassword(auth, validatedData.email, validatedData.password);
                 const user = userCredential.user;
 
                 await setDoc(doc(db, "users", user.uid), {
@@ -149,8 +159,8 @@ const AuthPage = () => {
                 setShowWelcome(true);
             }
         } catch (err: any) {
-            console.error(err);
-            setError(err.message || "Authentication failed.");
+            // Use sanitized error message - don't expose internal details
+            setError(getAuthErrorMessage(err));
         } finally {
             setIsLoading(false);
         }
@@ -269,6 +279,7 @@ const AuthPage = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
+                                    maxLength={255}
                                 />
                             </div>
                         </div>
@@ -285,6 +296,8 @@ const AuthPage = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
+                                    minLength={6}
+                                    maxLength={128}
                                 />
                             </div>
                         </div>
