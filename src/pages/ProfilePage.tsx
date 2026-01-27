@@ -11,9 +11,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import {
     User, Mail, Phone, Shield, LogOut, Send,
-    Loader2, Edit2, Save, X
+    Loader2, Edit2, Save, X, AlertCircle
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { profileMessageSchema, profileUpdateSchema, validateData } from "@/lib/validation";
+import { checkRateLimit, formatRemainingTime, MESSAGE_RATE_LIMIT } from "@/lib/rateLimit";
 
 interface UserProfile {
     role: string;
@@ -36,6 +38,8 @@ const ProfilePage = () => {
     const [message, setMessage] = useState("");
     const [isSaving, setIsSaving] = useState(false);
     const [isSending, setIsSending] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
+    const [messageError, setMessageError] = useState<string | null>(null);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -51,7 +55,6 @@ const ProfilePage = () => {
                         setAltEmail(data.altEmail || "");
                     }
                 } catch (error) {
-                    console.error("Error fetching profile:", error);
                     toast.error("Failed to load profile data.");
                 } finally {
                     setIsLoading(false);
@@ -65,18 +68,27 @@ const ProfilePage = () => {
 
     const handleSaveProfile = async () => {
         if (!user) return;
+        setFormError(null);
+
+        // Validate profile update data
+        const validation = validateData(profileUpdateSchema, { mobile, altEmail });
+        if (validation.success === false) {
+            setFormError(validation.errors[0]);
+            return;
+        }
+        const validatedData = validation.data;
+
         setIsSaving(true);
         try {
             const docRef = doc(db, "users", user.uid);
             await updateDoc(docRef, {
-                mobile,
-                altEmail
+                mobile: validatedData.mobile || "",
+                altEmail: validatedData.altEmail || ""
             });
-            setProfile(prev => prev ? { ...prev, mobile, altEmail } : null);
+            setProfile(prev => prev ? { ...prev, mobile: validatedData.mobile || "", altEmail: validatedData.altEmail || "" } : null);
             setIsEditing(false);
             toast.success("Profile updated successfully!");
         } catch (error) {
-            console.error(error);
             toast.error("Failed to update profile.");
         } finally {
             setIsSaving(false);
@@ -85,21 +97,36 @@ const ProfilePage = () => {
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!user || !message.trim()) return;
+        if (!user) return;
+        setMessageError(null);
+
+        // Rate limiting check
+        const rateCheck = checkRateLimit('profile-message', MESSAGE_RATE_LIMIT);
+        if (!rateCheck.allowed) {
+            setMessageError(`Too many messages. Please wait ${formatRemainingTime(rateCheck.remainingMs || 300000)}.`);
+            return;
+        }
+
+        // Validate message
+        const validation = validateData(profileMessageSchema, { message });
+        if (validation.success === false) {
+            setMessageError(validation.errors[0]);
+            return;
+        }
+        const validatedData = validation.data;
 
         setIsSending(true);
         try {
             await addDoc(collection(db, "messages"), {
                 userId: user.uid,
                 userEmail: user.email,
-                content: message,
+                content: validatedData.message,
                 createdAt: serverTimestamp(),
                 status: "new"
             });
             setMessage("");
             toast.success("Message sent successfully! We will contact you soon.");
         } catch (error) {
-            console.error(error);
             toast.error("Failed to send message.");
         } finally {
             setIsSending(false);
@@ -184,20 +211,29 @@ const ProfilePage = () => {
 
                                     {isEditing ? (
                                         <div className="space-y-2 mt-2">
+                                            {formError && (
+                                                <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs p-2 rounded-lg flex items-center">
+                                                    <AlertCircle className="w-3 h-3 mr-1 shrink-0" />
+                                                    {formError}
+                                                </div>
+                                            )}
                                             <Input
                                                 value={mobile}
                                                 onChange={(e) => setMobile(e.target.value)}
                                                 placeholder="+1 (555) 000-0000"
                                                 className="bg-black/20 border-white/10 h-8 text-sm"
+                                                maxLength={20}
                                             />
                                             <Input
                                                 value={altEmail}
                                                 onChange={(e) => setAltEmail(e.target.value)}
                                                 placeholder="alt@example.com"
                                                 className="bg-black/20 border-white/10 h-8 text-sm"
+                                                type="email"
+                                                maxLength={255}
                                             />
                                             <div className="flex gap-2 justify-end pt-1">
-                                                <Button size="sm" variant="ghost" onClick={() => setIsEditing(false)} className="h-7 px-2">
+                                                <Button size="sm" variant="ghost" onClick={() => { setIsEditing(false); setFormError(null); }} className="h-7 px-2">
                                                     <X className="w-3 h-3" />
                                                 </Button>
                                                 <Button size="sm" onClick={handleSaveProfile} disabled={isSaving} className="h-7 px-2 btn-gold">
@@ -257,6 +293,12 @@ const ProfilePage = () => {
                             </h3>
 
                             <form onSubmit={handleSendMessage} className="space-y-4 relative z-10">
+                                {messageError && (
+                                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs p-3 rounded-lg flex items-center">
+                                        <AlertCircle className="w-4 h-4 mr-2 shrink-0" />
+                                        {messageError}
+                                    </div>
+                                )}
                                 <div className="space-y-2">
                                     <Label>Your Message</Label>
                                     <Textarea
@@ -265,12 +307,14 @@ const ProfilePage = () => {
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                         required
+                                        minLength={5}
+                                        maxLength={2000}
                                     />
                                 </div>
                                 <div className="flex justify-end">
                                     <Button type="submit" className="btn-gold min-w-[120px]" disabled={isSending}>
                                         {isSending ? (
-                                            <>Converting... <Loader2 className="w-4 h-4 ml-2 animate-spin" /></>
+                                            <>Sending... <Loader2 className="w-4 h-4 ml-2 animate-spin" /></>
                                         ) : (
                                             <>Send Message <Send className="w-4 h-4 ml-2" /></>
                                         )}

@@ -8,6 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram, Linkedin, Twitter, Send, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import BookingModal from "@/components/BookingModal";
+import { Video } from "lucide-react";
+import { contactFormSchema, validateData } from "@/lib/validation";
+import { checkRateLimit, formatRemainingTime, FORM_RATE_LIMIT } from "@/lib/rateLimit";
 
 const contactInfo = [
   {
@@ -39,9 +43,6 @@ const socialLinks = [
   { icon: Mail, href: "mailto:info@theionconsulting.com", label: "Email" },
 ];
 
-import BookingModal from "@/components/BookingModal";
-import { Video } from "lucide-react"; // Import Video icon
-
 const ContactUs = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,6 +54,7 @@ const ContactUs = () => {
     role: "student" as "student" | "professional" | "client",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const countryCodes = [
     { code: "+1", label: "US/CA" },
@@ -67,18 +69,33 @@ const ContactUs = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
+    // Rate limiting check
+    const rateCheck = checkRateLimit('contact-form', FORM_RATE_LIMIT);
+    if (!rateCheck.allowed) {
+      setFormError(`Too many submissions. Please wait ${formatRemainingTime(rateCheck.remainingMs || 60000)}.`);
+      return;
+    }
+
+    // Validate form data
+    const validation = validateData(contactFormSchema, formData);
+    if (validation.success === false) {
+      setFormError(validation.errors[0]);
+      return;
+    }
+    const validatedData = validation.data;
+
     setIsSubmitting(true);
 
     const payload = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      role: formData.role,
-      phone: `${formData.countryCode} ${formData.phone}`.trim(),
-      message: formData.message.trim(),
+      name: validatedData.name,
+      email: validatedData.email,
+      role: validatedData.role,
+      phone: `${validatedData.countryCode} ${validatedData.phone}`,
+      message: validatedData.message,
       source: "contact_page"
     };
-
-    console.log("CONTACT PAYLOAD:", payload);
 
     try {
       const response = await fetch(
@@ -113,14 +130,11 @@ const ContactUs = () => {
         toast.error("Message submitted, but response unavailable.");
       }
     } catch (error) {
-      console.error("Network error:", error);
       toast.error("Unable to reach server. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
-
-
 
   return (
     <div className="min-h-screen bg-background">
@@ -250,6 +264,13 @@ const ContactUs = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+                  {formError && (
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs p-3 rounded-lg flex items-center animate-in fade-in slide-in-from-top-1">
+                      <AlertCircle className="w-4 h-4 mr-2 shrink-0" />
+                      {formError}
+                    </div>
+                  )}
+
                   <div className="grid md:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="name" className="block text-xs uppercase tracking-wider text-muted-foreground mb-2">
@@ -263,6 +284,8 @@ const ContactUs = () => {
                         className="h-11 bg-black/20 border-white/10 text-foreground focus:border-primary/50 focus:ring-primary/20 backdrop-blur-md transition-all"
                         placeholder="Your name"
                         required
+                        minLength={2}
+                        maxLength={100}
                       />
                     </div>
                     <div>
@@ -297,6 +320,7 @@ const ContactUs = () => {
                       className="h-11 bg-black/20 border-white/10 text-foreground focus:border-primary/50 focus:ring-primary/20 backdrop-blur-md"
                       placeholder="your@email.com"
                       required
+                      maxLength={255}
                     />
                   </div>
 
@@ -328,10 +352,17 @@ const ContactUs = () => {
                         id="phone"
                         type="tel"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) => {
+                          // Only allow digits
+                          const value = e.target.value.replace(/[^0-9]/g, '');
+                          setFormData({ ...formData, phone: value });
+                        }}
                         className="h-11 bg-black/20 border-white/10 text-foreground focus:border-primary/50 focus:ring-primary/20 backdrop-blur-md flex-1"
-                        placeholder="99999 99999"
+                        placeholder="9999999999"
                         required
+                        minLength={7}
+                        maxLength={15}
+                        pattern="[0-9]{7,15}"
                       />
                     </div>
                   </div>
@@ -347,6 +378,8 @@ const ContactUs = () => {
                       className="min-h-[120px] bg-black/20 border-white/10 text-foreground focus:border-primary/50 focus:ring-primary/20 resize-none backdrop-blur-md"
                       placeholder="How can we help you?"
                       required
+                      minLength={10}
+                      maxLength={2000}
                     />
                   </div>
 
