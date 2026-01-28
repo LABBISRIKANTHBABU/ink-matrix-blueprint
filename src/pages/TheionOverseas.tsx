@@ -5,36 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/services/theon-overseas.jpg";
-import immigrationConsultingImg from "@/assets/services/overseas/immigration_consulting.png";
-import internationalPlacementsImg from "@/assets/services/overseas/international_placements.png";
-import documentProcessingImg from "@/assets/services/overseas/document_processing.png";
-import relocationSupportImg from "@/assets/services/overseas/relocation_support.png";
 
-const services = [
-  {
-    image: immigrationConsultingImg,
-    title: "Immigration Consulting",
-    description: "Expert guidance on visa applications, work permits, and immigration processes for multiple countries.",
-  },
-  {
-    image: internationalPlacementsImg,
-    title: "International Placements",
-    description: "Connect with global opportunities through our extensive network of international employers.",
-  },
-  {
-    image: documentProcessingImg,
-    title: "Document Processing",
-    description: "Comprehensive document verification, attestation, and processing services.",
-  },
-  {
-    image: relocationSupportImg,
-    title: "Relocation Support",
-    description: "End-to-end relocation assistance including accommodation, banking, and settlement services.",
-  },
-];
-
-const destinations = [
-  "United Kingdom", "United States", "Canada", "Australia", "Germany", "UAE"
+const countries = [
+  { name: "United States", code: "us" },
+  { name: "United Kingdom", code: "gb" },
+  { name: "Europe", code: "eu" },
+  { name: "China", code: "cn" },
+  { name: "Japan", code: "jp" },
+  { name: "Australia", code: "au" },
+  { name: "New Zealand", code: "nz" },
 ];
 
 const TheonOverseas = () => {
@@ -69,7 +48,7 @@ const TheonOverseas = () => {
                     Overseas Education <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
-                <Link to="/theion-recruits">
+                <Link to="/theion-jobs">
                   <Button className="btn-outline-gold rounded-full px-8 py-6 w-full sm:w-auto">
                     Overseas Jobs <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
@@ -96,7 +75,7 @@ const TheonOverseas = () => {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Countries Section */}
       <section className="py-20 bg-background-secondary">
         <div className="container px-6">
           <motion.div
@@ -106,87 +85,50 @@ const TheonOverseas = () => {
             className="text-center mb-16"
           >
             <span className="text-primary text-sm tracking-[0.3em] uppercase font-medium">
-              Our Services
+              Global Reach
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              What We Offer
+              Explore Opportunities By Country
             </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Select a country to learn more about visa processes, job opportunities, and education pathways.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="card-premium overflow-hidden group h-full flex flex-col"
-              >
-                <div className="relative h-64 w-full overflow-hidden flex-shrink-0">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                    {service.title}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {countries.map((country, index) => (
+              <Link to="/contact-us" key={country.code}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="card-premium p-6 flex flex-col items-center justify-center gap-4 group cursor-pointer h-full border border-primary/10 hover:border-primary/40 bg-card hover:bg-card/80 transition-all duration-300 rounded-xl shadow-lg hover:shadow-primary/10"
+                >
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-background shadow-md group-hover:shadow-lg transition-shadow duration-300 relative">
+                    <img
+                      src={`https://flagcdn.com/${country.code}.svg`}
+                      alt={`${country.name} Flag`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+                  <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors text-center">
+                    {country.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-grow">
-                    {service.description}
-                  </p>
-                  <Link to="/contact-us" className="mt-auto">
-                    <Button className="w-full btn-gold rounded-lg py-2 text-sm font-medium" aria-label={`Contact us about ${service.title}`}>
-                      Contact Us
-                    </Button>
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Destinations */}
-      <section className="py-20 bg-background">
-        <div className="container px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="text-primary text-sm tracking-[0.3em] uppercase font-medium">
-              Popular Destinations
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mt-4">
-              Where We Can Help You Go
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {destinations.map((destination, index) => (
-              <motion.div
-                key={destination}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="p-6 bg-card rounded-xl border border-border/50 text-center hover:border-primary/50 transition-all duration-300"
-              >
-                <span className="text-foreground font-medium">{destination}</span>
-              </motion.div>
+                  <span className="text-xs text-primary/60 uppercase tracking-widest font-medium group-hover:text-primary transition-colors">
+                    View Details
+                  </span>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* Who Is It For */}
-      <section className="py-20 bg-background-secondary">
+      <section className="py-20 bg-background">
         <div className="container px-6">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
@@ -211,7 +153,7 @@ const TheonOverseas = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background-secondary">
         <div className="container px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

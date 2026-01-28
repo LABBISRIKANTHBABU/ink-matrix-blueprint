@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import logoImg from "@/assets/logo-circular.png";
+import logoImg from "@/assets/header-logo.png";
 
 import { auth } from "@/lib/firebase"; // Import auth
 
@@ -38,9 +38,10 @@ const Header = () => {
   ];
 
   const services = [
-    { name: "Theion Digital", href: "/theion-digital" },
+    { name: "Theion Digital SAAS", href: "/theion-digital" },
     { name: "Theion Overseas", href: "/theion-overseas" },
     { name: "Theion Technologies", href: "/theion-technologies" },
+    { name: "Theion Recruits", href: "/theion-recruits" },
     { name: "Theion Travel", href: "/theion-travel" },
   ];
 
@@ -61,11 +62,11 @@ const Header = () => {
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} className="relative shrink-0">
             <Link to="/" className="flex items-center justify-center">
-              <div className="w-24 h-24 rounded-full overflow-hidden border border-primary/20 bg-black shadow-lg flex items-center justify-center">
+              <div className="w-24 h-24 lg:w-24 lg:h-24 rounded-full overflow-hidden border border-primary/20 bg-black shadow-lg flex items-center justify-center group-hover:border-primary/50 transition-colors duration-300">
                 <img
                   src={logoImg}
                   alt="Theion Consulting"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain scale-[1.75]"
                 />
               </div>
             </Link>

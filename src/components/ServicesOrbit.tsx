@@ -33,6 +33,13 @@ const services = [
     icon: Server,
     link: "/theion-technologies"
   },
+  {
+    id: "recruitment",
+    name: "Theion Recruits",
+    description: "Recruitment and staffing solutions.",
+    icon: Users,
+    link: "/theion-recruits"
+  },
 ];
 
 const ServicesOrbit = () => {

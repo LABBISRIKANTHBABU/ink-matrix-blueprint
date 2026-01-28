@@ -77,9 +77,9 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link to="/get-started">
+            <Link to="/contact-us">
               <Button className="btn-gold px-8 py-6 text-base rounded-full group">
-                Get Started Today
+                Start Your Journey
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>

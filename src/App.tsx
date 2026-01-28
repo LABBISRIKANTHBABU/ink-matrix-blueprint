@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import Clientele from "./pages/Clientele";
 import ContactUs from "./pages/ContactUs";
 import TheionOverseas from "./pages/TheionOverseas";
+import TheionJobs from "./pages/TheionJobs";
 import TheionDigital from "./pages/TheionDigital";
 import OverseasEducation from "./pages/overseas/OverseasEducation";
 import OverseasJobs from "./pages/overseas/OverseasJobs";
@@ -37,6 +38,7 @@ const AppRoutes = () => {
         <Route path="/contact-us" element={<PageTransition><ContactUs /></PageTransition>} />
         <Route path="/theion-digital" element={<PageTransition><TheionDigital /></PageTransition>} />
         <Route path="/theion-overseas" element={<PageTransition><TheionOverseas /></PageTransition>} />
+        <Route path="/theion-jobs" element={<PageTransition><TheionJobs /></PageTransition>} />
         <Route path="/theion-overseas/education" element={<PageTransition><OverseasEducation /></PageTransition>} />
         <Route path="/theion-overseas/jobs" element={<PageTransition><OverseasJobs /></PageTransition>} />
         <Route path="/theion-recruits" element={<PageTransition><TheionRecruits /></PageTransition>} />

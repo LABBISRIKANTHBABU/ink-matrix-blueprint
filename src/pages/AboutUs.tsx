@@ -103,10 +103,10 @@ const AboutUs = () => {
               className="relative h-80 hidden lg:block"
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full border border-primary/20 flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-full border border-primary/30 flex items-center justify-center">
-                    <div className="w-32 h-32 rounded-full bg-black flex items-center justify-center overflow-hidden shadow-lg">
-                      <img src={logoImg} alt="Theion Consulting" className="w-full h-full object-contain" />
+                <div className="w-96 h-96 rounded-full border border-primary/20 flex items-center justify-center">
+                  <div className="w-72 h-72 rounded-full border border-primary/30 flex items-center justify-center">
+                    <div className="w-56 h-56 rounded-full bg-gradient-to-br from-primary/40 via-black to-black flex items-center justify-center overflow-hidden shadow-2xl shadow-primary/20">
+                      <img src={logoImg} alt="Theion Consulting" className="w-full h-full object-contain scale-110" />
                     </div>
                   </div>
                 </div>
