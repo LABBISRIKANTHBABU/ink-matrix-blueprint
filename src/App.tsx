@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import Clientele from "./pages/Clientele";
@@ -62,6 +63,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <AppRoutes />
+        <FloatingWhatsApp />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

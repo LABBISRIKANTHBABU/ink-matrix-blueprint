@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, ArrowRight, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight, MessageCircle, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -7,8 +7,8 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Whitechapel, London",
-    subvalue: "United Kingdom",
+    value: "Kurnool, Andhra Pradesh",
+    subvalue: "India",
   },
   {
     icon: Phone,
@@ -55,6 +55,37 @@ const ContactTeaser = () => {
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
             Contact us for an initial call to understand your business requirements
           </p>
+        </motion.div>
+
+        {/* Social Icons */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="flex justify-center gap-6 mb-12"
+        >
+          {[
+            { icon: Instagram, href: "https://www.instagram.com/theionconsulting/", label: "Instagram" },
+            { icon: Linkedin, href: "https://www.linkedin.com/search/results/all/?keywords=theion%20consulting&origin=GLOBAL_SEARCH_HEADER&sid=NF", label: "LinkedIn" },
+            { icon: Twitter, href: "https://x.com/Theionconsultin", label: "Twitter" },
+            { icon: Mail, href: "mailto:info@theionconsulting.com", label: "Email" },
+          ].map((social) => {
+            const Icon = social.icon;
+            return (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target={social.label === "Email" ? "_self" : "_blank"}
+                rel={social.label === "Email" ? "" : "noopener noreferrer"}
+                aria-label={social.label}
+                className="w-12 h-12 rounded-full bg-background border border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
+                whileHover={{ y: -4, scale: 1.1 }}
+              >
+                <Icon className="w-5 h-5" />
+              </motion.a>
+            );
+          })}
         </motion.div>
 
         {/* Floating Contact Card */}
@@ -107,9 +138,9 @@ const ContactTeaser = () => {
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <a 
-                href="https://wa.me/919912245345" 
-                target="_blank" 
+              <a
+                href="https://wa.me/919912245345"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1"
               >
