@@ -206,28 +206,7 @@ const ContactUs = () => {
                 </Button>
               </div>
 
-              {/* Social Links */}
-              <div>
-                <h3 className="text-sm text-muted-foreground uppercase tracking-wider mb-4">
-                  Follow Us
-                </h3>
-                <div className="flex gap-3">
-                  {socialLinks.map((social) => {
-                    const Icon = social.icon;
-                    return (
-                      <motion.a
-                        key={social.label}
-                        href={social.href}
-                        aria-label={social.label}
-                        className="w-11 h-11 rounded-full bg-card/60 border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 backdrop-blur-sm"
-                        whileHover={{ y: -2, scale: 1.05 }}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </motion.a>
-                    );
-                  })}
-                </div>
-              </div>
+
             </motion.div>
 
             {/* Right Column - Contact Form */}
@@ -248,6 +227,26 @@ const ContactUs = () => {
                   <Send className="w-5 h-5 text-primary" />
                   Send us a Message
                 </h2>
+
+                {/* Social Icons */}
+                <div className="flex justify-center gap-5 mb-8">
+                  {socialLinks.map((social) => {
+                    const Icon = social.icon;
+                    return (
+                      <motion.a
+                        key={social.label}
+                        href={social.href}
+                        target={social.label === "Email" ? "_self" : "_blank"}
+                        rel={social.label === "Email" ? "" : "noopener noreferrer"}
+                        aria-label={social.label}
+                        className="w-14 h-14 rounded-full bg-black/40 border border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.15)] backdrop-blur-md"
+                        whileHover={{ y: -4, scale: 1.1 }}
+                      >
+                        <Icon className="w-6 h-6" />
+                      </motion.a>
+                    );
+                  })}
+                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                   <div className="grid md:grid-cols-2 gap-5">

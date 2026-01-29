@@ -57,9 +57,8 @@ const SubscribeSection = () => {
             </div>
             <Button
               type="submit"
-              className={`btn-gold h-14 px-8 rounded-full transition-all duration-300 ${
-                isSubmitted ? "bg-green-600 hover:bg-green-600" : ""
-              }`}
+              className={`btn-gold h-14 px-8 rounded-full transition-all duration-300 ${isSubmitted ? "bg-green-600 hover:bg-green-600" : ""
+                }`}
               disabled={isSubmitted}
             >
               {isSubmitted ? (
