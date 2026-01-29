@@ -19,36 +19,36 @@ import virginAtlanticLogo from "@/assets/clients/virgin-atlantic.jpg";
 import hurtigrutenLogo from "@/assets/clients/hurtigruten.jpg";
 
 const partners = [
-  {
-    name: "Oracle",
-    logo: oracleLogo,
-    description: "Global leader in cloud computing and enterprise software solutions, powering businesses worldwide with innovative database and cloud technologies."
-  },
-  {
-    name: "Meta",
-    logo: metaLogo,
-    description: "Pioneer in social technology and metaverse development, connecting billions of people through Facebook, Instagram, WhatsApp, and cutting-edge VR platforms."
-  },
-  {
-    name: "AWS",
-    logo: awsLogo,
-    description: "Amazon Web Services - the world's most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services globally."
-  },
-  {
-    name: "Microsoft",
-    logo: microsoftLogo,
-    description: "Technology giant empowering individuals and organizations through innovative software, cloud services, and enterprise solutions."
-  },
-  {
-    name: "SAP",
-    logo: sapLogo,
-    description: "Market leader in enterprise application software, helping companies run at their best with intelligent ERP and business solutions."
-  },
-  {
-    name: "Adobe",
-    logo: adobeLogo,
-    description: "Creative and digital experience leader, revolutionizing how the world creates, communicates, and collaborates through innovative software."
-  },
+  // {
+  //   name: "Oracle",
+  //   logo: oracleLogo,
+  //   description: "Global leader in cloud computing and enterprise software solutions, powering businesses worldwide with innovative database and cloud technologies."
+  // },
+  // {
+  //   name: "Meta",
+  //   logo: metaLogo,
+  //   description: "Pioneer in social technology and metaverse development, connecting billions of people through Facebook, Instagram, WhatsApp, and cutting-edge VR platforms."
+  // },
+  // {
+  //   name: "AWS",
+  //   logo: awsLogo,
+  //   description: "Amazon Web Services - the world's most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services globally."
+  // },
+  // {
+  //   name: "Microsoft",
+  //   logo: microsoftLogo,
+  //   description: "Technology giant empowering individuals and organizations through innovative software, cloud services, and enterprise solutions."
+  // },
+  // {
+  //   name: "SAP",
+  //   logo: sapLogo,
+  //   description: "Market leader in enterprise application software, helping companies run at their best with intelligent ERP and business solutions."
+  // },
+  // {
+  //   name: "Adobe",
+  //   logo: adobeLogo,
+  //   description: "Creative and digital experience leader, revolutionizing how the world creates, communicates, and collaborates through innovative software."
+  // },
   {
     name: "Thy Target",
     logo: thyTargetLogo,
@@ -95,7 +95,7 @@ const Clientele = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial" />
@@ -135,13 +135,13 @@ const Clientele = () => {
               >
                 {/* Logo Container */}
                 <div className="aspect-[4/3] bg-white flex items-center justify-center p-6 border-b border-border/30">
-                  <img 
-                    src={partner.logo} 
+                  <img
+                    src={partner.logo}
                     alt={`${partner.name} logo`}
                     className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
-                
+
                 {/* Description */}
                 <div className="p-6">
                   <h3 className="font-display text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
@@ -165,8 +165,8 @@ const Clientele = () => {
             <p className="text-muted-foreground mb-4">
               Want to become a partner?
             </p>
-            <a 
-              href="/contact-us" 
+            <a
+              href="/contact-us"
               className="text-primary hover:underline font-medium"
             >
               Get in touch with us →

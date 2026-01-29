@@ -455,7 +455,7 @@ const TheionRecruits = () => {
         </div>
       </div>
 
-      {/* Partners Section */}
+      {/* Partners Section
       <section className="py-20 bg-background-secondary border-t border-border/40">
         <div className="container px-6">
           <div className="text-center mb-16">
@@ -488,7 +488,7 @@ const TheionRecruits = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
 
       {/* Partner With Us Section */}

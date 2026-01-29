@@ -129,7 +129,7 @@ const TheionTravel = () => {
                 />
               </div>
               <div className="p-8 flex flex-col flex-grow">
-                <h3 className="font-display text-2xl font-bold text-foreground mb-4">Tourism Visiting</h3>
+                <h3 className="font-display text-2xl font-bold text-foreground mb-4">Tourism / Visiting</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   Personalized tourism and vacation planning services designed for memorable travel experiences.
                 </p>

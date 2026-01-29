@@ -5,9 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-import SalesforceLogo from "@/assets/Technologies/salesforce.png";
-import SAPLogo from "@/assets/Technologies/sap.png";
-import MicrosoftLogo from "@/assets/Technologies/microsoft.png";
+import SalesforceLogo from "@/assets/Technologies/salesforce_new.png";
+import SAPLogo from "@/assets/Technologies/sap_new.png";
+import MicrosoftLogo from "@/assets/Technologies/microsoft_new.png";
 import AWSLogo from "@/assets/Technologies/aws.png";
 import OracleLogo from "@/assets/Technologies/oracle.png";
 import MetaLogo from "@/assets/Technologies/meta.png";
@@ -88,42 +88,46 @@ const TheionTechnologies = () => {
 
       {/* Technologies List */}
       <section className="py-20 bg-background-secondary">
-        <div className="container px-6 max-w-5xl mx-auto">
-          <div className="space-y-6">
+        <div className="container px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.name}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card-premium p-8 md:p-10"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="bg-card border border-border/50 rounded-2xl overflow-hidden group flex flex-col h-full shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
               >
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                  {/* Logo */}
-                  <div className={`w-32 h-32 rounded-2xl bg-gradient-to-br ${tech.color} flex items-center justify-center flex-shrink-0 border border-border/50 p-6`}>
-                    <img
-                      src={tech.logo}
-                      alt={`${tech.name} logo`}
-                      className="w-full h-full object-contain filter brightness-100"
-                    />
-                  </div>
+                {/* Logo Container */}
+                <div className={`aspect-[4/3] bg-gradient-to-br ${tech.color} flex items-center justify-center p-8 relative overflow-hidden backdrop-blur-sm`}>
+                  <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:bg-transparent" />
+                  <img
+                    src={tech.logo}
+                    alt={`${tech.name} logo`}
+                    className="w-full h-full object-contain filter drop-shadow-xl transform transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
 
-                  {/* Content */}
-                  <div className="flex-1 flex flex-col h-full">
-                    <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
-                      {tech.name}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-6">
-                      {tech.description}
-                    </p>
-                    <Link to="/contact-us" className="mt-auto">
-                      <Button className="btn-outline-gold rounded-lg px-6 py-2 text-sm font-medium group" aria-label={`Contact us about ${tech.name} services`}>
-                        Contact Us
-                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </Link>
-                  </div>
+                {/* Content */}
+                <div className="p-8 flex flex-col flex-1">
+                  <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {tech.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                    {tech.description}
+                  </p>
+
+                  <Link to="/contact-us" className="mt-auto">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-between border border-border/50 hover:bg-primary hover:text-black group/btn"
+                    >
+                      Learn More
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
