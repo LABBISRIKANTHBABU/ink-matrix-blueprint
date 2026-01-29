@@ -25,14 +25,14 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import microsoftImg from "@/assets/Technologies/microsoft.png";
-import awsImg from "@/assets/Technologies/aws.png";
-import sapImg from "@/assets/Technologies/sap.png";
-import oracleImg from "@/assets/Technologies/oracle.png";
-import salesforceImg from "@/assets/Technologies/salesforce.png";
-import adobeImg from "@/assets/Technologies/adobe.png";
-import twoComsImg from "@/assets/clients/2coms.jpg";
-import virginImg from "@/assets/clients/virgin-atlantic.jpg";
+// import microsoftImg from "@/assets/Technologies/microsoft.png";
+// import awsImg from "@/assets/Technologies/aws.png";
+// import sapImg from "@/assets/Technologies/sap.png";
+// import oracleImg from "@/assets/Technologies/oracle.png";
+// import salesforceImg from "@/assets/Technologies/salesforce.png";
+// import adobeImg from "@/assets/Technologies/adobe.png";
+// import twoComsImg from "@/assets/clients/2coms.jpg";
+// import virginImg from "@/assets/clients/virgin-atlantic.jpg";
 
 // --- Mock Data ---
 
