@@ -101,7 +101,7 @@ const TheionTechnologies = () => {
                 className="bg-card border border-border/50 rounded-2xl overflow-hidden group flex flex-col h-full shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
               >
                 {/* Logo Container */}
-                <div className={`aspect-[4/3] bg-gradient-to-br ${tech.color} flex items-center justify-center p-8 relative overflow-hidden backdrop-blur-sm`}>
+                <div className={`aspect-[4/3] bg-gradient-to-br ${tech.color} flex items-center justify-center p-6 relative overflow-hidden backdrop-blur-sm`}>
                   <div className="absolute inset-0 bg-black/10 transition-opacity group-hover:bg-transparent" />
                   <img
                     src={tech.logo}
